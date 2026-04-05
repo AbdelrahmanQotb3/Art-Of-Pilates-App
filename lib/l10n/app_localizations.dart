@@ -235,6 +235,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This email is not valid'**
   String get thisEmailIsNotValid;
+
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Art of Pilates'**
+  String get appName;
+
+  /// No description provided for @appTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your body, Your masterpiece'**
+  String get appTagline;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @termsPart1.
+  ///
+  /// In en, this message translates to:
+  /// **'By signing up you agree to our '**
+  String get termsPart1;
+
+  /// No description provided for @termsPart2.
+  ///
+  /// In en, this message translates to:
+  /// **', to get email & updates, and you acknowledge that you have read the '**
+  String get termsPart2;
+
+  /// No description provided for @termsPart3.
+  ///
+  /// In en, this message translates to:
+  /// **'.'**
+  String get termsPart3;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @adminDashboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Art of Pilates Dashboard'**
+  String get adminDashboardTitle;
+
+  /// No description provided for @adminDashboardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your studio, staff, bookings and more in one place.'**
+  String get adminDashboardSubtitle;
+
+  /// No description provided for @welcomeAppName.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Art of Pilates'**
+  String get welcomeAppName;
+
+  /// No description provided for @enterYourEmailAndPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and password to continue'**
+  String get enterYourEmailAndPassword;
+
+  /// No description provided for @signin.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signin;
+
+  /// No description provided for @dontHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get dontHaveAnAccount;
+
+  /// No description provided for @signup.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signup;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @alreadyHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get alreadyHaveAnAccount;
+
+  /// No description provided for @enterYourFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your first name'**
+  String get enterYourFirstName;
+
+  /// No description provided for @enterYourLastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your last name'**
+  String get enterYourLastName;
+
+  /// No description provided for @enterYourConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get enterYourConfirmPassword;
+
+  /// No description provided for @createYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account'**
+  String get createYourAccount;
+
+  /// No description provided for @enterYourDetailsToSignup.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your details to create an account'**
+  String get enterYourDetailsToSignup;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
 }
 
 class _AppLocalizationsDelegate

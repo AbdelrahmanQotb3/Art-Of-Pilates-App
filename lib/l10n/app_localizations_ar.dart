@@ -80,4 +80,82 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get thisEmailIsNotValid => 'هذا البريد الإلكتروني غير صالح';
+
+  @override
+  String get appName => 'آرت أوف بيلاتس';
+
+  @override
+  String get appTagline => 'جسدك هو لوحتك الفنية';
+
+  @override
+  String get getStarted => 'ابدأ الآن';
+
+  @override
+  String get termsPart1 => 'بالتسجيل أنت توافق على ';
+
+  @override
+  String get termsPart2 =>
+      '، وتلقي رسائل البريد الإلكتروني والتحديثات، وتقر بأنك قرأت ';
+
+  @override
+  String get termsPart3 => '.';
+
+  @override
+  String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get adminDashboardTitle => 'لوحة تحكم آرت أوف بيلاتس';
+
+  @override
+  String get adminDashboardSubtitle =>
+      'إدارة الاستوديو والموظفين والحجوزات والمزيد في مكان واحد.';
+
+  @override
+  String get welcomeAppName => 'مرحبًا بك في آرت أوف بيلاتس';
+
+  @override
+  String get enterYourEmailAndPassword =>
+      'أدخل بريدك الإلكتروني وكلمة المرور للمتابعة';
+
+  @override
+  String get signin => 'تسجيل الدخول';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟ ';
+
+  @override
+  String get signup => 'إنشاء حساب';
+
+  @override
+  String get firstName => 'الاسم الأول';
+
+  @override
+  String get lastName => 'اسم العائلة';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get alreadyHaveAnAccount => 'لديك حساب بالفعل؟ ';
+
+  @override
+  String get enterYourFirstName => 'أدخل اسمك الأول';
+
+  @override
+  String get enterYourLastName => 'أدخل اسم عائلتك';
+
+  @override
+  String get enterYourConfirmPassword => 'أكد كلمة المرور';
+
+  @override
+  String get createYourAccount => 'أنشئ حسابك';
+
+  @override
+  String get enterYourDetailsToSignup => 'أدخل بياناتك لإنشاء حساب';
+
+  @override
+  String get forgotPassword => 'نسيت كلمة المرور؟';
 }
