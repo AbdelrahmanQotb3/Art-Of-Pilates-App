@@ -76,4 +76,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get thisEmailIsNotValid => 'This email is not valid';
+
+  @override
+  String get appName => 'Art of Pilates';
+
+  @override
+  String get appTagline => 'Your body, Your masterpiece';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get termsPart1 => 'By signing up you agree to our ';
+
+  @override
+  String get termsPart2 =>
+      ', to get email & updates, and you acknowledge that you have read the ';
+
+  @override
+  String get termsPart3 => '.';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get adminDashboardTitle => 'Art of Pilates Dashboard';
+
+  @override
+  String get adminDashboardSubtitle =>
+      'Manage your studio, staff, bookings and more in one place.';
+
+  @override
+  String get welcomeAppName => 'Welcome to Art of Pilates';
+
+  @override
+  String get enterYourEmailAndPassword =>
+      'Enter your email and password to continue';
+
+  @override
+  String get signin => 'Sign In';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account? ';
+
+  @override
+  String get signup => 'Sign Up';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get alreadyHaveAnAccount => 'Already have an account? ';
+
+  @override
+  String get enterYourFirstName => 'Enter your first name';
+
+  @override
+  String get enterYourLastName => 'Enter your last name';
+
+  @override
+  String get enterYourConfirmPassword => 'Confirm your password';
+
+  @override
+  String get createYourAccount => 'Create your account';
+
+  @override
+  String get enterYourDetailsToSignup =>
+      'Enter your details to create an account';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
 }
