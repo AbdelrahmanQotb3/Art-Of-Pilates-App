@@ -21,9 +21,12 @@ class SignupViewModel extends Cubit<SignupStates> {
 
   final SignupUseCase _signupUseCase;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: ['email', 'profile'],
-  serverClientId: '147658495150-blnq1kduep76t8vcrtsfn8lq6qi5k0d9.apps.googleusercontent.com'
-);
+    scopes: ['email', 'profile'],
+    serverClientId:
+        '147658495150-blnq1kduep76t8vcrtsfn8lq6qi5k0d9.apps.googleusercontent.com',
+  );
+  bool isSocialSignup = false;
+
   SignupViewModel(this._signupUseCase) : super(SignupStates());
 
   void doIntent(SignupEvents event) {
@@ -43,6 +46,7 @@ class SignupViewModel extends Cubit<SignupStates> {
 
   // --- Logic for Google ---
   Future<void> _signupWithGoogle() async {
+    isSocialSignup = true;
     try {
       final googleUser = await _googleSignIn.signIn();
 
@@ -69,6 +73,7 @@ class SignupViewModel extends Cubit<SignupStates> {
 
   // --- Logic for Apple ---
   Future<void> _signupWithApple() async {
+    isSocialSignup = true;
     try {
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
@@ -95,13 +100,14 @@ class SignupViewModel extends Cubit<SignupStates> {
 
   // --- Standard Email Signup ---
   Future<void> signup(
-    String fName,
-    String lName,
+    String firstName,
+    String lastName,
     String email,
-    String pass,
+    String password,
   ) async {
+    isSocialSignup = false;
     _emitLoading();
-    final result = await _signupUseCase(email, pass, fName, lName);
+    final result = await _signupUseCase(email, password, firstName, lastName);
     _handleResult(result);
   }
 

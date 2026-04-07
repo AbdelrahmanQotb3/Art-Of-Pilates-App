@@ -35,7 +35,10 @@ class SignupScreen extends StatelessWidget {
                 LoadingDialog.show(context, message: 'Creating account...');
               } else if (state.signupState?.data != null) {
                 if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-                Navigator.pushReplacementNamed(context, Routes.signinScreen);
+                final nextRoute = viewModel.isSocialSignup
+                    ? Routes.homeScreen
+                    : Routes.signinScreen;
+                Navigator.pushReplacementNamed(context, nextRoute);
               } else if (state.signupState?.errorMessage != null) {
                 if (Navigator.of(context).canPop()) Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -189,15 +192,12 @@ class SignupScreen extends StatelessWidget {
                     ? null
                     : () async {
                         try {
-                          viewModel.doIntent(SignupWithGoogleEvent());
+                          viewModel.doIntent(SignupEvent());
                         } catch (e) {
-                          // Log the error for debugging (use a logging package like logger)
-                          print('Google Sign-In error: $e');
-                          // Show a user-friendly message
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Failed to sign in with Google: $e',
+                                'Failed to sign up: $e',
                               ),
                             ),
                           );
