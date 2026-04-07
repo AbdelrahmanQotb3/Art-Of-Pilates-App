@@ -27,4 +27,42 @@ class SigninRepoImpl implements SigninRepoContract {
         return ErrorResponse(error: error);
     }
   }
+  
+  @override
+  Future<BaseResponse<SigninModel>> signinWithApple(String token) async {
+    final response = await _dataSource.signinWithApple(token);
+    switch (response){
+      case SuccessResponse<SigninResponse>():
+        SigninModel signinModel = SigninModel(
+          message: response.data.message!,
+          email: response.data.user!.email,
+          firstName: response.data.user!.firstName,
+          lastName: response.data.user!.lastName,
+          role: response.data.user!.role,
+          id: response.data.user!.id,
+        );
+        return SuccessResponse(data: signinModel);
+      case ErrorResponse(error: final error):
+        return ErrorResponse(error: error);    
+    } 
+  }
+  
+  @override
+  Future<BaseResponse<SigninModel>> signinWithGoogle(String token) async {
+    final response = await _dataSource.signinWithGoogle(token);
+    switch (response){
+      case SuccessResponse<SigninResponse>():
+        SigninModel signinModel = SigninModel(
+          message: response.data.message!,
+          email: response.data.user!.email,
+          firstName: response.data.user!.firstName,
+          lastName: response.data.user!.lastName,
+          role: response.data.user!.role,
+          id: response.data.user!.id,
+        );
+        return SuccessResponse(data: signinModel);
+      case ErrorResponse(error: final error):
+        return ErrorResponse(error: error);    
+    }
+  }
 }

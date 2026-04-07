@@ -48,6 +48,8 @@ dependencies:
   retrofit_generator: ^10.2.1
   flutter_secure_storage: ^10.0.0
   http: ^1.6.0
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^6.1.1
 
 dev_dependencies:
   flutter_test:

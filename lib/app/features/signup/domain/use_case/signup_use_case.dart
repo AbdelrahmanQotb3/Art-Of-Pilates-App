@@ -10,4 +10,12 @@ class SignupUseCase {
   Future<BaseResponse<SignupModel>> call(String email, String password, String firstName, String lastName) {
     return _signupRepoContract.signup(email, password, firstName, lastName);
   }
+
+  Future<BaseResponse<SignupModel>> signupWithGoogle(String token) {
+    return _signupRepoContract.signupWithGoogle(token);
+  }
+
+  Future<BaseResponse<SignupModel>> signupWithApple(String token) {
+    return _signupRepoContract.signupWithApple(token);
+  }
 }

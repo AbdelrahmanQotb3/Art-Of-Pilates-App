@@ -187,14 +187,19 @@ class SignupScreen extends StatelessWidget {
                 ),
                 onPressed: state.signupState?.isLoading == true
                     ? null
-                    : () {
-                        if (_formKey.currentState!.validate()) {
-                          viewModel.doIntent(
-                            SignupEvent(),
-                            viewModel.firstNameController.text,
-                            viewModel.lastNameController.text,
-                            viewModel.emailController.text,
-                            viewModel.passwordController.text,
+                    : () async {
+                        try {
+                          viewModel.doIntent(SignupWithGoogleEvent());
+                        } catch (e) {
+                          // Log the error for debugging (use a logging package like logger)
+                          print('Google Sign-In error: $e');
+                          // Show a user-friendly message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Failed to sign in with Google: $e',
+                              ),
+                            ),
                           );
                         }
                       },
@@ -208,6 +213,8 @@ class SignupScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: 20.h),
+          _buildSocialSignupButtons(locale, state),
           SizedBox(height: 20.h),
           Center(
             child: Row(
@@ -238,6 +245,101 @@ class SignupScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSocialSignupButtons(
+    AppLocalizations locale,
+    SignupStates state,
+  ) {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 50.h,
+          child: OutlinedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
+              side: WidgetStateProperty.all(
+                const BorderSide(color: AppColors.secondary),
+              ),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+            ),
+            onPressed: state.signupState?.isLoading == true
+                ? null
+                : () async {
+                    try {
+                      viewModel.doIntent(SignupWithGoogleEvent());
+                    } catch (e) {
+                      // Log the error for debugging (use a logging package like logger)
+                      print('Google Sign-In error: $e');
+                      // Show a user-friendly message
+                    }
+                  },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.g_mobiledata, color: AppColors.blackColor),
+                SizedBox(width: 10.w),
+                Text(
+                  'Continue with Google',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 12.h),
+        SizedBox(
+          width: double.infinity,
+          height: 50.h,
+          child: OutlinedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
+              side: WidgetStateProperty.all(
+                const BorderSide(color: AppColors.secondary),
+              ),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+            ),
+            onPressed: state.signupState?.isLoading == true
+                ? null
+                : () async {
+                    try {
+                      viewModel.doIntent(SignupWithAppleEvent());
+                    } catch (e) {
+                      // Log the error for debugging (use a logging package like logger)
+                      print('Apple Sign-In error: $e');
+                      // Show a user-friendly message
+                    }
+                  },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.apple, color: AppColors.blackColor),
+                SizedBox(width: 10.w),
+                Text(
+                  'Continue with Apple',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

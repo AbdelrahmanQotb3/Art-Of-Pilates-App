@@ -179,6 +179,8 @@ class SigninScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20.h),
+          _buildSocialSigninButtons(locale, state),
+          SizedBox(height: 20.h),
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -208,6 +210,89 @@ class SigninScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSocialSigninButtons(
+    AppLocalizations locale,
+    SigninStates state,
+  ) {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 50.h,
+          child: OutlinedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
+              side: WidgetStateProperty.all(
+                const BorderSide(color: AppColors.secondary),
+              ),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+            ),
+            onPressed: state.signinState?.isLoading == true
+                ? null
+                : () {
+                    viewModel.doIntent(SigninWithGoogleEvent());
+                  },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.g_mobiledata, color: AppColors.blackColor),
+                SizedBox(width: 10.w),
+                Text(
+                  'Continue with Google',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 12.h),
+        SizedBox(
+          width: double.infinity,
+          height: 50.h,
+          child: OutlinedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
+              side: WidgetStateProperty.all(
+                const BorderSide(color: AppColors.secondary),
+              ),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+            ),
+            onPressed: state.signinState?.isLoading == true
+                ? null
+                : () {
+                    viewModel.doIntent(SigninWithAppleEvent());
+                  },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.apple, color: AppColors.blackColor),
+                SizedBox(width: 10.w),
+                Text(
+                  'Continue with Apple',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

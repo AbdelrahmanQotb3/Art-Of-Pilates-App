@@ -27,7 +27,41 @@ class SigninDataSourceImpl implements SigninDataSourceContract {
       await secureStorage.write(key: 'token', value: token);
       await secureStorage.write(key: 'userId', value: userId.toString());
       return SuccessResponse(data: response);
-    }on Exception catch (e) {
+    } on Exception catch (e) {
+      return ErrorResponse(error: e);
+    }
+  }
+
+  @override
+  Future<BaseResponse<SigninResponse>> signinWithApple(String token) async {
+    try {
+      final response = await _apiClient.signinWithSocial({
+        'token': token,
+        'provider': 'apple',
+      });
+      String responseToken = response.token!;
+      int userId = response.user!.id!;
+      await secureStorage.write(key: 'token', value: responseToken);
+      await secureStorage.write(key: 'userId', value: userId.toString());
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: e);
+    }
+  }
+
+  @override
+  Future<BaseResponse<SigninResponse>> signinWithGoogle(String token) async {
+    try {
+      final response = await _apiClient.signinWithSocial({
+        'token': token,
+        'provider': 'google',
+      });
+      String responseToken = response.token!;
+      int userId = response.user!.id!;
+      await secureStorage.write(key: 'token', value: responseToken);
+      await secureStorage.write(key: 'userId', value: userId.toString());
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
       return ErrorResponse(error: e);
     }
   }

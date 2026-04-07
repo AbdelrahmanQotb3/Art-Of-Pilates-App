@@ -37,4 +37,33 @@ class SignupRepoImpl implements SignupRepoContract {
         return ErrorResponse(error: response.error);
     }
   }
+
+  @override
+  Future<BaseResponse<SignupModel>> signupWithGoogle(String token) async {
+    final response = await _dataSource.signupWithGoogle(token);
+    return _mapToDomain(response);
+  }
+
+  @override
+  Future<BaseResponse<SignupModel>> signupWithApple(String token) async {
+    final response = await _dataSource.signupWithApple(token);
+    return _mapToDomain(response);
+  }
+
+  BaseResponse<SignupModel> _mapToDomain(BaseResponse<SignupResponse> response) {
+    if (response is SuccessResponse<SignupResponse>) {
+      return SuccessResponse(
+        data: SignupModel(
+          email: response.data.user!.email,
+          firstName: response.data.user!.firstName,
+          lastName: response.data.user!.lastName,
+          role: response.data.user!.role,
+          id: response.data.user!.id,
+          message: response.data.message,
+        ),
+      );
+    } else {
+      return ErrorResponse(error: (response as ErrorResponse).error);
+    }
+  }
 }

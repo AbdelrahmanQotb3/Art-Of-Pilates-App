@@ -15,5 +15,8 @@ abstract class SigninApiClient {
 
   @POST(EndPoints.signin)
     Future<SigninResponse> signin(@Body() Map<String, dynamic> body);
+  
+  @POST(EndPoints.signinWithSocial)
+    Future<SigninResponse> signinWithSocial(@Body() Map<String, dynamic> body);
 
 }
