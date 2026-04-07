@@ -7,6 +7,8 @@ import 'package:art_of_pilates/app/features/signin/presentation/view_model/signi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 @injectable
 class SigninViewModel extends Cubit<SigninStates> {
@@ -14,20 +16,72 @@ class SigninViewModel extends Cubit<SigninStates> {
   TextEditingController passwordController = TextEditingController();
   final SigninUseCase _signinUseCase;
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: ['email', 'profile'],
+  serverClientId: '147658495150-blnq1kduep76t8vcrtsfn8lq6qi5k0d9.apps.googleusercontent.com'
+);
+
   SigninViewModel(this._signinUseCase) : super(SigninStates());
 
-  void doIntent(SigninEvents event, String email, String password) {
-    switch (event) {
-      case SigninEvent():
-        signin(email, password);
+  void doIntent(SigninEvents event, [String? email, String? password]) {
+    if (event is SigninEvent) {
+      signin(email!, password!);
+    } else if (event is SigninWithGoogleEvent) {
+      _signinWithGoogle();
+    } else if (event is SigninWithAppleEvent) {
+      _signinWithApple();
     }
   }
 
   Future<void> signin(String email, String password) async {
-    emit(
-      state.copyWith(signinStateParam: BaseState<SigninModel>(isLoading: true)),
-    );
+    _emitLoading();
     final result = await _signinUseCase.signin(email, password);
+    _handleResult(result);
+  }
+
+  // --- Logic for Google ---
+  Future<void> _signinWithGoogle() async {
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return;
+      final auth = await googleUser.authentication;
+      if (auth.idToken == null) {
+        _emitError(
+          "Google did not provide an ID Token. Please verify your SHA-1 fingerprint in Firebase.",
+        );
+        return;
+      }
+      _emitLoading();
+      final result = await _signinUseCase.signinWithGoogle(
+        auth.idToken!,
+      ); // Reuse the social-signup endpoint
+      _handleResult(result);
+    } catch (e) {
+      _emitError("Google Sign-In Error: ${e.toString()}");
+    }
+  }
+
+  // --- Logic for Apple ---
+  Future<void> _signinWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.fullName],
+      );
+      if (credential.identityToken == null) {
+        _emitError("Apple did not provide an identity token.");
+        return;
+      }
+      _emitLoading();
+      final result = await _signinUseCase.signinWithApple(
+        credential.identityToken!,
+      ); // Reuse the social-signup endpoint
+      _handleResult(result);
+    } catch (e) {
+      _emitError("Apple Sign-In Error: ${e.toString()}");
+    }
+  }
+
+  void _handleResult(BaseResponse<SigninModel> result) {
     switch (result) {
       case SuccessResponse<SigninModel>():
         emit(
@@ -39,14 +93,39 @@ class SigninViewModel extends Cubit<SigninStates> {
           ),
         );
       case ErrorResponse(error: final error):
-        emit(
-          state.copyWith(
-            signinStateParam: BaseState<SigninModel>(
-              errorMessage: error.toString(),
-              isLoading: false,
-            ),
-          ),
-        );
+        String message = error.toString();
+        if (message.contains('GOOGLE')) {
+          message =
+              'This account was created with Google. Please sign in with Google.';
+        } else if (message.contains('APPLE')) {
+          message =
+              'This account was created with Apple. Please sign in with Apple.';
+        }
+        _emitError(message);
     }
+  }
+
+  void _emitLoading() {
+    emit(
+      state.copyWith(signinStateParam: BaseState<SigninModel>(isLoading: true)),
+    );
+  }
+
+  void _emitError(String msg) {
+    emit(
+      state.copyWith(
+        signinStateParam: BaseState<SigninModel>(
+          errorMessage: msg,
+          isLoading: false,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
   }
 }

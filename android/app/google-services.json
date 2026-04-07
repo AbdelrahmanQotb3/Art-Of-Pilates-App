@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "885621389888",
+    "project_id": "art-of-pilates-429f5",
+    "storage_bucket": "art-of-pilates-429f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885621389888:android:b82f3e5aada34f4ae47da5",
+        "android_client_info": {
+          "package_name": "com.example.art_of_pilates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdKCmgWz9GKEGo2Z2CUlNMgQ13qplzzeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

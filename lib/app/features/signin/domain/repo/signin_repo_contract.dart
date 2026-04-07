@@ -3,4 +3,6 @@ import 'package:art_of_pilates/app/features/signin/domain/model/signin_model.dar
 
 abstract class SigninRepoContract {
   Future<BaseResponse<SigninModel>> signin(String email, String password);
+  Future<BaseResponse<SigninModel>> signinWithGoogle(String token);
+  Future<BaseResponse<SigninModel>> signinWithApple(String token);
 }
