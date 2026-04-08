@@ -385,6 +385,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgot password?'**
   String get forgotPassword;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @packages.
+  ///
+  /// In en, this message translates to:
+  /// **'Packages'**
+  String get packages;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @bookNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Now'**
+  String get bookNow;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// No description provided for @artOfPilates.
+  ///
+  /// In en, this message translates to:
+  /// **'Art of Pilates'**
+  String get artOfPilates;
+
+  /// No description provided for @upcomingBookins.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Bookings'**
+  String get upcomingBookins;
 }
 
 class _AppLocalizationsDelegate

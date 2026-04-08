@@ -158,4 +158,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get forgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get schedule => 'الجدول';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get packages => 'الحزم';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get bookNow => 'احجز الآن';
+
+  @override
+  String get viewAll => 'عرض الكل';
+
+  @override
+  String get artOfPilates => 'Art of Pilates';
+
+  @override
+  String get upcomingBookins => 'الحجوزات القادمة';
 }

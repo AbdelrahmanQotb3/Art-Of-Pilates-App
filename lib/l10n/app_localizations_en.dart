@@ -155,4 +155,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get packages => 'Packages';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get bookNow => 'Book Now';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get artOfPilates => 'Art of Pilates';
+
+  @override
+  String get upcomingBookins => 'Upcoming Bookings';
 }
