@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
+import '../../features/home/presentation/view_model/home_view_model.dart'
+    as _i77;
 import '../../features/signin/api/api_client/signin_api_client.dart' as _i219;
 import '../../features/signin/api/data_source/signin_data_source_impl.dart'
     as _i257;
@@ -46,6 +48,7 @@ extension GetItInjectableX on _i174.GetIt {
     final dioModule = _$DioModule();
     gh.factory<_i361.Dio>(() => dioModule.provideDio());
     gh.factory<_i528.PrettyDioLogger>(() => dioModule.dioLogger());
+    gh.factory<_i77.HomeViewModel>(() => _i77.HomeViewModel());
     gh.factory<_i219.SigninApiClient>(
       () => _i219.SigninApiClient(gh<_i361.Dio>()),
     );

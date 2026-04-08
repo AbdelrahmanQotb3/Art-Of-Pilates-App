@@ -47,5 +47,15 @@
     "enterYourConfirmPassword": "أكد كلمة المرور",
     "createYourAccount": "أنشئ حسابك",
     "enterYourDetailsToSignup": "أدخل بياناتك لإنشاء حساب",
-    "forgotPassword": "نسيت كلمة المرور؟"
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "home": "الرئيسية",
+  "schedule": "الجدول",
+  "profile": "الملف الشخصي",
+  "packages": "الحزم",
+  "settings": "الإعدادات",
+  "logout": "تسجيل الخروج",
+  "bookNow": "احجز الآن",
+  "viewAll": "عرض الكل",
+  "artOfPilates": "Art of Pilates",
+  "upcomingBookins" : "الحجوزات القادمة"
 }
