@@ -5,6 +5,6 @@ class NavigateToServicesScreenUseCase {
   NavigateToServicesScreenUseCase();
 
   static void call(BuildContext context) {
-    Navigator.pushReplacementNamed(context, Routes.servicesScreen);
+    Navigator.pushNamed(context, Routes.servicesScreen);
   }
 }

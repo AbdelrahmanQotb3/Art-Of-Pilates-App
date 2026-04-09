@@ -445,6 +445,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upcoming Bookings'**
   String get upcomingBookins;
+
+  /// No description provided for @services.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get services;
+
+  /// No description provided for @searchForServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for services'**
+  String get searchForServices;
+
+  /// No description provided for @book.
+  ///
+  /// In en, this message translates to:
+  /// **'Book'**
+  String get book;
+
+  /// No description provided for @payableWithPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Payable with Plan'**
+  String get payableWithPlan;
+
+  /// No description provided for @serviceDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Details'**
+  String get serviceDetails;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @partOfPricingPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Part of Pricing Plan'**
+  String get partOfPricingPlan;
+
+  /// No description provided for @selectService.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Service'**
+  String get selectService;
 }
 
 class _AppLocalizationsDelegate

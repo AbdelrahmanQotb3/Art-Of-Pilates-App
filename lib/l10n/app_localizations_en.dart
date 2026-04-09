@@ -185,4 +185,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upcomingBookins => 'Upcoming Bookings';
+
+  @override
+  String get services => 'Services';
+
+  @override
+  String get searchForServices => 'Search for services';
+
+  @override
+  String get book => 'Book';
+
+  @override
+  String get payableWithPlan => 'Payable with Plan';
+
+  @override
+  String get serviceDetails => 'Service Details';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get partOfPricingPlan => 'Part of Pricing Plan';
+
+  @override
+  String get selectService => 'Select Service';
 }
