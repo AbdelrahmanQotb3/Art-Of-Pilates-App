@@ -11,6 +11,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = appLocale(context);
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: CustomScrollView(
         slivers: [
           _buildSliverAppBar(context),
@@ -75,7 +76,6 @@ class HomeTab extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-
                 ],
               ),
             ),
@@ -93,7 +93,9 @@ class HomeTab extends StatelessWidget {
       backgroundColor: AppColors.primary,
       leading: IconButton(
         icon: const Icon(Icons.person, size: 26, color: Colors.white),
-        onPressed: () {},
+        onPressed: () {
+          
+        },
       ),
       actions: [
         IconButton(

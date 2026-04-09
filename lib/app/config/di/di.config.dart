@@ -16,6 +16,21 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../features/home/presentation/view_model/home_view_model.dart'
     as _i77;
+import '../../features/services/api/api_client/services_api_client.dart'
+    as _i173;
+import '../../features/services/api/data_source/services_data_source_impl.dart'
+    as _i859;
+import '../../features/services/data/data_souorce/services_data_source_contract.dart'
+    as _i84;
+import '../../features/services/data/repo/services_repo_impl.dart' as _i83;
+import '../../features/services/domain/repo/services_repo_contract.dart'
+    as _i726;
+import '../../features/services/domain/use_cases/get_all_services_use_case.dart'
+    as _i317;
+import '../../features/services/domain/use_cases/get_one_service_use_case.dart'
+    as _i978;
+import '../../features/services/presentation/view_model/services_view_model.dart'
+    as _i902;
 import '../../features/signin/api/api_client/signin_api_client.dart' as _i219;
 import '../../features/signin/api/data_source/signin_data_source_impl.dart'
     as _i257;
@@ -49,6 +64,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i361.Dio>(() => dioModule.provideDio());
     gh.factory<_i528.PrettyDioLogger>(() => dioModule.dioLogger());
     gh.factory<_i77.HomeViewModel>(() => _i77.HomeViewModel());
+    gh.factory<_i173.ServicesApiClient>(
+      () => _i173.ServicesApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i219.SigninApiClient>(
       () => _i219.SigninApiClient(gh<_i361.Dio>()),
     );
@@ -70,14 +88,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i85.SignupViewModel>(
       () => _i85.SignupViewModel(gh<_i941.SignupUseCase>()),
     );
+    gh.factory<_i84.ServicesDataSourceContract>(
+      () => _i859.ServicesDataSourceImpl(gh<_i173.ServicesApiClient>()),
+    );
     gh.factory<_i218.SigninRepoContract>(
       () => _i905.SigninRepoImpl(gh<_i556.SigninDataSourceContract>()),
+    );
+    gh.factory<_i726.ServicesRepoContract>(
+      () => _i83.ServicesRepoImpl(gh<_i84.ServicesDataSourceContract>()),
     );
     gh.factory<_i557.SigninUseCase>(
       () => _i557.SigninUseCase(gh<_i218.SigninRepoContract>()),
     );
     gh.factory<_i435.SigninViewModel>(
       () => _i435.SigninViewModel(gh<_i557.SigninUseCase>()),
+    );
+    gh.factory<_i317.GetAllServicesUseCase>(
+      () => _i317.GetAllServicesUseCase(gh<_i726.ServicesRepoContract>()),
+    );
+    gh.factory<_i978.GetOneServiceUseCase>(
+      () => _i978.GetOneServiceUseCase(gh<_i726.ServicesRepoContract>()),
+    );
+    gh.factory<_i902.ServicesViewModel>(
+      () => _i902.ServicesViewModel(
+        gh<_i317.GetAllServicesUseCase>(),
+        gh<_i978.GetOneServiceUseCase>(),
+      ),
     );
     return this;
   }

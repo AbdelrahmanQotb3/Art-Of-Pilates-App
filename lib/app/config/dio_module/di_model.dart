@@ -9,7 +9,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 abstract class DioModule {
   @factoryMethod
   Dio provideDio() {
-    // FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+    FlutterSecureStorage secureStorage = const FlutterSecureStorage();
     Dio dio = Dio();
     dio.options = BaseOptions(
       connectTimeout: const Duration(seconds: 180),
@@ -22,8 +22,7 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          const storage = FlutterSecureStorage();
-          final token = await storage.read(key: "token");
+          final token = await secureStorage.read(key: "token");
 
           if (token != null) {
             options.headers["Authorization"] = "Bearer $token";

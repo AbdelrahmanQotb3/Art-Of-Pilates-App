@@ -188,4 +188,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get upcomingBookins => 'الحجوزات القادمة';
+
+  @override
+  String get services => 'الخدمات';
+
+  @override
+  String get searchForServices => 'ابحث عن الخدمات';
+
+  @override
+  String get book => 'احجز';
+
+  @override
+  String get payableWithPlan => 'الدفع مع خطة';
+
+  @override
+  String get serviceDetails => 'تفاصيل الخدمة';
+
+  @override
+  String get location => 'الموقع';
+
+  @override
+  String get price => 'السعر';
+
+  @override
+  String get partOfPricingPlan => 'جزء من خطة التسعير';
+
+  @override
+  String get selectService => 'حدد الخدمة';
 }

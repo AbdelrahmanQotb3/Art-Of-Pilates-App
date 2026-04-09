@@ -13,6 +13,7 @@ class AppTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final void Function(String)? onSubmitted;
   final Color? backGroundColor;
+  final Widget? prefixIcon;
 
   const AppTextField({
     super.key,
@@ -26,6 +27,7 @@ class AppTextField extends StatefulWidget {
     this.textInputAction,
     this.onSubmitted,
     this.backGroundColor,
+    this.prefixIcon,
   });
 
   @override
@@ -78,6 +80,7 @@ class _AppTextFieldState extends State<AppTextField> {
         focusedBorder: _border(AppColors.blackColor),
         errorBorder: _border(AppColors.redColor),
         focusedErrorBorder: _border(AppColors.redColor),
+        prefixIcon: widget.prefixIcon,
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),

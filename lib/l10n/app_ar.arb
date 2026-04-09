@@ -57,5 +57,14 @@
   "bookNow": "احجز الآن",
   "viewAll": "عرض الكل",
   "artOfPilates": "Art of Pilates",
-  "upcomingBookins" : "الحجوزات القادمة"
+  "upcomingBookins" : "الحجوزات القادمة",
+  "services" : "الخدمات",
+  "searchForServices" : "ابحث عن الخدمات",
+  "book" : "احجز",
+  "payableWithPlan" : "الدفع مع خطة",
+  "serviceDetails" : "تفاصيل الخدمة",
+  "location" : "الموقع",
+  "price" : "السعر",
+  "partOfPricingPlan" : "جزء من خطة التسعير",
+  "selectService" : "حدد الخدمة"
 }

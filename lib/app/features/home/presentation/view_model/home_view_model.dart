@@ -2,7 +2,7 @@ import 'package:art_of_pilates/app/features/home/presentation/view_model/home_ev
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_states.dart';
 import 'package:art_of_pilates/app/features/home/presentation/views/home_tab.dart';
 import 'package:art_of_pilates/app/features/packages/views/packages_tab.dart';
-import 'package:art_of_pilates/app/features/profile/views/profile_tab.dart';
+import 'package:art_of_pilates/app/features/my_accounts/views/my_accounts_tab.dart';
 import 'package:art_of_pilates/app/features/schedule/views/schedule_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

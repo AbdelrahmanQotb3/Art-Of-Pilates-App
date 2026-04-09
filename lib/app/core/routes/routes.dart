@@ -5,6 +5,7 @@ abstract class Routes {
   static const String signupScreen = _Paths.signup;
   static const String homeScreen = _Paths.home;
   static const String servicesScreen = _Paths.services;
+  static const String serviceDetailsScreen = _Paths.serviceDetails;
   
 }
 
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const String signin = "signin";
   static const String signup = "signup";
   static const String services = "services";
+  static const String serviceDetails = "serviceDetails";
 }
