@@ -39,6 +39,9 @@ class User {
   @JsonKey(name: 'profileImage')
   final String? profileImage;
 
+  @JsonKey(name: 'phone')
+  final String? phone;
+
   @JsonKey(name: 'role')
   final String? role;
 
@@ -54,6 +57,7 @@ class User {
     this.firstName,
     this.lastName,
     this.profileImage,
+    this.phone,
     this.role,
     this.createdAt,
     this.updatedAt,

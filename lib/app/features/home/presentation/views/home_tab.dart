@@ -1,6 +1,7 @@
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/features/home/domain/use_cases/navigate_to_profile_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/home/domain/use_cases/navigate_to_services_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +95,7 @@ class HomeTab extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(Icons.person, size: 26, color: Colors.white),
         onPressed: () {
-          
+          NavigateToProfileScreenUseCase.call(context);
         },
       ),
       actions: [

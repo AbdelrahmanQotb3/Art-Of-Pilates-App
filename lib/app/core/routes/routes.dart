@@ -6,7 +6,8 @@ abstract class Routes {
   static const String homeScreen = _Paths.home;
   static const String servicesScreen = _Paths.services;
   static const String serviceDetailsScreen = _Paths.serviceDetails;
-  
+  static const String profileScreen = _Paths.profile;
+  static const String editProfileScreen = _Paths.editProfile;
 }
 
 abstract class _Paths {
@@ -17,4 +18,6 @@ abstract class _Paths {
   static const String signup = "signup";
   static const String services = "services";
   static const String serviceDetails = "serviceDetails";
+  static const String profile = "profile";
+  static const String editProfile = "editProfile";
 }

@@ -215,4 +215,56 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectService => 'حدد الخدمة';
+
+  @override
+  String get myAccounts => 'حساباتي';
+
+  @override
+  String get editInfo => 'تحرير المعلومات';
+
+  @override
+  String get myActivities => 'نشاطاتي';
+
+  @override
+  String get account => 'حساب';
+
+  @override
+  String get seeYourInfoAndActivities =>
+      'اظهار معلوماتك ونشاطاتك كعضو في Art of Pilates';
+
+  @override
+  String get bookings => 'الحجوزات';
+
+  @override
+  String get orders => 'الطلبات';
+
+  @override
+  String get rewards => 'الجوائز';
+
+  @override
+  String get myPrograms => 'برامجي';
+
+  @override
+  String get overView => 'نظرة عامة';
+
+  @override
+  String get notPublished => 'غير منشور';
+
+  @override
+  String get phone => 'الهاتف';
+
+  @override
+  String get userName => 'اسم المستخدم';
+
+  @override
+  String get role => 'الدور';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get updateYourPersonalInformation => 'تحديث معلوماتك الشخصية';
+
+  @override
+  String get updateSuccess => 'تم التحديث بنجاح';
 }

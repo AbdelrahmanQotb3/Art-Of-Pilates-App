@@ -66,5 +66,22 @@
   "location" : "الموقع",
   "price" : "السعر",
   "partOfPricingPlan" : "جزء من خطة التسعير",
-  "selectService" : "حدد الخدمة"
+  "selectService" : "حدد الخدمة",
+  "myAccounts" : "حساباتي",
+  "editInfo" : "تحرير المعلومات",
+  "myActivities" : "نشاطاتي",
+  "account" : "حساب",
+  "seeYourInfoAndActivities" : "اظهار معلوماتك ونشاطاتك كعضو في Art of Pilates",
+  "bookings" : "الحجوزات",
+  "orders" : "الطلبات",
+  "rewards" : "الجوائز",
+  "myPrograms" : "برامجي",
+  "overView" : "نظرة عامة",
+  "notPublished" : "غير منشور",
+  "phone" : "الهاتف",
+  "userName" : "اسم المستخدم",
+  "role" : "الدور",
+  "save" : "حفظ",
+  "updateYourPersonalInformation" : "تحديث معلوماتك الشخصية",
+  "updateSuccess" : "تم التحديث بنجاح"
 }

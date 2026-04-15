@@ -1,6 +1,8 @@
 import 'package:art_of_pilates/app/core/routes/routes.dart';
 import 'package:art_of_pilates/app/features/get_started/get_started_screen.dart';
 import 'package:art_of_pilates/app/features/home/presentation/home_screen.dart';
+import 'package:art_of_pilates/app/features/profile/presentation/views/edit_profile_screen.dart';
+import 'package:art_of_pilates/app/features/profile/presentation/views/profile_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/service_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/services_screen.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/views/signin_screen.dart';
@@ -24,13 +26,17 @@ class RouteGenerator {
       case Routes.servicesScreen:
         return MaterialPageRoute(builder: (_) => ServicesScreen());
       case Routes.serviceDetailsScreen:
-      final args = settings.arguments;
+        final args = settings.arguments;
         if (args is String) {
-    return MaterialPageRoute(
-      builder: (_) => ServiceDetailsScreen(serviceId: args),
-    );
-  }
-  return unDefinedRoute();
+          return MaterialPageRoute(
+            builder: (_) => ServiceDetailsScreen(serviceId: args),
+          );
+        }
+        return unDefinedRoute();
+      case Routes.profileScreen:
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
+      case Routes.editProfileScreen:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
       default:
         return unDefinedRoute();
     }

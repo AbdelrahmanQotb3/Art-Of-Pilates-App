@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.people_outlined),
-          label: locale.profile,
+          label: locale.myAccounts,
         ),
       ],
     );
