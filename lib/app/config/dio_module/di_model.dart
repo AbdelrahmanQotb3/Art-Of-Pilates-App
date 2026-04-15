@@ -1,4 +1,5 @@
-import 'package:art_of_pilates/app/config/end_points.dart';
+import 'package:art_of_pilates/app/config/app_end_points.dart';
+import 'package:art_of_pilates/app/core/util/session_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -9,12 +10,12 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 abstract class DioModule {
   @factoryMethod
   Dio provideDio() {
-    FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+    final SessionManager sessionManager = SessionManager();
     Dio dio = Dio();
     dio.options = BaseOptions(
       connectTimeout: const Duration(seconds: 180),
       receiveTimeout: const Duration(seconds: 180),
-      baseUrl: EndPoints.baseUrl,
+      baseUrl: AppEndPoints.baseUrl,
       validateStatus: (_) {
         return true;
       },
@@ -22,8 +23,7 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = await secureStorage.read(key: "token");
-
+          final token = await sessionManager.getToken();
           if (token != null) {
             options.headers["Authorization"] = "Bearer $token";
           }

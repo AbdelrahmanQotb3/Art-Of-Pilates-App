@@ -212,4 +212,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectService => 'Select Service';
+
+  @override
+  String get myAccounts => 'My Accounts';
+
+  @override
+  String get editInfo => 'Edit Info';
+
+  @override
+  String get myActivities => 'My Activities';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get seeYourInfoAndActivities =>
+      'See your info & activity as a member of Art of Pilates';
+
+  @override
+  String get bookings => 'Bookings';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get rewards => 'Rewards';
+
+  @override
+  String get myPrograms => 'My Programs';
+
+  @override
+  String get overView => 'OverView';
+
+  @override
+  String get notPublished => 'Not Published';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get userName => 'User Name';
+
+  @override
+  String get role => 'Role';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get updateYourPersonalInformation =>
+      'Update your personal information';
+
+  @override
+  String get updateSuccess => 'Profile Updated!';
 }

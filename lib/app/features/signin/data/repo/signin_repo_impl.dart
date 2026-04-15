@@ -59,6 +59,7 @@ class SigninRepoImpl implements SigninRepoContract {
           lastName: response.data.user!.lastName,
           role: response.data.user!.role,
           id: response.data.user!.id,
+          phone: response.data.user!.phone
         );
         return SuccessResponse(data: signinModel);
       case ErrorResponse(error: final error):

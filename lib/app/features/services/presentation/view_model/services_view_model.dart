@@ -21,7 +21,7 @@ class ServicesViewModel extends Cubit<ServicesStates> {
     if (event is ServicesEvent) {
       getAllServices();
     } else if (event is OneServiceEvent) {
-      getOneService(event.serviceId!);
+      getOneService(event.serviceId);
     }
   }
 

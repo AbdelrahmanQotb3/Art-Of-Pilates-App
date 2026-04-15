@@ -499,6 +499,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Service'**
   String get selectService;
+
+  /// No description provided for @myAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'My Accounts'**
+  String get myAccounts;
+
+  /// No description provided for @editInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Info'**
+  String get editInfo;
+
+  /// No description provided for @myActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'My Activities'**
+  String get myActivities;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @seeYourInfoAndActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'See your info & activity as a member of Art of Pilates'**
+  String get seeYourInfoAndActivities;
+
+  /// No description provided for @bookings.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookings'**
+  String get bookings;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get orders;
+
+  /// No description provided for @rewards.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards'**
+  String get rewards;
+
+  /// No description provided for @myPrograms.
+  ///
+  /// In en, this message translates to:
+  /// **'My Programs'**
+  String get myPrograms;
+
+  /// No description provided for @overView.
+  ///
+  /// In en, this message translates to:
+  /// **'OverView'**
+  String get overView;
+
+  /// No description provided for @notPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Published'**
+  String get notPublished;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @userName.
+  ///
+  /// In en, this message translates to:
+  /// **'User Name'**
+  String get userName;
+
+  /// No description provided for @role.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @updateYourPersonalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your personal information'**
+  String get updateYourPersonalInformation;
+
+  /// No description provided for @updateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Updated!'**
+  String get updateSuccess;
 }
 
 class _AppLocalizationsDelegate

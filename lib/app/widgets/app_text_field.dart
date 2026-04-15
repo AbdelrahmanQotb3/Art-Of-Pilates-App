@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextField extends StatefulWidget {
   final TextEditingController controller;
-  final String label;
+  final String? label;
   final String hint;
   final bool isPassword;
   final TextInputType keyboardType;
@@ -18,7 +18,7 @@ class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
     required this.controller,
-    required this.label,
+    this.label,
     required this.hint,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
@@ -63,7 +63,7 @@ class _AppTextFieldState extends State<AppTextField> {
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
-          vertical: 22,
+          vertical: 14,
         ),
         filled: true,
         fillColor: widget.backGroundColor ?? AppColors.whiteColor,

@@ -1,26 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'signin_response.dart';
+part of 'current_user_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SigninResponse _$SigninResponseFromJson(Map<String, dynamic> json) =>
-    SigninResponse(
-      message: json['message'] as String?,
-      token: json['token'] as String?,
-      user: json['user'] == null
+CurrentUserResponse _$CurrentUserResponseFromJson(Map<String, dynamic> json) =>
+    CurrentUserResponse(
+      message: json['Message'] as String?,
+      user: json['User'] == null
           ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
+          : User.fromJson(json['User'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$SigninResponseToJson(SigninResponse instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'token': instance.token,
-      'user': instance.user,
-    };
+Map<String, dynamic> _$CurrentUserResponseToJson(
+  CurrentUserResponse instance,
+) => <String, dynamic>{'Message': ?instance.message, 'User': ?instance.user};
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
   id: (json['id'] as num?)?.toInt(),
@@ -28,10 +24,11 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
   firstName: json['firstName'] as String?,
   lastName: json['lastName'] as String?,
   profileImage: json['profileImage'] as String?,
-  phone: json['phone'] as String?,
   role: json['role'] as String?,
+  phone: json['phone'] as String?,
   createdAt: json['createdAt'] as String?,
   updatedAt: json['updatedAt'] as String?,
+  provider: json['provider'] as String?,
 );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -44,4 +41,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'role': instance.role,
   'createdAt': instance.createdAt,
   'updatedAt': instance.updatedAt,
+  'provider': instance.provider,
 };
