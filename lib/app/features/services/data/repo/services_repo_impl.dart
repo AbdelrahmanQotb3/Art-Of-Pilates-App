@@ -1,4 +1,5 @@
 import 'package:art_of_pilates/app/config/base_response/base_response.dart';
+import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
 import 'package:art_of_pilates/app/features/services/data/data_souorce/services_data_source_contract.dart';
 import 'package:art_of_pilates/app/features/services/data/model/one_service_response.dart';
 import 'package:art_of_pilates/app/features/services/data/model/services_response.dart';
@@ -37,8 +38,6 @@ class ServicesRepoImpl implements ServicesRepoContract {
                   endTime: s.endTime,
                   serviceId: s.serviceId,
                   staffMemberId: s.staffMemberId,
-                  serviceName: s.service?.name,
-                  staffName: s.staffMember?.name,
                 );
               }).toList(),
             );
@@ -68,6 +67,7 @@ class ServicesRepoImpl implements ServicesRepoContract {
           createdAt: response.data.service?.createdAt,
           updatedAt: response.data.service?.updatedAt,
           location: response.data.service?.location,
+          description: response.data.service?.description,
           sessions: response.data.service?.sessions?.map((s) {
             return SessionEntity(
               id: s.id,
@@ -75,8 +75,6 @@ class ServicesRepoImpl implements ServicesRepoContract {
               endTime: s.endTime,
               serviceId: s.serviceId,
               staffMemberId: s.staffMemberId,
-              serviceName: s.service?.name,
-              staffName: s.staffMember?.name,
             );
           }).toList(),
         );

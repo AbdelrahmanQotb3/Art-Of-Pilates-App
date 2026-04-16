@@ -3,6 +3,7 @@ import 'package:art_of_pilates/app/features/get_started/get_started_screen.dart'
 import 'package:art_of_pilates/app/features/home/presentation/home_screen.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/edit_profile_screen.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/profile_screen.dart';
+import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/service_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/services_screen.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/views/signin_screen.dart';
@@ -37,6 +38,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       case Routes.editProfileScreen:
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
+      case Routes.sessionDetailsScreen:
+        final args = settings.arguments;
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => SessionDetailsScreen(sessionId: args),
+          );
+        }
+        return unDefinedRoute();
       default:
         return unDefinedRoute();
     }

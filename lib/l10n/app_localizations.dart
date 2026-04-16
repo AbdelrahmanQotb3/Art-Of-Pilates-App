@@ -601,6 +601,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile Updated!'**
   String get updateSuccess;
+
+  /// No description provided for @bookThisSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Book This Session'**
+  String get bookThisSession;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @bookAndPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Book & Pay'**
+  String get bookAndPay;
+
+  /// No description provided for @spotsLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'spots left'**
+  String get spotsLeft;
+
+  /// No description provided for @viewPaymentOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'View Payment Options'**
+  String get viewPaymentOptions;
+
+  /// No description provided for @dueNow.
+  ///
+  /// In en, this message translates to:
+  /// **'due now'**
+  String get dueNow;
+
+  /// No description provided for @enterCouponcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter coupon code'**
+  String get enterCouponcode;
+
+  /// No description provided for @buyAPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy a Plan'**
+  String get buyAPlan;
+
+  /// No description provided for @payNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now'**
+  String get payNow;
+
+  /// No description provided for @showMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show More'**
+  String get showMore;
+
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Less'**
+  String get showLess;
 }
 
 class _AppLocalizationsDelegate

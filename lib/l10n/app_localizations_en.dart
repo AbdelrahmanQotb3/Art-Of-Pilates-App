@@ -265,4 +265,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateSuccess => 'Profile Updated!';
+
+  @override
+  String get bookThisSession => 'Book This Session';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get bookAndPay => 'Book & Pay';
+
+  @override
+  String get spotsLeft => 'spots left';
+
+  @override
+  String get viewPaymentOptions => 'View Payment Options';
+
+  @override
+  String get dueNow => 'due now';
+
+  @override
+  String get enterCouponcode => 'Enter coupon code';
+
+  @override
+  String get buyAPlan => 'Buy a Plan';
+
+  @override
+  String get payNow => 'Pay Now';
+
+  @override
+  String get showMore => 'Show More';
+
+  @override
+  String get showLess => 'Show Less';
 }

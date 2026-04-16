@@ -83,5 +83,16 @@
   "role" : "الدور",
   "save" : "حفظ",
   "updateYourPersonalInformation" : "تحديث معلوماتك الشخصية",
-  "updateSuccess" : "تم التحديث بنجاح"
+  "updateSuccess" : "تم التحديث بنجاح",
+  "bookThisSession": "حجز هذه الجلسة",
+  "about": "حول",
+  "bookAndPay": "حجز ودفع",
+  "spotsLeft": "أماكن متبقية",
+  "viewPaymentOptions": "عرض خيارات الدفع",
+  "dueNow": "المستحق الآن",
+  "enterCouponcode": "أدخل كود الخصم",
+  "buyAPlan": "شراء باقة",
+  "payNow": "ادفع الآن",
+  "showMore" : "اظهار المزيد",
+  "showLess" : "اخفاء"
 }

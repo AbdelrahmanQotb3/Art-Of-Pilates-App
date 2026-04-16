@@ -32,6 +32,22 @@ import '../../features/profile/domain/use_cases/navigate_to_edit_info_screen_use
     as _i660;
 import '../../features/profile/presentation/view_model/profile_view_model.dart'
     as _i15;
+import '../../features/schedule-sessions/api/api_client/sessions_api_client.dart'
+    as _i281;
+import '../../features/schedule-sessions/api/data_source/sessions_data_source_impl.dart'
+    as _i26;
+import '../../features/schedule-sessions/data/data_source/sessions_data_source_contract.dart'
+    as _i239;
+import '../../features/schedule-sessions/data/repo/sessions_repo_impl.dart'
+    as _i817;
+import '../../features/schedule-sessions/domain/repo/sessions_repo_contract.dart'
+    as _i149;
+import '../../features/schedule-sessions/domain/use_cases/get_all_sessions_use_case.dart'
+    as _i796;
+import '../../features/schedule-sessions/domain/use_cases/get_one_session_use_case.dart'
+    as _i906;
+import '../../features/schedule-sessions/presentation/view_model/sessions_view_model.dart'
+    as _i45;
 import '../../features/services/api/api_client/services_api_client.dart'
     as _i173;
 import '../../features/services/api/data_source/services_data_source_impl.dart'
@@ -87,6 +103,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i699.ProfileApiClient>(
       () => _i699.ProfileApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i281.SessionsApiClient>(
+      () => _i281.SessionsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i173.ServicesApiClient>(
       () => _i173.ServicesApiClient(gh<_i361.Dio>()),
     );
@@ -105,6 +124,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i354.ProfileDataSourceContract>(
       () => _i349.ProfileDataSourceImpl(gh<_i699.ProfileApiClient>()),
     );
+    gh.factory<_i239.SessionsDataSourceContract>(
+      () => _i26.SessionsDataSourceImpl(gh<_i281.SessionsApiClient>()),
+    );
     gh.factory<_i556.SigninDataSourceContract>(
       () => _i257.SigninDataSourceImpl(gh<_i219.SigninApiClient>()),
     );
@@ -117,11 +139,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i84.ServicesDataSourceContract>(
       () => _i859.ServicesDataSourceImpl(gh<_i173.ServicesApiClient>()),
     );
+    gh.factory<_i149.SessionsRepoContract>(
+      () => _i817.SessionsRepoImpl(gh<_i239.SessionsDataSourceContract>()),
+    );
     gh.factory<_i541.ProfileRepoContract>(
       () => _i256.ProfileRepoImpl(gh<_i354.ProfileDataSourceContract>()),
     );
     gh.factory<_i218.SigninRepoContract>(
       () => _i905.SigninRepoImpl(gh<_i556.SigninDataSourceContract>()),
+    );
+    gh.factory<_i796.GetAllSessionsUseCase>(
+      () => _i796.GetAllSessionsUseCase(gh<_i149.SessionsRepoContract>()),
+    );
+    gh.factory<_i906.GetOneSessionUseCase>(
+      () => _i906.GetOneSessionUseCase(gh<_i149.SessionsRepoContract>()),
+    );
+    gh.factory<_i45.SessionsViewModel>(
+      () => _i45.SessionsViewModel(
+        gh<_i796.GetAllSessionsUseCase>(),
+        gh<_i906.GetOneSessionUseCase>(),
+      ),
     );
     gh.factory<_i726.ServicesRepoContract>(
       () => _i83.ServicesRepoImpl(gh<_i84.ServicesDataSourceContract>()),
