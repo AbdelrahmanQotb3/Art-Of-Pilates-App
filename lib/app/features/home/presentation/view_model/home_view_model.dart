@@ -3,7 +3,7 @@ import 'package:art_of_pilates/app/features/home/presentation/view_model/home_st
 import 'package:art_of_pilates/app/features/home/presentation/views/home_tab.dart';
 import 'package:art_of_pilates/app/features/packages/views/packages_tab.dart';
 import 'package:art_of_pilates/app/features/my_accounts/views/my_accounts_tab.dart';
-import 'package:art_of_pilates/app/features/schedule/views/schedule_tab.dart';
+import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/schedule_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';

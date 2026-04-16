@@ -267,4 +267,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updateSuccess => 'تم التحديث بنجاح';
+
+  @override
+  String get bookThisSession => 'حجز هذه الجلسة';
+
+  @override
+  String get about => 'حول';
+
+  @override
+  String get bookAndPay => 'حجز ودفع';
+
+  @override
+  String get spotsLeft => 'أماكن متبقية';
+
+  @override
+  String get viewPaymentOptions => 'عرض خيارات الدفع';
+
+  @override
+  String get dueNow => 'المستحق الآن';
+
+  @override
+  String get enterCouponcode => 'أدخل كود الخصم';
+
+  @override
+  String get buyAPlan => 'شراء باقة';
+
+  @override
+  String get payNow => 'ادفع الآن';
+
+  @override
+  String get showMore => 'اظهار المزيد';
+
+  @override
+  String get showLess => 'اخفاء';
 }

@@ -13,4 +13,7 @@ class AppEndPoints {
 
   static const String getUser = "user/currentUser";
   static const String editUser = "user/editUser";
+
+  static const String getAllSessions = "sessions/getAllSessions";
+  static const String getOneSession = "sessions/getOneSession";
 }
