@@ -2,6 +2,7 @@ import 'package:art_of_pilates/app/config/di/di.dart';
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/features/packages/presentation/views/copoun_sheet.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_states.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_view_model.dart';
@@ -12,7 +13,6 @@ import 'package:intl/intl.dart';
 
 class SessionDetailsScreen extends StatefulWidget {
   final String sessionId;
-
   const SessionDetailsScreen({super.key, required this.sessionId});
 
   @override
@@ -21,12 +21,95 @@ class SessionDetailsScreen extends StatefulWidget {
 
 class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   late final SessionsViewModel viewModel;
+  String _paymentOption = 'pay_now';
+  String? _appliedCoupon;
 
   @override
   void initState() {
     super.initState();
     viewModel = getIt<SessionsViewModel>();
     viewModel.getOneSession(widget.sessionId);
+  }
+
+  void _showPaymentOptionsSheet(BuildContext context) {
+    final locale = appLocale(context);
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setSheetState) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40.w,
+                  height: 4.h,
+                  margin: EdgeInsets.symmetric(vertical: 12.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.accentColor,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    locale.viewPaymentOptions,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: AppColors.accentColor,
+                  height: 1,
+                ),
+                ListTile(
+                  title: Text(
+                    locale.buyAPlan,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                  trailing: _paymentOption == 'buy_plan'
+                      ? Icon(Icons.check, color: AppColors.accentColor)
+                      : null,
+                  onTap: () {
+                    setState(() => _paymentOption = 'buy_plan');
+                    setSheetState(() {});
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    locale.payNow,
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                  trailing: _paymentOption == 'pay_now'
+                      ? Icon(Icons.check, color: AppColors.accentColor)
+                      : null,
+                  onTap: () {
+                    setState(() => _paymentOption = 'pay_now');
+                    setSheetState(() {});
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(height: 16.h),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -116,15 +199,15 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
     final locale = appLocale(context);
     final spotsLeft =
         (session.maxParticipants ?? 0) - (session.currentParticipants ?? 0);
-    final durationMinutes = session.startTime != null && session.endTime != null
-        ? DateTime.parse(
-            session.endTime!,
-          ).difference(DateTime.parse(session.startTime!)).inMinutes
-        : 0;
+    final durationMinutes =
+        session.startTime != null && session.endTime != null
+            ? DateTime.parse(session.endTime!)
+                .difference(DateTime.parse(session.startTime!))
+                .inMinutes
+            : 0;
     final formattedTime = session.startTime != null
-        ? DateFormat(
-            'h:mm a',
-          ).format(DateTime.parse(session.startTime!).toLocal())
+        ? DateFormat('h:mm a')
+            .format(DateTime.parse(session.startTime!).toLocal())
         : '';
 
     return Stack(
@@ -134,10 +217,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Image Header ──
               _buildImageHeader(),
-
-              // ── Session Info ──
               _buildSection(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,23 +245,27 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     ),
                     _buildInfoRow(
                       Icons.location_on_outlined,
-                      session.service?.name ?? '',
+                      session.service?.location ?? '',
                       underline: true,
                     ),
                   ],
                 ),
               ),
 
-              Divider(color: AppColors.accentColor.withOpacity(0.1), height: 1),
-
-              // ── About ──
+              Divider(
+                color: AppColors.accentColor,
+                height: 1,
+              ),
               _buildSection(
-                child: _AboutSection(description: session.service?.description ?? ''),
+                child: _AboutSection(
+                  description: session.service?.description ?? '',
+                ),
               ),
 
-              Divider(color: AppColors.accentColor.withOpacity(0.1), height: 1),
-
-              // ── Spots Left ──
+              Divider(
+                color: AppColors.accentColor,
+                height: 1,
+              ),
               _buildSection(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,38 +280,42 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     SizedBox(
                       width: 32.w,
                       height: 32.h,
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.secondary,
-
-                        child: Icon(
-                          Icons.person_2,
-                          color: AppColors.whiteColor,
-                        ),
+                      child: CircularProgressIndicator(
+                        value: session.maxParticipants != null &&
+                                session.maxParticipants! > 0
+                            ? (session.currentParticipants ?? 0) /
+                                session.maxParticipants!
+                            : 0,
+                        backgroundColor:
+                            AppColors.accentColor,
+                        color: AppColors.primary,
+                        strokeWidth: 3,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              Divider(color: AppColors.accentColor.withOpacity(0.1), height: 1),
-
-              // ── Price ──
+              Divider(
+                color: AppColors.accentColor,
+                height: 1,
+              ),
               _buildSection(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      locale.price,
+                      locale.price.toUpperCase(),
                       style: TextStyle(
                         fontSize: 11.sp,
-                        color: AppColors.accentColor.withOpacity(0.5),
+                        color: AppColors.accentColor,
                         letterSpacing: 1.2,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'SAR ${session.service?.price ?? ''} per session',
+                      'SAR ${session.service?.price?.toStringAsFixed(2) ?? ''} per session',
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: AppColors.accentColor,
@@ -237,16 +325,19 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ),
               ),
 
-              Divider(color: AppColors.accentColor.withOpacity(0.1), height: 1),
-
-              // ── Coupon Code ──
+              Divider(
+                color: AppColors.accentColor,
+                height: 1,
+              ),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                 title: Text(
-                  locale.enterCouponcode,
+                  _appliedCoupon ?? locale.enterCouponcode,
                   style: TextStyle(
                     fontSize: 14.sp,
-                    color: AppColors.accentColor,
+                    color: _appliedCoupon != null
+                        ? AppColors.accentColor
+                        : AppColors.accentColor,
                   ),
                 ),
                 trailing: Icon(
@@ -254,16 +345,20 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   color: AppColors.accentColor,
                 ),
                 onTap: () {
-                  // TODO: open coupon input
+                  CouponBottomSheet.show(context, onApplied: (code) {
+                    setState(() => _appliedCoupon = code);
+                  });
                 },
               ),
 
-              Divider(color: AppColors.accentColor.withOpacity(0.1), height: 1),
+              Divider(
+                color: AppColors.accentColor,
+                height: 1,
+              ),
             ],
           ),
         ),
 
-        // ── Fixed Bottom Bar ──
         Positioned(
           bottom: 0,
           left: 0,
@@ -275,7 +370,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'SAR ${session.service?.price ?? ''} ${locale.dueNow}',
+                  _paymentOption == 'buy_plan'
+                      ? locale.buyAPlanToBookThisSession
+                      : 'SAR ${session.service?.price ?? ''} ${locale.dueNow}',
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.accentColor,
@@ -296,7 +393,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       ),
                     ),
                     child: Text(
-                      locale.bookAndPay,
+                      _paymentOption == 'buy_plan'
+                          ? locale.buyPlan
+                          : locale.bookAndPay,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -307,9 +406,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ),
                 SizedBox(height: 10.h),
                 GestureDetector(
-                  onTap: () {
-                    // TODO: navigate to payment options
-                  },
+                  onTap: () => _showPaymentOptionsSheet(context),
                   child: Text(
                     locale.viewPaymentOptions,
                     style: TextStyle(
@@ -327,8 +424,6 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
     );
   }
 
-  // ── Helpers ──
-
   Widget _buildSection({required Widget child}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
@@ -344,7 +439,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           Icon(
             icon,
             size: 16.sp,
-            color: AppColors.accentColor.withOpacity(0.5),
+            color: AppColors.accentColor
           ),
           SizedBox(width: 8.w),
           Text(
@@ -361,14 +456,13 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   }
 
   Widget _buildImageHeader() => Image.asset(
-    AppImages.homeLogo,
-    width: double.infinity,
-    height: 120.h,
-    fit: BoxFit.cover,
-  );
+        AppImages.homeLogo,
+        width: double.infinity,
+        height: 120.h,
+        fit: BoxFit.cover,
+      );
 }
 
-// ── About Section with Show More/Less ──
 class _AboutSection extends StatefulWidget {
   final String description;
   const _AboutSection({required this.description});

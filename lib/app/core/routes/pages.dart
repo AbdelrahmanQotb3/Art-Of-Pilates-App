@@ -1,6 +1,9 @@
 import 'package:art_of_pilates/app/core/routes/routes.dart';
 import 'package:art_of_pilates/app/features/get_started/get_started_screen.dart';
 import 'package:art_of_pilates/app/features/home/presentation/home_screen.dart';
+import 'package:art_of_pilates/app/features/packages/domain/model/packages_model.dart';
+import 'package:art_of_pilates/app/features/packages/presentation/views/checkout_screen.dart';
+import 'package:art_of_pilates/app/features/packages/presentation/views/package_details_screen.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/edit_profile_screen.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/profile_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_details_screen.dart';
@@ -46,6 +49,21 @@ class RouteGenerator {
           );
         }
         return unDefinedRoute();
+      case Routes.packageDetailsScreen:
+        final args = settings.arguments;
+        if (args is int) {
+          return MaterialPageRoute(
+            builder: (_) => PackageDetailsScreen(packageId: args),
+          );
+        }
+        return unDefinedRoute();
+      case Routes.checkoutScreen:
+        final args = settings.arguments;
+        if (args is PricingPlanEntity) {
+          return MaterialPageRoute(builder: (_) => CheckoutScreen(plan: args));
+        }
+        return unDefinedRoute();
+
       default:
         return unDefinedRoute();
     }

@@ -9,8 +9,6 @@ import 'package:art_of_pilates/app/widgets/app_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-
 class ScheduleTab extends StatefulWidget {
   const ScheduleTab({super.key});
 
@@ -28,51 +26,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
     super.initState();
     viewModel = getIt<SessionsViewModel>();
     viewModel.getAllSessions();
-  }
-
-  DateTime _normalize(DateTime d) => DateTime(d.year, d.month, d.day);
-
-  Map<DateTime, List<SessionEntity>> _buildEventsMap(
-    List<SessionEntity> sessions,
-  ) {
-    final Map<DateTime, List<SessionEntity>> map = {};
-    for (final session in sessions) {
-      if (session.startTime == null) continue;
-      final date = _normalize(DateTime.parse(session.startTime!).toLocal());
-      map.putIfAbsent(date, () => []).add(session);
-    }
-    return map;
-  }
-
-  List<SessionEntity> _getEventsForDay(
-    DateTime day,
-    Map<DateTime, List<SessionEntity>> eventsMap,
-  ) {
-    return eventsMap[_normalize(day)] ?? [];
-  }
-
-  String _formatTime(String? isoString) {
-    if (isoString == null) return '';
-    final dt = DateTime.parse(isoString).toLocal();
-    return DateFormat('h:mm a').format(dt);
-  }
-
-  String _formatDuration(String? start, String? end) {
-    if (start == null || end == null) return '';
-    final s = DateTime.parse(start);
-    final e = DateTime.parse(end);
-    final diff = e.difference(s).inMinutes;
-    return '${diff}m';
-  }
-
-  String _formatDayLabel(DateTime day) {
-    final now = DateTime.now();
-    final normalized = _normalize(day);
-    final todayNorm = _normalize(now);
-    if (normalized == todayNorm) {
-      return 'Today, ${DateFormat('EEEE, MMM d').format(day)}';
-    }
-    return DateFormat('EEEE, MMM d').format(day);
   }
 
   @override
@@ -96,20 +49,20 @@ class _ScheduleTabState extends State<ScheduleTab> {
               );
             }
 
-            final sessions =
-                state.getAllSessionsStateParams?.data?.sessions ?? [];
-            final eventsMap = _buildEventsMap(sessions);
-            final dayEvents = _getEventsForDay(_selectedDay, eventsMap);
+            final sessions = state.getAllSessionsStateParams?.data?.sessions ?? [];
+            
+            // UI calls ViewModel for logic
+            final eventsMap = viewModel.buildEventsMap(sessions);
+            final dayEvents = viewModel.getEventsForDay(_selectedDay, eventsMap);
 
             return SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ✅ Calendar with dot markers on days that have sessions
                   AppCalendar(
                     focusedDay: _focusedDay,
                     selectedDay: _selectedDay,
-                    eventLoader: (day) => _getEventsForDay(day, eventsMap),
+                    eventLoader: (day) => viewModel.getEventsForDay(day, eventsMap),
                     onDaySelected: (selectedDay, focusedDay) {
                       setState(() {
                         _selectedDay = selectedDay;
@@ -117,20 +70,13 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       });
                     },
                   ),
-
-                  // ✅ Filters row
+                  
+                  // Filters Row
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.filter_list,
-                          color: AppColors.primary,
-                          size: 20.sp,
-                        ),
+                        Icon(Icons.filter_list, color: AppColors.primary, size: 20.sp),
                         SizedBox(width: 8.w),
                         Text(
                           'Filters',
@@ -147,35 +93,24 @@ class _ScheduleTabState extends State<ScheduleTab> {
                   Divider(color: AppColors.primary, height: 1),
 
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                     child: Text(
-                      _formatDayLabel(_selectedDay),
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 13.sp,
-                      ),
+                      viewModel.formatDayLabel(_selectedDay),
+                      style: TextStyle(color: AppColors.primary, fontSize: 13.sp),
                     ),
                   ),
 
-                  // ✅ Sessions list
                   Expanded(
                     child: dayEvents.isEmpty
                         ? Center(
                             child: Text(
                               'No sessions for this day',
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 14.sp,
-                              ),
+                              style: TextStyle(color: AppColors.primary, fontSize: 14.sp),
                             ),
                           )
                         : ListView.separated(
                             itemCount: dayEvents.length,
-                            separatorBuilder: (_, __) =>
-                                Divider(color: AppColors.primary, height: 1),
+                            separatorBuilder: (_, _) => Divider(color: AppColors.primary, height: 1),
                             itemBuilder: (context, index) {
                               return _buildSessionTile(dayEvents[index]);
                             },
@@ -191,8 +126,9 @@ class _ScheduleTabState extends State<ScheduleTab> {
   }
 
   Widget _buildSessionTile(SessionEntity session) {
-    final time = _formatTime(session.startTime);
-    final duration = _formatDuration(session.startTime, session.endTime);
+    // UI calls ViewModel for formatting
+    final time = viewModel.formatTime(session.startTime);
+    final duration = viewModel.formatDuration(session.startTime, session.endTime);
     final isBooked = session.status == 'booked';
 
     return InkWell(
@@ -224,9 +160,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 ],
               ),
             ),
-
             SizedBox(width: 8.w),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,49 +185,33 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       SizedBox(width: 4.w),
                       Text(
                         '${session.currentParticipants ?? 0}/${session.maxParticipants ?? 0}',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColors.primary,
-                        ),
+                        style: TextStyle(fontSize: 12.sp, color: AppColors.primary),
                       ),
                     ],
                   ),
                   SizedBox(height: 4.h),
                   Row(
                     children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 14.sp,
-                        color: AppColors.primary,
-                      ),
+                      Icon(Icons.location_on, size: 14.sp, color: AppColors.primary),
                       SizedBox(width: 4.w),
                       Text(
                         session.service?.location ?? '',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: AppColors.primary,
-                        ),
+                        style: TextStyle(fontSize: 12.sp, color: AppColors.primary),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-
             Align(
               alignment: Alignment.center,
               child: OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
                   backgroundColor: AppColors.primary,
-                  side: BorderSide(color: AppColors.primary),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.r),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
+                  side: const BorderSide(color: AppColors.primary),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 ),
                 child: Text(
                   isBooked ? 'Info' : 'Book',
@@ -316,9 +234,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
       backgroundColor: AppColors.primary,
       leading: IconButton(
         icon: const Icon(Icons.person, size: 26, color: Colors.white),
-        onPressed: () {
-          NavigateToProfileScreenUseCase.call(context);
-        },
+        onPressed: () => NavigateToProfileScreenUseCase.call(context),
       ),
       actions: [
         IconButton(

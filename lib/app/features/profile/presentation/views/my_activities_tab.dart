@@ -18,7 +18,7 @@ class MyActivitiesTab extends StatelessWidget {
             locale.seeYourInfoAndActivities,
             style: TextStyle(
               fontSize: 13.sp,
-              color: AppColors.accentColor.withOpacity(0.6),
+              color: AppColors.accentColor,
             ),
           ),
         ),

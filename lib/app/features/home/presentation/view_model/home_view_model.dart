@@ -1,7 +1,7 @@
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_events.dart';
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_states.dart';
 import 'package:art_of_pilates/app/features/home/presentation/views/home_tab.dart';
-import 'package:art_of_pilates/app/features/packages/views/packages_tab.dart';
+import 'package:art_of_pilates/app/features/packages/presentation/views/packages_tab.dart';
 import 'package:art_of_pilates/app/features/my_accounts/views/my_accounts_tab.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/schedule_tab.dart';
 import 'package:flutter/material.dart';

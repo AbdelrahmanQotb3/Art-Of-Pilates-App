@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(
             locale.artOfPilates,
             style: TextStyle(
-              color: AppColors.whiteColor.withOpacity(0.8),
+              color: AppColors.whiteColor,
               fontSize: 12,
             ),
           ),
@@ -124,13 +124,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           NavigateToEditInfoScreenUseCase.call(context);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
+                          backgroundColor: WidgetStatePropertyAll(
                             AppColors.primary,
                           ),
-                          minimumSize: MaterialStatePropertyAll(
+                          minimumSize: WidgetStatePropertyAll(
                             Size(180.w, 28.h),
                           ),
-                          shape: MaterialStatePropertyAll(
+                          shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r),
                             ),
@@ -188,9 +188,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               indicatorColor: AppColors.accentColor,
               indicatorWeight: 2,
               indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: AppColors.accentColor.withOpacity(0.15),
+              dividerColor: AppColors.accentColor,
               labelColor: AppColors.accentColor,
-              unselectedLabelColor: AppColors.accentColor.withOpacity(0.45),
+              unselectedLabelColor: AppColors.accentColor,
               labelStyle: TextStyle(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

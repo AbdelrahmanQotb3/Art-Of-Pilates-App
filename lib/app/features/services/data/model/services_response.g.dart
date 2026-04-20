@@ -43,7 +43,9 @@ Service _$ServiceFromJson(Map<String, dynamic> json) => Service(
   location: json['location'] as String?,
   bookingPolicy: json['bookingPolicy'] as String?,
   bookingForm: json['bookingForm'],
-  sessions: json['sessions'] as List<dynamic>?,
+  sessions: (json['sessions'] as List<dynamic>?)
+      ?.map((e) => Sessions.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$ServiceToJson(Service instance) => <String, dynamic>{

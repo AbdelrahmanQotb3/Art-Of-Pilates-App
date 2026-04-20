@@ -1,3 +1,4 @@
+import 'package:art_of_pilates/app/features/schedule-sessions/data/model/sessions_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'services_response.g.dart'; // Change this filename to match your actual file name
@@ -39,8 +40,8 @@ class Service {
   final String? paymentPref;
   final String? location;
   final String? bookingPolicy;
-  final dynamic bookingForm; // Using dynamic for unknown objects
-  final List<dynamic>? sessions; // Using dynamic instead of Null
+  final dynamic bookingForm;
+  final List<Sessions>? sessions;
 
   Service({
     this.id,

@@ -2,7 +2,6 @@ import 'package:art_of_pilates/app/config/app_end_points.dart';
 import 'package:art_of_pilates/app/core/util/session_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

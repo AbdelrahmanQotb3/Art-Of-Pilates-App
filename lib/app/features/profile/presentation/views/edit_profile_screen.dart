@@ -113,7 +113,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           style: TextStyle(
                             color: canSave
                                 ? AppColors.whiteColor
-                                : AppColors.whiteColor.withOpacity(0.35),
+                                : AppColors.whiteColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -159,7 +159,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(height: 16.h),
                 Divider(
                   height: 32.h,
-                  color: AppColors.accentColor.withOpacity(0.2),
+                  color: AppColors.accentColor,
                   thickness: 1,
                 ),
                 
