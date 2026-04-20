@@ -1,4 +1,4 @@
-class AppEndPoints {
+abstract class AppEndPoints {
   static const String baseUrl = "http://10.0.2.2:3000/";
 
   // Authentication Endpoints
@@ -16,4 +16,7 @@ class AppEndPoints {
 
   static const String getAllSessions = "sessions/getAllSessions";
   static const String getOneSession = "sessions/getOneSession";
+
+  static const String getAllPackages = "pricing-plans/getPlans";
+  static const String getOnePackage = "pricing-plans/getPlanById";
 }

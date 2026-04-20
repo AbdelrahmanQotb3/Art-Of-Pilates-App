@@ -667,6 +667,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show Less'**
   String get showLess;
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
+  /// No description provided for @showBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Benefits'**
+  String get showBenefits;
+
+  /// No description provided for @validFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for'**
+  String get validFor;
+
+  /// No description provided for @noPackagesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No packages found'**
+  String get noPackagesFound;
+
+  /// No description provided for @planSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Summary'**
+  String get planSummary;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date'**
+  String get startDate;
+
+  /// No description provided for @selectDuringCheckout.
+  ///
+  /// In en, this message translates to:
+  /// **'Select during checkout'**
+  String get selectDuringCheckout;
+
+  /// No description provided for @duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get duration;
+
+  /// No description provided for @totalToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Total today'**
+  String get totalToday;
+
+  /// No description provided for @checkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout'**
+  String get checkout;
+
+  /// No description provided for @taxDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Final price with tax rates will be determined during checkout.'**
+  String get taxDisclaimer;
+
+  /// No description provided for @planStarts.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Starts'**
+  String get planStarts;
+
+  /// No description provided for @copounNotAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupon not added'**
+  String get copounNotAdded;
+
+  /// No description provided for @continueToPaymnet.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get continueToPaymnet;
+
+  /// No description provided for @iHaveReadAndAcceptPlanPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and accept '**
+  String get iHaveReadAndAcceptPlanPolicy;
+
+  /// No description provided for @planPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'plan policy'**
+  String get planPolicy;
+
+  /// No description provided for @mustAcceptPlanPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the plan policy to continue.'**
+  String get mustAcceptPlanPolicy;
+
+  /// No description provided for @change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
+
+  /// No description provided for @enter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter'**
+  String get enter;
+
+  /// No description provided for @couponCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupon code'**
+  String get couponCode;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @buyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy Plan'**
+  String get buyPlan;
+
+  /// No description provided for @buyAPlanToBookThisSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy a plan to book this session'**
+  String get buyAPlanToBookThisSession;
 }
 
 class _AppLocalizationsDelegate

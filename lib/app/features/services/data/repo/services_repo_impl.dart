@@ -33,7 +33,7 @@ class ServicesRepoImpl implements ServicesRepoContract {
               location: e.location,
               sessions: e.sessions?.map((s) {
                 return SessionEntity(
-                  id: s.id,
+                  id: s.id ?? '',
                   startTime: s.startTime,
                   endTime: s.endTime,
                   serviceId: s.serviceId,

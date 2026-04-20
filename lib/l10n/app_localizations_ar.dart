@@ -300,4 +300,80 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get showLess => 'اخفاء';
+
+  @override
+  String get select => 'اختر';
+
+  @override
+  String get showBenefits => 'اظهار الفوائد';
+
+  @override
+  String get validFor => 'صالح ل';
+
+  @override
+  String get noPackagesFound => 'لا يوجد حزم';
+
+  @override
+  String get planSummary => 'ملخص الخطة';
+
+  @override
+  String get startDate => 'تاريخ البداية';
+
+  @override
+  String get selectDuringCheckout => 'يتم الاختيار عند الدفع';
+
+  @override
+  String get duration => 'المدة';
+
+  @override
+  String get totalToday => 'الإجمالي اليوم';
+
+  @override
+  String get checkout => 'ادفع الآن';
+
+  @override
+  String get taxDisclaimer =>
+      'سيتم تحديد السعر النهائي شاملاً الضرائب عند إتمام الدفع.';
+
+  @override
+  String get planStarts => 'الخطة تبدأ ب';
+
+  @override
+  String get copounNotAdded => 'لا يوجد كوبون';
+
+  @override
+  String get continueToPaymnet => 'استمر في الدفع';
+
+  @override
+  String get iHaveReadAndAcceptPlanPolicy => 'لقد قرت وقبلت سياسة';
+
+  @override
+  String get planPolicy => 'سياسة الخطة';
+
+  @override
+  String get mustAcceptPlanPolicy => 'يجب ان تقبل سياسة الخطة';
+
+  @override
+  String get change => 'تغيير';
+
+  @override
+  String get enter => 'ادخل';
+
+  @override
+  String get couponCode => 'كود الخصم';
+
+  @override
+  String get cancel => 'الغاء';
+
+  @override
+  String get apply => 'تطبيق';
+
+  @override
+  String get today => 'اليوم';
+
+  @override
+  String get buyPlan => 'شراء خطة';
+
+  @override
+  String get buyAPlanToBookThisSession => 'شراء خطة لحجز هذه الجلسة';
 }

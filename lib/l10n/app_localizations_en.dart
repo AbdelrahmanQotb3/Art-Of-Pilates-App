@@ -298,4 +298,81 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get showLess => 'Show Less';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get showBenefits => 'Show Benefits';
+
+  @override
+  String get validFor => 'Valid for';
+
+  @override
+  String get noPackagesFound => 'No packages found';
+
+  @override
+  String get planSummary => 'Plan Summary';
+
+  @override
+  String get startDate => 'Start date';
+
+  @override
+  String get selectDuringCheckout => 'Select during checkout';
+
+  @override
+  String get duration => 'Duration';
+
+  @override
+  String get totalToday => 'Total today';
+
+  @override
+  String get checkout => 'Checkout';
+
+  @override
+  String get taxDisclaimer =>
+      'Final price with tax rates will be determined during checkout.';
+
+  @override
+  String get planStarts => 'Plan Starts';
+
+  @override
+  String get copounNotAdded => 'Coupon not added';
+
+  @override
+  String get continueToPaymnet => 'Continue to Payment';
+
+  @override
+  String get iHaveReadAndAcceptPlanPolicy => 'I have read and accept ';
+
+  @override
+  String get planPolicy => 'plan policy';
+
+  @override
+  String get mustAcceptPlanPolicy =>
+      'You must accept the plan policy to continue.';
+
+  @override
+  String get change => 'Change';
+
+  @override
+  String get enter => 'Enter';
+
+  @override
+  String get couponCode => 'Coupon code';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get buyPlan => 'Buy Plan';
+
+  @override
+  String get buyAPlanToBookThisSession => 'Buy a plan to book this session';
 }

@@ -275,9 +275,7 @@ class SignupScreen extends StatelessWidget {
                     try {
                       viewModel.doIntent(SignupWithGoogleEvent());
                     } catch (e) {
-                      // Log the error for debugging (use a logging package like logger)
                       print('Google Sign-In error: $e');
-                      // Show a user-friendly message
                     }
                   },
             child: Row(
