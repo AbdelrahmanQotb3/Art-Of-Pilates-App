@@ -72,7 +72,7 @@ class ServicesScreen extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.servicesState!.errorMessage}',
-              style: const TextStyle(color: Colors.red),
+              style: const TextStyle(color: AppColors.redColor),
             ),
           );
         } else if (state.servicesState?.data?.services != null) {

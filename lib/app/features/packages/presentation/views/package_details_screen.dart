@@ -29,6 +29,7 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = appLocale(context);
     return BlocProvider.value(
       value: viewModel,
       child: Scaffold(
@@ -48,13 +49,13 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                   children: [
                     Text(
                       state.onePackageState!.errorMessage!,
-                      style: TextStyle(color: Colors.red, fontSize: 14.sp),
+                      style: TextStyle(color: AppColors.redColor, fontSize: 14.sp),
                     ),
                     SizedBox(height: 12.h),
                     ElevatedButton(
                       onPressed: () =>
                           viewModel.getOnePackage(widget.packageId),
-                      child: const Text('Retry'),
+                      child: Text(locale.retry),
                     ),
                   ],
                 ),

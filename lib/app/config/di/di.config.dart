@@ -80,6 +80,20 @@ import '../../features/services/domain/use_cases/get_one_service_use_case.dart'
     as _i978;
 import '../../features/services/presentation/view_model/services_view_model.dart'
     as _i902;
+import '../../features/settings/api/api_client/settings_api_client.dart'
+    as _i474;
+import '../../features/settings/api/data_source/settings_data_source_impl.dart'
+    as _i401;
+import '../../features/settings/data/data_source/settings_data_source_contract.dart'
+    as _i478;
+import '../../features/settings/data/repo/settings_repo_impl.dart' as _i812;
+import '../../features/settings/domain/repo/settings_repo_contract.dart'
+    as _i787;
+import '../../features/settings/domain/use_cases/delete_accoount_use_case.dart'
+    as _i70;
+import '../../features/settings/domain/use_cases/logout_use_case.dart' as _i725;
+import '../../features/settings/presentation/view_model/settings_view_model.dart'
+    as _i1064;
 import '../../features/signin/api/api_client/signin_api_client.dart' as _i219;
 import '../../features/signin/api/data_source/signin_data_source_impl.dart'
     as _i257;
@@ -132,6 +146,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i173.ServicesApiClient>(
       () => _i173.ServicesApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i474.SettingsApiClient>(
+      () => _i474.SettingsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i219.SigninApiClient>(
       () => _i219.SigninApiClient(gh<_i361.Dio>()),
     );
@@ -158,6 +175,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i85.SignupViewModel>(
       () => _i85.SignupViewModel(gh<_i941.SignupUseCase>()),
+    );
+    gh.factory<_i478.SettingsDataSourceContract>(
+      () => _i401.SettingsDataSourceImpl(gh<_i474.SettingsApiClient>()),
     );
     gh.factory<_i84.ServicesDataSourceContract>(
       () => _i859.ServicesDataSourceImpl(gh<_i173.ServicesApiClient>()),
@@ -189,6 +209,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i726.ServicesRepoContract>(
       () => _i83.ServicesRepoImpl(gh<_i84.ServicesDataSourceContract>()),
     );
+    gh.factory<_i787.SettingsRepoContract>(
+      () => _i812.SettingsRepoImpl(gh<_i478.SettingsDataSourceContract>()),
+    );
+    gh.factory<_i70.DeleteAccoountUseCase>(
+      () => _i70.DeleteAccoountUseCase(gh<_i787.SettingsRepoContract>()),
+    );
+    gh.factory<_i725.LogoutUseCase>(
+      () => _i725.LogoutUseCase(gh<_i787.SettingsRepoContract>()),
+    );
     gh.factory<_i755.PackagesRepoContract>(
       () => _i543.PackagesRepoImpl(gh<_i526.PackagesDataSourceContract>()),
     );
@@ -214,6 +243,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i15.ProfileViewModel(
         gh<_i903.GetUserProfileUseCase>(),
         gh<_i539.EditUserInfoUseCase>(),
+      ),
+    );
+    gh.factory<_i1064.SettingsViewModel>(
+      () => _i1064.SettingsViewModel(
+        gh<_i725.LogoutUseCase>(),
+        gh<_i70.DeleteAccoountUseCase>(),
       ),
     );
     gh.factory<_i187.PackagesViewModel>(

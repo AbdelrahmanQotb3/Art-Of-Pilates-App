@@ -1,4 +1,5 @@
-sealed class BaseResponse<T> {}
+sealed class BaseResponse<T> {
+}
 
 class SuccessResponse<T> extends BaseResponse<T> {
   final T data;

@@ -6,6 +6,7 @@ abstract class AppEndPoints {
   static const String signup = "auth/signup";
   static const String signupWithSocial = "auth/social-signup";
   static const String signinWithSocial = "auth/social-signup";
+  static const String logout = "auth/logout";
 
   // Services Endpoints
   static const String getAllServices = "services/getServices";
@@ -13,6 +14,7 @@ abstract class AppEndPoints {
 
   static const String getUser = "user/currentUser";
   static const String editUser = "user/editUser";
+  static const String deleteAccount = "user/deleteUser";
 
   static const String getAllSessions = "sessions/getAllSessions";
   static const String getOneSession = "sessions/getOneSession";

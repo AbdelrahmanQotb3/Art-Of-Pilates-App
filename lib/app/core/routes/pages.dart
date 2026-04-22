@@ -9,6 +9,12 @@ import 'package:art_of_pilates/app/features/profile/presentation/views/profile_s
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/service_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/services_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/about_app_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/delete_account_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/display_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/languages_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/notifications_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/settings_screen.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/views/signin_screen.dart';
 import 'package:art_of_pilates/app/features/signup/presentation/views/signup_screen.dart';
 import 'package:art_of_pilates/app/features/splash/splash_screen.dart';
@@ -63,7 +69,18 @@ class RouteGenerator {
           return MaterialPageRoute(builder: (_) => CheckoutScreen(plan: args));
         }
         return unDefinedRoute();
-
+      case Routes.settingsScreen:
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
+      case Routes.languageScreen:
+        return MaterialPageRoute(builder: (_) => LanguagesScreen());
+      case Routes.notificationScreen:
+        return MaterialPageRoute(builder: (_) => NotificationsScreen());
+      case Routes.aboutAppScreen:
+        return MaterialPageRoute(builder: (_) => AboutAppScreen());
+      case Routes.displayScreen:
+        return MaterialPageRoute(builder: (_) => DisplayScreen());
+      case Routes.deleteAccountScreen:
+        return MaterialPageRoute(builder: (_) => DeleteAccountScreen());
       default:
         return unDefinedRoute();
     }

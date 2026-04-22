@@ -817,6 +817,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Buy a plan to book this session'**
   String get buyAPlanToBookThisSession;
+
+  /// No description provided for @appSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'App Settings'**
+  String get appSettings;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get appLanguage;
+
+  /// No description provided for @notificationsSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications Settings'**
+  String get notificationsSettings;
+
+  /// No description provided for @appDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'App Display'**
+  String get appDisplay;
+
+  /// No description provided for @deleteYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Your Account'**
+  String get deleteYourAccount;
+
+  /// No description provided for @aboutTheApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About The App'**
+  String get aboutTheApp;
+
+  /// No description provided for @welcomeToOurApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to our App'**
+  String get welcomeToOurApp;
+
+  /// No description provided for @welcomeToOurAppSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with \"Art of Pilates\" and stay updated on the go with our mobile app.'**
+  String get welcomeToOurAppSubtitle;
+
+  /// No description provided for @aboutTheAppDescription1.
+  ///
+  /// In en, this message translates to:
+  /// **'The app gives you everything you need to stay in touch with \"Art of Pilates\" anytime, anywhere.'**
+  String get aboutTheAppDescription1;
+
+  /// No description provided for @aboutTheAppDescription2.
+  ///
+  /// In en, this message translates to:
+  /// **'Easily get in contact with us using real-time chat, and receive push notifications with our latest news & offers so you never miss a thing.'**
+  String get aboutTheAppDescription2;
+
+  /// No description provided for @termsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms Of Service'**
+  String get termsOfService;
+
+  /// No description provided for @openSourceLicenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Source Licenses'**
+  String get openSourceLicenses;
+
+  /// No description provided for @appWillRestartOnLanguageChange.
+  ///
+  /// In en, this message translates to:
+  /// **'The app will restart once a new language is saved'**
+  String get appWillRestartOnLanguageChange;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @noUserDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No user data found'**
+  String get noUserDataFound;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @pushNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Push notifications'**
+  String get pushNotifications;
+
+  /// No description provided for @emailNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Email notifications'**
+  String get emailNotifications;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @notNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Now'**
+  String get notNow;
+
+  /// No description provided for @deleteAccountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account will be deleted from this app. You won\'t be able to restore your account after it\'s deleted, but you can always create a new one.'**
+  String get deleteAccountWarning;
+
+  /// No description provided for @deleteAccountConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to permanently delete your account? This action cannot be undone.'**
+  String get deleteAccountConfirmation;
 }
 
 class _AppLocalizationsDelegate

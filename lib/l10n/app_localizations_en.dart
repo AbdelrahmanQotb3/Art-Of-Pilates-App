@@ -375,4 +375,76 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get buyAPlanToBookThisSession => 'Buy a plan to book this session';
+
+  @override
+  String get appSettings => 'App Settings';
+
+  @override
+  String get appLanguage => 'App Language';
+
+  @override
+  String get notificationsSettings => 'Notifications Settings';
+
+  @override
+  String get appDisplay => 'App Display';
+
+  @override
+  String get deleteYourAccount => 'Delete Your Account';
+
+  @override
+  String get aboutTheApp => 'About The App';
+
+  @override
+  String get welcomeToOurApp => 'Welcome to our App';
+
+  @override
+  String get welcomeToOurAppSubtitle =>
+      'Connect with \"Art of Pilates\" and stay updated on the go with our mobile app.';
+
+  @override
+  String get aboutTheAppDescription1 =>
+      'The app gives you everything you need to stay in touch with \"Art of Pilates\" anytime, anywhere.';
+
+  @override
+  String get aboutTheAppDescription2 =>
+      'Easily get in contact with us using real-time chat, and receive push notifications with our latest news & offers so you never miss a thing.';
+
+  @override
+  String get termsOfService => 'Terms Of Service';
+
+  @override
+  String get openSourceLicenses => 'Open Source Licenses';
+
+  @override
+  String get appWillRestartOnLanguageChange =>
+      'The app will restart once a new language is saved';
+
+  @override
+  String get logoutConfirmation => 'Are you sure you want to log out?';
+
+  @override
+  String get noUserDataFound => 'No user data found';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get pushNotifications => 'Push notifications';
+
+  @override
+  String get emailNotifications => 'Email notifications';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get notNow => 'Not Now';
+
+  @override
+  String get deleteAccountWarning =>
+      'Your account will be deleted from this app. You won\'t be able to restore your account after it\'s deleted, but you can always create a new one.';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Are you sure you want to permanently delete your account? This action cannot be undone.';
 }

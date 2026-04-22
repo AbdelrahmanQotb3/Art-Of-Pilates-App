@@ -44,7 +44,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
               return Center(
                 child: Text(
                   'Error: ${state.getAllSessionsStateParams!.errorMessage}',
-                  style: const TextStyle(color: Colors.red),
+                  style: const TextStyle(color: AppColors.redColor),
                 ),
               );
             }

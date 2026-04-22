@@ -20,7 +20,7 @@ class AccountTab extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.userProfileStateParam!.errorMessage}',
-              style: const TextStyle(color: Colors.red),
+              style: const TextStyle(color: AppColors.redColor),
             ),
           );
         } else if (state.userProfileStateParam?.data != null) {
@@ -46,7 +46,7 @@ class AccountTab extends StatelessWidget {
             ),
           );
         }
-        return const Center(child: Text("No user data found"));
+        return Center(child: Text("No user data found"));
       },
     );
   }

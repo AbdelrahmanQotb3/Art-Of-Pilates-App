@@ -376,4 +376,76 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get buyAPlanToBookThisSession => 'شراء خطة لحجز هذه الجلسة';
+
+  @override
+  String get appSettings => 'إعدادات التطبيق';
+
+  @override
+  String get appLanguage => 'لغة التطبيق';
+
+  @override
+  String get notificationsSettings => 'إعدادات التنبيهات';
+
+  @override
+  String get appDisplay => 'مظهر التطبيق';
+
+  @override
+  String get deleteYourAccount => 'حذف حسابك';
+
+  @override
+  String get aboutTheApp => 'عن التطبيق';
+
+  @override
+  String get welcomeToOurApp => 'مرحباً بك في تطبيقنا';
+
+  @override
+  String get welcomeToOurAppSubtitle =>
+      'تواصل مع \"Art of Pilates\" وابقَ على اطلاع دائم من خلال تطبيقنا.';
+
+  @override
+  String get aboutTheAppDescription1 =>
+      'يمنحك التطبيق كل ما تحتاجه للتواصل مع \"Art of Pilates\" في أي وقت ومن أي مكان.';
+
+  @override
+  String get aboutTheAppDescription2 =>
+      'تواصل معنا بسهولة عبر الدردشة الفورية، واستقبل إشعارات بآخر أخبارنا وعروضنا حتى لا تفوتك أي فرصة.';
+
+  @override
+  String get termsOfService => 'شروط الخدمة';
+
+  @override
+  String get openSourceLicenses => 'تراخيص المصدر المفتوح';
+
+  @override
+  String get appWillRestartOnLanguageChange =>
+      'سيتم إعادة تشغيل التطبيق بعد حفظ اللغة الجديدة';
+
+  @override
+  String get logoutConfirmation => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get noUserDataFound => 'لم يتم العثور على بيانات المستخدم';
+
+  @override
+  String get retry => 'اعادة المحاولة';
+
+  @override
+  String get pushNotifications => 'الاشعارات';
+
+  @override
+  String get emailNotifications => 'الاشعارات بالبريد الالكتروني';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get notNow => 'ليس الآن';
+
+  @override
+  String get deleteAccountWarning =>
+      'سيتم حذف حسابك من هذا التطبيق. لن تتمكن من استعادة حسابك بعد حذفه، لكن يمكنك دائمًا إنشاء حساب جديد.';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'هل أنت متأكد أنك تريد حذف حسابك نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.';
 }

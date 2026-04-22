@@ -29,10 +29,11 @@ class ServiceDetailsScreen extends StatelessWidget {
   }
 
   PreferredSizeWidget? _buildAppBar(BuildContext context) {
+    final locale = appLocale(context);
     return AppBar(
       backgroundColor: AppColors.primary,
-      title: const Text(
-        'Service Details',
+      title: Text(
+        locale.serviceDetails,
         style: TextStyle(
           color: AppColors.whiteColor,
           fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class ServiceDetailsScreen extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.oneServiceState!.errorMessage}',
-              style: const TextStyle(color: Colors.red),
+              style: const TextStyle(color: AppColors.redColor),
             ),
           );
         } else if (state.oneServiceState?.data != null) {
