@@ -114,6 +114,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = appLocale(context);
     return BlocProvider.value(
       value: viewModel,
       child: BlocListener<SessionsViewModel, SessionsStates>(
@@ -124,7 +125,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.getOneSessionStateParams!.errorMessage!),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.redColor
               ),
             );
           }
@@ -155,7 +156,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       ElevatedButton(
                         onPressed: () =>
                             viewModel.getOneSession(widget.sessionId),
-                        child: const Text('Retry'),
+                        child: Text(locale.retry),
                       ),
                     ],
                   ),

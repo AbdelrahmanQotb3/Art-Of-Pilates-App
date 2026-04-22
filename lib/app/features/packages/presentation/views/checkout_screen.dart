@@ -285,7 +285,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           vertical: 12.h,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.red.shade900,
+                          color: AppColors.redColor,
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Row(

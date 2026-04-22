@@ -2,6 +2,8 @@ import 'package:art_of_pilates/app/config/di/di.dart';
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/profile/domain/use_cases/navigate_to_edit_info_screen_use_case.dart';
+import 'package:art_of_pilates/app/features/profile/domain/use_cases/navigate_to_home_screen_use_case.dart';
+import 'package:art_of_pilates/app/features/profile/domain/use_cases/navigate_to_settings_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/view_model/profile_states.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/view_model/profile_view_model.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/account_tab.dart';
@@ -67,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       leading: IconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => NavigateToHomeScreenUseCase.call(context),
         icon: const Icon(
           Icons.arrow_back_ios_new_outlined,
           color: AppColors.whiteColor,
@@ -75,7 +77,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            NavigateToSettingsScreenUseCase.call(context);
+          },
           icon: const Icon(
             Icons.settings_outlined,
             color: AppColors.whiteColor,

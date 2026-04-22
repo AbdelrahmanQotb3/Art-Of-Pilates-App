@@ -40,7 +40,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (state.editUserProfileStateParam?.data != null) {
               _showSnackbar(context, appLocale(context).updateSuccess,  Colors.green);
             } else if (state.editUserProfileStateParam?.errorMessage != null) {
-              _showSnackbar(context, state.editUserProfileStateParam!.errorMessage!, Colors.red);
+              _showSnackbar(context, state.editUserProfileStateParam!.errorMessage!,AppColors.redColor);
             }
           },
           child: _buildBody(context),

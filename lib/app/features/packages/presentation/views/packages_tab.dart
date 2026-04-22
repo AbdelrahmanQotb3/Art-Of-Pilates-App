@@ -56,6 +56,7 @@ class _PackagesTabState extends State<PackagesTab> {
   }
 
   Widget _buildBody(BuildContext context) {
+    final locale = appLocale(context);
     return BlocBuilder<PackagesViewModel, PackagesStates>(
       builder: (context, state) {
         if (state.packagesState?.isLoading ?? false) {
@@ -68,12 +69,12 @@ class _PackagesTabState extends State<PackagesTab> {
               children: [
                 Text(
                   state.packagesState!.errorMessage!,
-                  style: TextStyle(color: Colors.red, fontSize: 14.sp),
+                  style: TextStyle(color: AppColors.redColor, fontSize: 14.sp),
                 ),
                 SizedBox(height: 12.h),
                 ElevatedButton(
                   onPressed: () => viewModel.getAllPackages(),
-                  child: const Text('Retry'),
+                  child: Text(locale.retry),
                 ),
               ],
             ),
