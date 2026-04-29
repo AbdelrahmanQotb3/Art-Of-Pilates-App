@@ -29,7 +29,6 @@ class User {
   @JsonKey(name: 'email')
   final String? email;
 
-  // We annotate these to ensure they match the exact keys from your NestJS/Prisma output
   @JsonKey(name: 'firstName')
   final String? firstName;
 

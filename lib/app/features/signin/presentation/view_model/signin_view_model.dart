@@ -39,7 +39,6 @@ class SigninViewModel extends Cubit<SigninStates> {
     _handleResult(result);
   }
 
-  // --- Logic for Google ---
   Future<void> _signinWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
@@ -54,14 +53,13 @@ class SigninViewModel extends Cubit<SigninStates> {
       _emitLoading();
       final result = await _signinUseCase.signinWithGoogle(
         auth.idToken!,
-      ); // Reuse the social-signup endpoint
+      );
       _handleResult(result);
     } catch (e) {
       _emitError("Google Sign-In Error: ${e.toString()}");
     }
   }
 
-  // --- Logic for Apple ---
   Future<void> _signinWithApple() async {
     try {
       final credential = await SignInWithApple.getAppleIDCredential(
@@ -74,7 +72,7 @@ class SigninViewModel extends Cubit<SigninStates> {
       _emitLoading();
       final result = await _signinUseCase.signinWithApple(
         credential.identityToken!,
-      ); // Reuse the social-signup endpoint
+      );
       _handleResult(result);
     } catch (e) {
       _emitError("Apple Sign-In Error: ${e.toString()}");

@@ -1,6 +1,7 @@
 import 'package:art_of_pilates/app/config/di/di.dart';
 import 'package:art_of_pilates/app/core/routes/routes.dart';
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
+import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/core/util/app_validation.dart';
 import 'package:art_of_pilates/app/features/signup/presentation/view_model/signup_events.dart';
@@ -12,6 +13,7 @@ import 'package:art_of_pilates/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SignupScreen extends StatelessWidget {
   final SignupViewModel viewModel = getIt<SignupViewModel>();
@@ -195,11 +197,7 @@ class SignupScreen extends StatelessWidget {
                           viewModel.doIntent(SignupEvent());
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Failed to sign up: $e',
-                              ),
-                            ),
+                            SnackBar(content: Text('Failed to sign up: $e')),
                           );
                         }
                       },
@@ -281,10 +279,14 @@ class SignupScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.g_mobiledata, color: AppColors.blackColor),
+                SvgPicture.asset(
+                  AppImages.googleLogo,
+                  width: 24.w,
+                  height: 24.h,
+                ),
                 SizedBox(width: 10.w),
                 Text(
-                  'Continue with Google',
+                  locale.continueWithGoogle,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.blackColor,
@@ -293,51 +295,7 @@ class SignupScreen extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        SizedBox(height: 12.h),
-        SizedBox(
-          width: double.infinity,
-          height: 50.h,
-          child: OutlinedButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
-              side: WidgetStateProperty.all(
-                const BorderSide(color: AppColors.secondary),
-              ),
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-              ),
-            ),
-            onPressed: state.signupState?.isLoading == true
-                ? null
-                : () async {
-                    try {
-                      viewModel.doIntent(SignupWithAppleEvent());
-                    } catch (e) {
-                      // Log the error for debugging (use a logging package like logger)
-                      print('Apple Sign-In error: $e');
-                      // Show a user-friendly message
-                    }
-                  },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.apple, color: AppColors.blackColor),
-                SizedBox(width: 10.w),
-                Text(
-                  'Continue with Apple',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.blackColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        ),],
     );
   }
 }

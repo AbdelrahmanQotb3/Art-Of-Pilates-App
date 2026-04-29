@@ -2,11 +2,12 @@ import 'package:art_of_pilates/app/features/home/presentation/view_model/home_ev
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_states.dart';
 import 'package:art_of_pilates/app/features/home/presentation/views/home_tab.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/packages_tab.dart';
-import 'package:art_of_pilates/app/features/my_accounts/views/my_accounts_tab.dart';
+import 'package:art_of_pilates/app/features/profile/presentation/views/profile_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/schedule_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 @injectable
 class HomeViewModel extends Cubit<HomeStates> {
   HomeViewModel() : super(HomeStates());
@@ -19,11 +20,16 @@ class HomeViewModel extends Cubit<HomeStates> {
 
   Widget getTab(int index) {
     switch (index) {
-      case 0: return const HomeTab();
-      case 1: return const ScheduleTab();
-      case 2: return const PackagesTab();
-      case 3: return const ProfileTab();
-      default: return const HomeTab();
+      case 0:
+        return HomeTab();
+      case 1:
+        return const ScheduleTab();
+      case 2:
+        return const PackagesTab();
+      case 3:
+        return const ProfileScreen();
+      default:
+        return HomeTab();
     }
   }
 }

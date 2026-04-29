@@ -294,6 +294,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get payNow => 'Pay Now';
 
   @override
+  String get payment => 'Payment';
+
+  @override
+  String get selectPaymentMethod => 'Select Payment Method';
+
+  @override
+  String get onlinePayment => 'Online Payment';
+
+  @override
+  String get onlinePaymentDescription =>
+      'Pay securely with credit card, debit card, or digital wallet';
+
+  @override
+  String get offlinePayment => 'Offline Payment';
+
+  @override
+  String get offlinePaymentDescription =>
+      'Pay in person at the studio location';
+
+  @override
+  String get confirmAndPay => 'Confirm & Pay';
+
+  @override
   String get showMore => 'Show More';
 
   @override
@@ -338,9 +361,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get copounNotAdded => 'Coupon not added';
-
-  @override
-  String get continueToPaymnet => 'Continue to Payment';
 
   @override
   String get iHaveReadAndAcceptPlanPolicy => 'I have read and accept ';
@@ -447,4 +467,77 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteAccountConfirmation =>
       'Are you sure you want to permanently delete your account? This action cannot be undone.';
+
+  @override
+  String get continueWithGoogle => 'Continue with Google';
+
+  @override
+  String get continueWithApple => 'Continue with Apple';
+
+  @override
+  String get noUpcomingBookings => 'No upcoming bookings';
+
+  @override
+  String get cancelBooking => 'Cancel Booking';
+
+  @override
+  String get upcoming => 'Upcoming';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get orderSummary => 'Order summary';
+
+  @override
+  String get promoCode => 'Promo code';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get tax => 'Tax';
+
+  @override
+  String get reviewAndPlaceOrder => 'Review & Place Order';
+
+  @override
+  String get iAgreeToThe => 'I agree to the';
+
+  @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get returnPolicy => 'Return Policy';
+
+  @override
+  String get and => 'and';
+
+  @override
+  String get mustAcceptTerms => 'You must accept the terms to continue.';
+
+  @override
+  String get sendMeMarketingCommunications =>
+      'Send me marketing communications via email & SMS';
+
+  @override
+  String get estimatedTotal => 'Estimated total';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get sessionBookedSuccessfully => 'Session booked successfully!';
+
+  @override
+  String get continueToPayment => 'Continue to Payment';
+
+  @override
+  String get alreadyBooked => 'You have already booked this session';
+
+  @override
+  String get booked => 'Booked';
+
+  @override
+  String get full => 'Full';
 }

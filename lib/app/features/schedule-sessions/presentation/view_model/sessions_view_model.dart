@@ -28,7 +28,6 @@ class SessionsViewModel extends Cubit<SessionsStates> {
     }
   }
 
-  // --- Logic moved from UI ---
 
   DateTime normalize(DateTime d) => DateTime(d.year, d.month, d.day);
 

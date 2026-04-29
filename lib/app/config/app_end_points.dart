@@ -21,4 +21,12 @@ abstract class AppEndPoints {
 
   static const String getAllPackages = "pricing-plans/getPlans";
   static const String getOnePackage = "pricing-plans/getPlanById";
+
+  static const String getAllBookings = "bookings/my-bookings";
+  static const String getMyPlans = "bookings/my-plans";
+  static const String cancelBooking = "bookings/cancel/{bookingId}";
+  static const String bookSessionDirectly = "bookings/book";
+  static const String purchasePlan = "bookings/purchase-plan";
+  static const String bookWithPlan = "bookings/book-with-plan";
+  static const String checkBooking = "bookings/check/{sessionId}";
 }

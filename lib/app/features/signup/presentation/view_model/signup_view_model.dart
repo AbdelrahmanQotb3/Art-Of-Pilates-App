@@ -44,18 +44,15 @@ class SignupViewModel extends Cubit<SignupStates> {
     }
   }
 
-  // --- Logic for Google ---
   Future<void> _signupWithGoogle() async {
     isSocialSignup = true;
     try {
       final googleUser = await _googleSignIn.signIn();
 
-      // Handle user dismissing the dialog
       if (googleUser == null) return;
 
       final auth = await googleUser.authentication;
 
-      // SAFETY CHECK: Prevents the "Null check operator" crash
       if (auth.idToken == null) {
         _emitError(
           "Google did not provide an ID Token. Please verify your SHA-1 fingerprint in Firebase.",
@@ -71,7 +68,6 @@ class SignupViewModel extends Cubit<SignupStates> {
     }
   }
 
-  // --- Logic for Apple ---
   Future<void> _signupWithApple() async {
     isSocialSignup = true;
     try {
@@ -82,7 +78,6 @@ class SignupViewModel extends Cubit<SignupStates> {
         ],
       );
 
-      // SAFETY CHECK: Ensure the token exists before using '!'
       if (credential.identityToken == null) {
         _emitError("Apple did not provide an Identity Token.");
         return;
@@ -98,7 +93,6 @@ class SignupViewModel extends Cubit<SignupStates> {
     }
   }
 
-  // --- Standard Email Signup ---
   Future<void> signup(
     String firstName,
     String lastName,
@@ -111,7 +105,6 @@ class SignupViewModel extends Cubit<SignupStates> {
     _handleResult(result);
   }
 
-  // --- State Helpers ---
   void _emitLoading() {
     emit(
       state.copyWith(signupStateParam: BaseState<SignupModel>(isLoading: true)),

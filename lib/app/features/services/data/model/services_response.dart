@@ -1,7 +1,7 @@
 import 'package:art_of_pilates/app/features/schedule-sessions/data/model/sessions_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'services_response.g.dart'; // Change this filename to match your actual file name
+part 'services_response.g.dart';
 
 @JsonSerializable()
 class ServicesResponse {
@@ -23,10 +23,10 @@ class Service {
   final String? createdAt;
   final String? updatedAt;
   final String? name;
-  final String? imageUrl; // Changed from Null? to String?
+  final String? imageUrl;
   final String? tagLine;
   final String? description;
-  final int? maxParticipants; // Changed from Null? to int?
+  final int? maxParticipants;
   final bool? onlineBookings;
   final String? bookingFormId;
   final int? price;
@@ -36,7 +36,7 @@ class Service {
   final String? bufferTime;
   final String? paymentType;
   final String? paymentPriceType;
-  final double? paymentAmount; // Changed to double?
+  final double? paymentAmount;
   final String? paymentPref;
   final String? location;
   final String? bookingPolicy;

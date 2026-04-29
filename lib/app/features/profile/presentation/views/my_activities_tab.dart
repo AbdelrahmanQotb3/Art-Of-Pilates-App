@@ -1,5 +1,6 @@
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/use_cases/navigate_to_all_bookings_screen_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,7 +23,7 @@ class MyActivitiesTab extends StatelessWidget {
             ),
           ),
         ),
-        _buildMenuItem(Icons.calendar_today_outlined, locale.bookings),
+        _buildMenuItem(Icons.calendar_today_outlined, locale.bookings , onTap: () =>NavigateToAllBookingsScreenUseCase.call(context)),
         _buildMenuItem(Icons.shopping_bag_outlined, locale.orders),
         _buildMenuItem(Icons.stars_outlined, locale.rewards),
         _buildMenuItem(Icons.check_box_outlined, locale.myPrograms),
@@ -30,7 +31,7 @@ class MyActivitiesTab extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String label) {
+  Widget _buildMenuItem(IconData icon, String label , {VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon, color: AppColors.accentColor, size: 22),
       title: Text(
@@ -41,7 +42,7 @@ class MyActivitiesTab extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.chevron_right, color: AppColors.accentColor),
-      onTap: () {},
+      onTap: onTap ?? () {},
     );
   }
 }
