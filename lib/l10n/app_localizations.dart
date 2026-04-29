@@ -656,6 +656,48 @@ abstract class AppLocalizations {
   /// **'Pay Now'**
   String get payNow;
 
+  /// No description provided for @payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// No description provided for @selectPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Method'**
+  String get selectPaymentMethod;
+
+  /// No description provided for @onlinePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Payment'**
+  String get onlinePayment;
+
+  /// No description provided for @onlinePaymentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay securely with credit card, debit card, or digital wallet'**
+  String get onlinePaymentDescription;
+
+  /// No description provided for @offlinePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline Payment'**
+  String get offlinePayment;
+
+  /// No description provided for @offlinePaymentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay in person at the studio location'**
+  String get offlinePaymentDescription;
+
+  /// No description provided for @confirmAndPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm & Pay'**
+  String get confirmAndPay;
+
   /// No description provided for @showMore.
   ///
   /// In en, this message translates to:
@@ -745,12 +787,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Coupon not added'**
   String get copounNotAdded;
-
-  /// No description provided for @continueToPaymnet.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue to Payment'**
-  String get continueToPaymnet;
 
   /// No description provided for @iHaveReadAndAcceptPlanPolicy.
   ///
@@ -949,6 +985,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to permanently delete your account? This action cannot be undone.'**
   String get deleteAccountConfirmation;
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @continueWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get continueWithApple;
+
+  /// No description provided for @noUpcomingBookings.
+  ///
+  /// In en, this message translates to:
+  /// **'No upcoming bookings'**
+  String get noUpcomingBookings;
+
+  /// No description provided for @cancelBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Booking'**
+  String get cancelBooking;
+
+  /// No description provided for @upcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcoming;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @orderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order summary'**
+  String get orderSummary;
+
+  /// No description provided for @promoCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Promo code'**
+  String get promoCode;
+
+  /// No description provided for @subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get subtotal;
+
+  /// No description provided for @tax.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax'**
+  String get tax;
+
+  /// No description provided for @reviewAndPlaceOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Review & Place Order'**
+  String get reviewAndPlaceOrder;
+
+  /// No description provided for @iAgreeToThe.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the'**
+  String get iAgreeToThe;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @returnPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Return Policy'**
+  String get returnPolicy;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get and;
+
+  /// No description provided for @mustAcceptTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the terms to continue.'**
+  String get mustAcceptTerms;
+
+  /// No description provided for @sendMeMarketingCommunications.
+  ///
+  /// In en, this message translates to:
+  /// **'Send me marketing communications via email & SMS'**
+  String get sendMeMarketingCommunications;
+
+  /// No description provided for @estimatedTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated total'**
+  String get estimatedTotal;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @sessionBookedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Session booked successfully!'**
+  String get sessionBookedSuccessfully;
+
+  /// No description provided for @continueToPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get continueToPayment;
+
+  /// No description provided for @alreadyBooked.
+  ///
+  /// In en, this message translates to:
+  /// **'You have already booked this session'**
+  String get alreadyBooked;
+
+  /// No description provided for @booked.
+  ///
+  /// In en, this message translates to:
+  /// **'Booked'**
+  String get booked;
+
+  /// No description provided for @full.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get full;
 }
 
 class _AppLocalizationsDelegate

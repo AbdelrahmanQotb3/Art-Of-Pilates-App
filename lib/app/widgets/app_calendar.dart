@@ -22,7 +22,6 @@ class AppCalendar extends StatefulWidget {
 }
 
 class _AppCalendarState extends State<AppCalendar> {
-  // Calendar format state is local to this widget to handle the toggle
   CalendarFormat _calendarFormat = CalendarFormat.week;
 
   @override
@@ -32,12 +31,8 @@ class _AppCalendarState extends State<AppCalendar> {
         TableCalendar(
           firstDay: DateTime(2020),
           lastDay: DateTime(2030),
-          // Use widget.focusedDay passed from the parent
           focusedDay: widget.focusedDay,
-          
-          // Fix: Logic to highlight the selected day
           selectedDayPredicate: (day) => isSameDay(widget.selectedDay, day),
-
           calendarFormat: _calendarFormat,
           availableCalendarFormats: const {
             CalendarFormat.month: 'Month',
@@ -49,10 +44,7 @@ class _AppCalendarState extends State<AppCalendar> {
 
           startingDayOfWeek: StartingDayOfWeek.saturday,
           
-          // Fix: Trigger the parent's callback when a user taps a day
           onDaySelected: widget.onDaySelected,
-          
-          // Fix: Trigger the dot markers logic
           eventLoader: widget.eventLoader,
 
           calendarStyle: CalendarStyle(
@@ -64,14 +56,11 @@ class _AppCalendarState extends State<AppCalendar> {
               color: AppColors.primary,
               shape: BoxShape.circle,
             ),
-            // The markers (dots) styling
             markerDecoration: const BoxDecoration(
               color: AppColors.primary,
               shape: BoxShape.circle,
             ),
-            // Ensure dots are visible even on selected days by adding a margin/size if needed
             markerSize: 7.0,
-            
             defaultTextStyle: const TextStyle(color: AppColors.primary),
             weekendTextStyle: const TextStyle(color: AppColors.primary),
             outsideTextStyle: const TextStyle(color: AppColors.accentColor),
@@ -100,8 +89,6 @@ class _AppCalendarState extends State<AppCalendar> {
             weekendStyle: TextStyle(color: AppColors.primary),
           ),
         ),
-
-        // Custom drag handle logic
         GestureDetector(
           onTap: () {
             setState(() {

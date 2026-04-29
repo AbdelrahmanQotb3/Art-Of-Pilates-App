@@ -38,7 +38,7 @@ class SessionEntity {
     this.staffMemberId,
     this.service,
     this.staffMember,
-    this.description
+    this.description,
   });
 
   SessionEntity copyWith({
@@ -53,7 +53,7 @@ class SessionEntity {
     String? staffMemberId,
     ServiceEntity? service,
     StaffMemberEntity? staffMember,
-    String? description
+    String? description,
   }) {
     return SessionEntity(
       id: id ?? this.id,
@@ -67,7 +67,7 @@ class SessionEntity {
       staffMemberId: staffMemberId ?? this.staffMemberId,
       service: service ?? this.service,
       staffMember: staffMember ?? this.staffMember,
-      description: description ?? this.description
+      description: description ?? this.description,
     );
   }
 }

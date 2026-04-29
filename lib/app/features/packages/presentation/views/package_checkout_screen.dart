@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class CheckoutScreen extends StatefulWidget {
+class PackageCheckoutScreen extends StatefulWidget {
   final PricingPlanEntity plan;
-  const CheckoutScreen({super.key, required this.plan});
+  const PackageCheckoutScreen({super.key, required this.plan});
 
   @override
-  State<CheckoutScreen> createState() => _CheckoutScreenState();
+  State<PackageCheckoutScreen> createState() => _PackageCheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
   DateTime _selectedStartDate = DateTime.now();
   String? _appliedCoupon;
   bool _policyAccepted = false;
@@ -331,7 +331,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ),
                 child: Text(
-                  locale.continueToPaymnet,
+                  locale.continueToPayment,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,

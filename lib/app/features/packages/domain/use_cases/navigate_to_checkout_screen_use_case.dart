@@ -5,6 +5,6 @@ import 'package:flutter/widgets.dart';
 class NavigateToCheckoutScreenUseCase {
 
   static void call(BuildContext context, PricingPlanEntity plan) {
-  Navigator.pushNamed(context, Routes.checkoutScreen, arguments: plan);
+  Navigator.pushNamed(context, Routes.packageCheckoutScreen, arguments: plan);
 }
 }

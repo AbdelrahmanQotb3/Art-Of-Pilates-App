@@ -36,7 +36,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: BlocListener<SettingsViewModel, SettingsStates>(
         listenWhen: (prev, curr) => prev.logoutState != curr.logoutState,
         listener: (context, state) {
-          // ✅ show error snackbar if logout fails
           if (state.logoutState?.errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

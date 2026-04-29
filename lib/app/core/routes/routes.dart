@@ -10,13 +10,16 @@ abstract class Routes {
   static const String editProfileScreen = _Paths.editProfile;
   static const String sessionDetailsScreen = _Paths.sessionDetails;
   static const String packageDetailsScreen = _Paths.packageDetailsScreen;
-  static const String checkoutScreen = _Paths.checkoutScreen;
+  static const String packageCheckoutScreen = _Paths.packageCheckoutScreen;
   static const String settingsScreen = _Paths.settingsScreen;
   static const String languageScreen = _Paths.languageScreen;
   static const String displayScreen = _Paths.displayScreen;
   static const String notificationScreen = _Paths.notificationScreen;
   static const String deleteAccountScreen = _Paths.deleteAccountScreen;
   static const String aboutAppScreen = _Paths.aboutAppScreen;
+  static const String allBookingsScreen = _Paths.allBookingsScreen;
+  static const String paymentScreen = _Paths.paymentScreen;
+  static const String sessionCheckoutScreen = _Paths.sessionCheckoutScreen;
 }
 
 abstract class _Paths {
@@ -31,11 +34,14 @@ abstract class _Paths {
   static const String editProfile = "editProfile";
   static const String sessionDetails = "sessionDetails";
   static const String packageDetailsScreen = "packageDetailsScreen";
-  static const String checkoutScreen = "checkoutScreen";
+  static const String packageCheckoutScreen = "packageCheckoutScreen";
   static const String settingsScreen = "settingsScreen";
   static const String languageScreen = "languageScreen";
   static const String displayScreen = "displayScreen";
   static const String notificationScreen = "notificationScreen";
   static const String deleteAccountScreen = "deleteAccountScreen";
   static const String aboutAppScreen = "aboutAppScreen";
+  static const String allBookingsScreen = "allBookingsScreen";
+  static const String paymentScreen = "paymentScreen";
+  static const String sessionCheckoutScreen = "sessionCheckoutScreen";
 }

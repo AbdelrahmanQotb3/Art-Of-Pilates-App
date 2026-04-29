@@ -296,6 +296,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get payNow => 'ادفع الآن';
 
   @override
+  String get payment => 'الدفع';
+
+  @override
+  String get selectPaymentMethod => 'اختر طريقة الدفع';
+
+  @override
+  String get onlinePayment => 'الدفع عبر الإنترنت';
+
+  @override
+  String get onlinePaymentDescription =>
+      'ادفع بأمان باستخدام بطاقة الائتمان أو الخصم أو المحفظة الرقمية';
+
+  @override
+  String get offlinePayment => 'الدفع في الموقع';
+
+  @override
+  String get offlinePaymentDescription => 'ادفع شخصياً في موقع الاستوديو';
+
+  @override
+  String get confirmAndPay => 'تأكيد والدفع';
+
+  @override
   String get showMore => 'اظهار المزيد';
 
   @override
@@ -340,9 +362,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get copounNotAdded => 'لا يوجد كوبون';
-
-  @override
-  String get continueToPaymnet => 'استمر في الدفع';
 
   @override
   String get iHaveReadAndAcceptPlanPolicy => 'لقد قرت وقبلت سياسة';
@@ -448,4 +467,77 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get deleteAccountConfirmation =>
       'هل أنت متأكد أنك تريد حذف حسابك نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get continueWithGoogle => 'متابعة مع Google';
+
+  @override
+  String get continueWithApple => 'متابعة مع Apple';
+
+  @override
+  String get noUpcomingBookings => 'لا توجد حجوزات قادمة';
+
+  @override
+  String get cancelBooking => 'إلغاء الحجز';
+
+  @override
+  String get upcoming => 'القادمة';
+
+  @override
+  String get history => 'التاريخ';
+
+  @override
+  String get orderSummary => 'ملخص الطلب';
+
+  @override
+  String get promoCode => 'كود الخصم';
+
+  @override
+  String get subtotal => 'المجموع الجزئي';
+
+  @override
+  String get tax => 'الضريبة';
+
+  @override
+  String get reviewAndPlaceOrder => 'مراجعة وتأكيد الطلب';
+
+  @override
+  String get iAgreeToThe => 'أوافق على';
+
+  @override
+  String get termsAndConditions => 'الشروط والأحكام';
+
+  @override
+  String get returnPolicy => 'سياسة الإرجاع';
+
+  @override
+  String get and => 'و';
+
+  @override
+  String get mustAcceptTerms => 'يجب قبول الشروط للمتابعة.';
+
+  @override
+  String get sendMeMarketingCommunications =>
+      'أرسل لي رسائل تسويقية عبر البريد الإلكتروني والرسائل القصيرة';
+
+  @override
+  String get estimatedTotal => 'الإجمالي التقديري';
+
+  @override
+  String get total => 'الإجمالي';
+
+  @override
+  String get sessionBookedSuccessfully => 'تم حجز الجلسة بنجاح!';
+
+  @override
+  String get continueToPayment => 'استمر في الدفع';
+
+  @override
+  String get alreadyBooked => 'لقد حجزت هذه الجلسة بالفعل';
+
+  @override
+  String get booked => 'محجوز';
+
+  @override
+  String get full => 'مكتمل';
 }

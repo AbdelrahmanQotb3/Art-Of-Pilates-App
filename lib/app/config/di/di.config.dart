@@ -15,6 +15,25 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../core/util/session_manager.dart' as _i32;
+import '../../features/bookings/api/api_client/bookings_api_client.dart'
+    as _i1017;
+import '../../features/bookings/api/data_source/bookings_data_source_impl.dart'
+    as _i596;
+import '../../features/bookings/data/data_source/bookings_data_source_contract.dart'
+    as _i871;
+import '../../features/bookings/data/repo/bookings_repo_impl.dart' as _i826;
+import '../../features/bookings/domain/repo/bookings_repo_contract.dart'
+    as _i756;
+import '../../features/bookings/domain/use_cases/book_session_use_case.dart'
+    as _i1017;
+import '../../features/bookings/domain/use_cases/cancel_booking_use_case.dart'
+    as _i429;
+import '../../features/bookings/domain/use_cases/check_booking_use_case.dart'
+    as _i386;
+import '../../features/bookings/domain/use_cases/get_all_bookings_use_case.dart'
+    as _i677;
+import '../../features/bookings/presentation/view_model/bookings_view_model.dart'
+    as _i122;
 import '../../features/home/presentation/view_model/home_view_model.dart'
     as _i77;
 import '../../features/packages/api/api_client/packages_api_client.dart'
@@ -134,6 +153,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i660.NavigateToEditInfoScreenUseCase(),
     );
     gh.lazySingleton<_i32.SessionManager>(() => _i32.SessionManager());
+    gh.factory<_i1017.BookingsApiClient>(
+      () => _i1017.BookingsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i899.PackagesApiClient>(
       () => _i899.PackagesApiClient(gh<_i361.Dio>()),
     );
@@ -176,8 +198,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i85.SignupViewModel>(
       () => _i85.SignupViewModel(gh<_i941.SignupUseCase>()),
     );
+    gh.factory<_i871.BookingsDataSourceContract>(
+      () => _i596.BookingsDataSourceImpl(gh<_i1017.BookingsApiClient>()),
+    );
     gh.factory<_i478.SettingsDataSourceContract>(
       () => _i401.SettingsDataSourceImpl(gh<_i474.SettingsApiClient>()),
+    );
+    gh.factory<_i756.BookingsRepoContract>(
+      () => _i826.BookingsRepoImpl(gh<_i871.BookingsDataSourceContract>()),
     );
     gh.factory<_i84.ServicesDataSourceContract>(
       () => _i859.ServicesDataSourceImpl(gh<_i173.ServicesApiClient>()),
@@ -200,11 +228,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i906.GetOneSessionUseCase>(
       () => _i906.GetOneSessionUseCase(gh<_i149.SessionsRepoContract>()),
     );
+    gh.factory<_i429.CancelBookingUseCase>(
+      () => _i429.CancelBookingUseCase(gh<_i756.BookingsRepoContract>()),
+    );
     gh.factory<_i45.SessionsViewModel>(
       () => _i45.SessionsViewModel(
         gh<_i796.GetAllSessionsUseCase>(),
         gh<_i906.GetOneSessionUseCase>(),
       ),
+    );
+    gh.factory<_i677.GetAllBookingsUseCase>(
+      () => _i677.GetAllBookingsUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.factory<_i1017.BookSessionUseCase>(
+      () => _i1017.BookSessionUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.factory<_i386.CheckBookingUseCase>(
+      () => _i386.CheckBookingUseCase(gh<_i756.BookingsRepoContract>()),
     );
     gh.factory<_i726.ServicesRepoContract>(
       () => _i83.ServicesRepoImpl(gh<_i84.ServicesDataSourceContract>()),
@@ -249,6 +289,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1064.SettingsViewModel(
         gh<_i725.LogoutUseCase>(),
         gh<_i70.DeleteAccoountUseCase>(),
+      ),
+    );
+    gh.factory<_i122.BookingsViewModel>(
+      () => _i122.BookingsViewModel(
+        gh<_i677.GetAllBookingsUseCase>(),
+        gh<_i429.CancelBookingUseCase>(),
+        gh<_i1017.BookSessionUseCase>(),
+        gh<_i386.CheckBookingUseCase>(),
       ),
     );
     gh.factory<_i187.PackagesViewModel>(
