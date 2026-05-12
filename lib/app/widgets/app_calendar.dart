@@ -31,6 +31,7 @@ class _AppCalendarState extends State<AppCalendar> {
           firstDay: DateTime(2020),
           lastDay: DateTime(2030),
           focusedDay: widget.focusedDay,
+          daysOfWeekHeight: 26.h,
           selectedDayPredicate: (day) => isSameDay(widget.selectedDay, day),
           calendarFormat: _calendarFormat,
           availableCalendarFormats: const {

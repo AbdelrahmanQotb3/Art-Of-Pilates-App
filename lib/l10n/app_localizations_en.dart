@@ -568,4 +568,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get comment => 'Comment (optional)';
+
+  @override
+  String get someThingWentWrong => 'Something went wrong. Please try again.';
+
+  @override
+  String get perSession => 'per session';
+
+  @override
+  String get thisSessionHasEnded => 'This session has ended';
+
+  @override
+  String get sessionEnded => 'Session Ended';
+
+  @override
+  String get filters => 'Filters';
+
+  @override
+  String get noSessionsForThisDay => 'No sessions for this day';
 }

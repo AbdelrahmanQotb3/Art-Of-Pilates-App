@@ -568,4 +568,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get comment => 'تعليق (اختياري)';
+
+  @override
+  String get someThingWentWrong => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get perSession => 'لكل جلسة';
+
+  @override
+  String get thisSessionHasEnded => 'هذه الجلسة انتهت';
+
+  @override
+  String get sessionEnded => 'انتهت الجلسة';
+
+  @override
+  String get filters => 'الفلاتر';
+
+  @override
+  String get noSessionsForThisDay => 'لا توجد جلسات لهذا اليوم';
 }

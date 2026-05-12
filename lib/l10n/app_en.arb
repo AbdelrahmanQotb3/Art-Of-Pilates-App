@@ -359,5 +359,17 @@
   "signupWithGoogleErrorMessage": "An error occurred while signing up with Google. Please try again.",
   "@signupWithGoogleErrorMessage": {},
   "comment" : "Comment (optional)",
-  "@comment" : {}
+  "@comment" : {},
+  "someThingWentWrong": "Something went wrong. Please try again.",
+  "@someThingWentWrong": {},
+  "perSession": "per session",
+  "@perSession": {},
+  "thisSessionHasEnded" : "This session has ended",
+  "@thisSessionHasEnded" : {},
+  "sessionEnded" : "Session Ended",
+  "@sessionEnded" : {},
+  "filters": "Filters",
+  "@filters": {},
+  "noSessionsForThisDay": "No sessions for this day",
+  "@noSessionsForThisDay": {}
 }
