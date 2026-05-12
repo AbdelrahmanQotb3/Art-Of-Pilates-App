@@ -35,6 +35,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = appLocale(context);
     final theme = Theme.of(context);
 
     return MultiBlocProvider(
@@ -108,7 +109,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          'Filters',
+                          locale.filters,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -134,7 +135,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                     child: dayEvents.isEmpty
                         ? Center(
                             child: Text(
-                              'No sessions for this day',
+                              locale.noSessionsForThisDay,
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.colorScheme.primary,
                               ),

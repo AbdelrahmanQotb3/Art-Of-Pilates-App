@@ -179,5 +179,11 @@
   "signupErrorMessage": "حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.",
   "signinWithGoogleErrorMessage": "حدث خطأ أثناء تسجيل الدخول مع Google. يرجى المحاولة مرة أخرى.",
   "signupWithGoogleErrorMessage": "حدث خطأ أثناء التسجيل مع Google. يرجى المحاولة مرة أخرى.",
-  "comment" : "تعليق (اختياري)"
+  "comment" : "تعليق (اختياري)",
+  "someThingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "perSession": "لكل جلسة",
+  "thisSessionHasEnded" : "هذه الجلسة انتهت",
+  "sessionEnded" : "انتهت الجلسة",
+  "filters": "الفلاتر",
+  "noSessionsForThisDay": "لا توجد جلسات لهذا اليوم"
 }

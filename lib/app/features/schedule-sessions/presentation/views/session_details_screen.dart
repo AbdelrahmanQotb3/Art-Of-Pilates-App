@@ -174,7 +174,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Something went wrong',
+                        locale.someThingWentWrong,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onError,
                           fontSize: 14.sp,
@@ -232,15 +232,10 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
     final spotsLeft =
         (session.maxParticipants ?? 0) - (session.currentParticipants ?? 0);
     final durationMinutes = session.startTime != null && session.endTime != null
-        ? DateTime.parse(session.endTime!)
-            .difference(DateTime.parse(session.startTime!))
-            .inMinutes
+        ? DateTime.parse(
+            session.endTime!,
+          ).difference(DateTime.parse(session.startTime!)).inMinutes
         : 0;
-    final formattedTime = session.startTime != null
-        ? DateFormat('h:mm a')
-            .format(DateTime.parse(session.startTime!).toLocal())
-        : '';
-
     return Stack(
       children: [
         SingleChildScrollView(
@@ -264,7 +259,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     SizedBox(height: 12.h),
                     _buildInfoRow(
                       Icons.calendar_today_outlined,
-                      'Today, $formattedTime ($durationMinutes minutes)',
+                      session.startTime != null
+                          ? '${DateFormat('d MMM yyyy, h:mm a').format(DateTime.parse(session.startTime!).toLocal())} ($durationMinutes min)'
+                          : '',
                     ),
                     _buildInfoRow(
                       Icons.monetization_on_outlined,
@@ -310,13 +307,15 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       width: 32.w,
                       height: 32.h,
                       child: CircularProgressIndicator(
-                        value: session.maxParticipants != null &&
+                        value:
+                            session.maxParticipants != null &&
                                 session.maxParticipants! > 0
                             ? (session.currentParticipants ?? 0) /
-                                session.maxParticipants!
+                                  session.maxParticipants!
                             : 0,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onSurface,
                         color: Theme.of(context).colorScheme.primary,
                         strokeWidth: 3,
                       ),
@@ -343,7 +342,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'SAR ${session.service?.price?.toStringAsFixed(2) ?? ''} per session',
+                      'SAR ${session.service?.price?.toStringAsFixed(2) ?? ''} ${locale.perSession}',
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: Theme.of(context).colorScheme.onSurface,
@@ -414,7 +413,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 if (isAlreadyBooked) {
                   statusText = locale.alreadyBooked;
                 } else if (isPast) {
-                  statusText = 'This session has ended';
+                  statusText = locale.thisSessionHasEnded;
                 } else if (_paymentOption == 'buy_plan') {
                   statusText = locale.buyAPlanToBookThisSession;
                 } else {
@@ -427,7 +426,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 if (isAlreadyBooked) {
                   buttonLabel = locale.booked;
                 } else if (isPast) {
-                  buttonLabel = 'Session Ended';
+                  buttonLabel = locale.sessionEnded;
                 } else if (_paymentOption == 'buy_plan') {
                   buttonLabel = locale.buyPlan;
                 } else {
@@ -470,12 +469,12 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                                 }
                               },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          disabledBackgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.4),
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          disabledBackgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary.withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.r),
                           ),
@@ -494,8 +493,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
                                 ),
                               ),
                       ),
@@ -556,9 +556,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   }
 
   Widget _buildImageHeader() => Image.asset(
-        AppImages.homeLogo,
-        width: double.infinity,
-        height: 120.h,
-        fit: BoxFit.cover,
-      );
+    AppImages.homeLogo,
+    width: double.infinity,
+    height: 120.h,
+    fit: BoxFit.cover,
+  );
 }

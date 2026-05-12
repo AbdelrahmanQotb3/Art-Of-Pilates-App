@@ -1177,6 +1177,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Comment (optional)'**
   String get comment;
+
+  /// No description provided for @someThingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get someThingWentWrong;
+
+  /// No description provided for @perSession.
+  ///
+  /// In en, this message translates to:
+  /// **'per session'**
+  String get perSession;
+
+  /// No description provided for @thisSessionHasEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'This session has ended'**
+  String get thisSessionHasEnded;
+
+  /// No description provided for @sessionEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Ended'**
+  String get sessionEnded;
+
+  /// No description provided for @filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filters;
+
+  /// No description provided for @noSessionsForThisDay.
+  ///
+  /// In en, this message translates to:
+  /// **'No sessions for this day'**
+  String get noSessionsForThisDay;
 }
 
 class _AppLocalizationsDelegate
