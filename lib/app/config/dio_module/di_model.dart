@@ -14,9 +14,10 @@ abstract class DioModule {
     dio.options = BaseOptions(
       connectTimeout: const Duration(seconds: 180),
       receiveTimeout: const Duration(seconds: 180),
+      receiveDataWhenStatusError: true,
       baseUrl: AppEndPoints.baseUrl,
-      validateStatus: (_) {
-        return true;
+      validateStatus: (status) {
+        return status != null && status >= 200 && status < 300;
       },
     );
     dio.interceptors.add(

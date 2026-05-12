@@ -1,11 +1,12 @@
 import 'package:art_of_pilates/app/config/di/di.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/copoun_sheet.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
+import 'package:art_of_pilates/app/features/profile/domain/use_cases/navigate_to_home_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/navigate_to_session_checkout_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_states.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_view_model.dart';
@@ -42,7 +43,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
     final locale = appLocale(context);
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
@@ -57,28 +58,31 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   height: 4.h,
                   margin: EdgeInsets.symmetric(vertical: 12.h),
                   decoration: BoxDecoration(
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(2.r),
                   ),
                 ),
                 ListTile(
                   title: Text(
                     locale.viewPaymentOptions,
-                    style: TextStyle(fontSize: 15.sp, color: AppColors.accentColor),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
-                Divider(color: AppColors.accentColor, height: 1),
+                Divider(color: Theme.of(context).dividerColor, height: 1),
                 ListTile(
                   title: Text(
                     locale.buyAPlan,
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.accentColor,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   trailing: _paymentOption == 'buy_plan'
-                      ? Icon(Icons.check, color: AppColors.accentColor)
+                      ? Icon(
+                          Icons.check,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        )
                       : null,
                   onTap: () {
                     setState(() => _paymentOption = 'buy_plan');
@@ -92,11 +96,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.accentColor,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   trailing: _paymentOption == 'pay_now'
-                      ? Icon(Icons.check, color: AppColors.accentColor)
+                      ? Icon(
+                          Icons.check,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        )
                       : null,
                   onTap: () {
                     setState(() => _paymentOption = 'pay_now');
@@ -123,8 +130,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
       ],
       child: BlocListener<BookingsViewModel, BookingsStates>(
         listenWhen: (prev, curr) =>
-            prev.bookSessionState != curr.bookSessionState,
+            prev.bookSessionState != curr.bookSessionState ||
+            prev.appException != curr.appException,
         listener: (context, state) {
+          if (state.appException != null &&
+              state.bookSessionState?.isLoading == false) {
+            AppExceptionDialog.show(context, state.appException!);
+            return;
+          }
           if (state.bookSessionState?.isLoading == false &&
               state.bookSessionState?.data != null) {
             bookingsViewModel.checkBooking(widget.sessionId);
@@ -140,13 +153,13 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.bookSessionState!.errorMessage!),
-                backgroundColor: AppColors.redColor,
+                backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
           }
         },
         child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: _buildAppBar(context),
           body: BlocBuilder<SessionsViewModel, SessionsStates>(
             buildWhen: (prev, curr) =>
@@ -163,7 +176,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       Text(
                         'Something went wrong',
                         style: TextStyle(
-                          color: AppColors.whiteColor,
+                          color: Theme.of(context).colorScheme.onError,
                           fontSize: 14.sp,
                         ),
                       ),
@@ -190,20 +203,20 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     final locale = appLocale(context);
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(
         locale.bookThisSession,
-        style: const TextStyle(
-          color: AppColors.whiteColor,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
           fontWeight: FontWeight.bold,
         ),
       ),
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back_ios_new_outlined,
-          color: AppColors.whiteColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );
@@ -211,14 +224,18 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
 
   Widget _buildBody(BuildContext context, SessionEntity session) {
     final locale = appLocale(context);
+
+    final isPast = session.startTime != null
+        ? DateTime.parse(session.startTime!).toLocal().isBefore(DateTime.now())
+        : false;
+
     final spotsLeft =
         (session.maxParticipants ?? 0) - (session.currentParticipants ?? 0);
-    final durationMinutes =
-        session.startTime != null && session.endTime != null
-            ? DateTime.parse(session.endTime!)
-                .difference(DateTime.parse(session.startTime!))
-                .inMinutes
-            : 0;
+    final durationMinutes = session.startTime != null && session.endTime != null
+        ? DateTime.parse(session.endTime!)
+            .difference(DateTime.parse(session.startTime!))
+            .inMinutes
+        : 0;
     final formattedTime = session.startTime != null
         ? DateFormat('h:mm a')
             .format(DateTime.parse(session.startTime!).toLocal())
@@ -241,7 +258,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.accentColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     SizedBox(height: 12.h),
@@ -265,13 +282,19 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              Divider(color: AppColors.accentColor, height: 1),
+              Divider(
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1,
+              ),
               _buildSection(
                 child: AboutSection(
                   description: session.service?.description ?? '',
                 ),
               ),
-              Divider(color: AppColors.accentColor, height: 1),
+              Divider(
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1,
+              ),
               _buildSection(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -280,7 +303,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       '$spotsLeft ${locale.spotsLeft}',
                       style: TextStyle(
                         fontSize: 15.sp,
-                        color: AppColors.accentColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     SizedBox(
@@ -292,15 +315,19 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                             ? (session.currentParticipants ?? 0) /
                                 session.maxParticipants!
                             : 0,
-                        backgroundColor: AppColors.accentColor,
-                        color: AppColors.primary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSurface,
+                        color: Theme.of(context).colorScheme.primary,
                         strokeWidth: 3,
                       ),
                     ),
                   ],
                 ),
               ),
-              Divider(color: AppColors.accentColor, height: 1),
+              Divider(
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1,
+              ),
               _buildSection(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,7 +336,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       locale.price.toUpperCase(),
                       style: TextStyle(
                         fontSize: 11.sp,
-                        color: AppColors.accentColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                         letterSpacing: 1.2,
                         fontWeight: FontWeight.w600,
                       ),
@@ -319,41 +346,53 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       'SAR ${session.service?.price?.toStringAsFixed(2) ?? ''} per session',
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.accentColor,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ],
                 ),
               ),
-              Divider(color: AppColors.accentColor, height: 1),
+              Divider(
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1,
+              ),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                 title: Text(
                   _appliedCoupon ?? locale.enterCouponcode,
                   style: TextStyle(
                     fontSize: 14.sp,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
-                trailing:
-                    Icon(Icons.chevron_right, color: AppColors.accentColor),
+                trailing: Icon(
+                  Icons.chevron_right,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 onTap: () {
-                  CouponBottomSheet.show(context, onApplied: (code) {
-                    setState(() => _appliedCoupon = code);
-                  });
+                  CouponBottomSheet.show(
+                    context,
+                    onApplied: (code) {
+                      setState(() => _appliedCoupon = code);
+                    },
+                  );
                 },
               ),
-              Divider(color: AppColors.accentColor, height: 1),
+              Divider(
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1,
+              ),
             ],
           ),
         ),
 
+        // Bottom booking bar
         Positioned(
           bottom: 0,
           left: 0,
           right: 0,
           child: Container(
-            color: AppColors.backgroundColor,
+            color: Theme.of(context).colorScheme.surface,
             padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 24.h),
             child: BlocBuilder<BookingsViewModel, BookingsStates>(
               buildWhen: (prev, curr) =>
@@ -366,48 +405,77 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     bookingState.checkBookingState?.data?.isBooked ?? false;
                 final isBooking =
                     bookingState.bookSessionState?.isLoading ?? false;
+
                 if (isChecking) {
                   return const Center(child: CircularProgressIndicator());
                 }
+
+                final String statusText;
+                if (isAlreadyBooked) {
+                  statusText = locale.alreadyBooked;
+                } else if (isPast) {
+                  statusText = 'This session has ended';
+                } else if (_paymentOption == 'buy_plan') {
+                  statusText = locale.buyAPlanToBookThisSession;
+                } else {
+                  statusText =
+                      'SAR ${session.service?.price ?? ''} ${locale.dueNow}';
+                }
+
+                // Determine button label
+                final String buttonLabel;
+                if (isAlreadyBooked) {
+                  buttonLabel = locale.booked;
+                } else if (isPast) {
+                  buttonLabel = 'Session Ended';
+                } else if (_paymentOption == 'buy_plan') {
+                  buttonLabel = locale.buyPlan;
+                } else {
+                  buttonLabel = locale.bookAndPay;
+                }
+
+                final bool isDisabled = isAlreadyBooked || isBooking || isPast;
 
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      isAlreadyBooked
-                          ? locale.alreadyBooked
-                          : (_paymentOption == 'buy_plan'
-                              ? locale.buyAPlanToBookThisSession
-                              : 'SAR ${session.service?.price ?? ''} ${locale.dueNow}'),
+                      statusText,
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.accentColor,
+                        color: isPast
+                            ? Theme.of(context).colorScheme.error
+                            : Theme.of(context).colorScheme.onSurface,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 10.h),
-
                     SizedBox(
                       width: double.infinity,
                       height: 50.h,
                       child: ElevatedButton(
-                        onPressed: isAlreadyBooked || isBooking
+                        onPressed: isDisabled
                             ? null
                             : () {
                                 if (_paymentOption == 'pay_now') {
-                                  bookingsViewModel.bookSession(session.id!);
-                                } else {
                                   NavigateToSessionCheckoutScreenUseCase.call(
                                     context,
                                     session,
                                   );
+                                } else if (_paymentOption == 'buy_plan') {
+                                  NavigateToHomeScreenUseCase.call(
+                                    context,
+                                    initialTabIndex: 2,
+                                  );
                                 }
                               },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: isAlreadyBooked
-                              // ignore: deprecated_member_use
-                              ? AppColors.primary.withOpacity(0.4)
-                              : AppColors.primary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          disabledBackgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.4),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.r),
                           ),
@@ -422,32 +490,30 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                                 ),
                               )
                             : Text(
-                                isAlreadyBooked
-                                    ? locale.booked
-                                    : (_paymentOption == 'buy_plan'
-                                        ? locale.buyPlan
-                                        : locale.bookAndPay),
+                                buttonLabel,
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.whiteColor,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                               ),
                       ),
                     ),
-
                     SizedBox(height: 10.h),
-                    GestureDetector(
-                      onTap: () => _showPaymentOptionsSheet(context),
-                      child: Text(
-                        locale.viewPaymentOptions,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w500,
+                    // Only show payment options if session is not past
+                    if (!isPast)
+                      GestureDetector(
+                        onTap: () => _showPaymentOptionsSheet(context),
+                        child: Text(
+                          locale.viewPaymentOptions,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 );
               },
@@ -470,13 +536,17 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
       padding: EdgeInsets.only(bottom: 10.h),
       child: Row(
         children: [
-          Icon(icon, size: 16.sp, color: AppColors.accentColor),
+          Icon(
+            icon,
+            size: 16.sp,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           SizedBox(width: 8.w),
           Text(
             text,
             style: TextStyle(
               fontSize: 13.sp,
-              color: AppColors.accentColor,
+              color: Theme.of(context).colorScheme.onSurface,
               decoration: underline ? TextDecoration.underline : null,
             ),
           ),

@@ -1,8 +1,10 @@
 import 'package:art_of_pilates/app/config/app_end_points.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/book_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/bookings_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/cancel_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/check_booking_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/my_plans_response.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -25,6 +27,15 @@ abstract class BookingsApiClient {
   Future<BookResponse> bookSessionDirectly(@Body() Map<String, dynamic> body);
 
   @GET(AppEndPoints.checkBooking)
-  Future<CheckBookingResponse> checkBooking(@Path('sessionId') String sessionId);
+  Future<CheckBookingResponse> checkBooking(
+    @Path('sessionId') String sessionId,
+  );
 
+  @POST(AppEndPoints.bookPlan)
+  Future<BookPlanResponse> bookAllPlanSessions(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET(AppEndPoints.getMyPlans)
+  Future<MyPlansResponse> getMyPlans();
 }

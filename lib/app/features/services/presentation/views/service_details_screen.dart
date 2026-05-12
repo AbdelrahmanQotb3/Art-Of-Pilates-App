@@ -1,5 +1,4 @@
 import 'package:art_of_pilates/app/config/di/di.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/services/presentation/view_model/services_events.dart';
@@ -20,7 +19,7 @@ class ServiceDetailsScreen extends StatelessWidget {
       create: (context) =>
           viewModel..doIntent(OneServiceEvent(serviceId: serviceId)),
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: _buildAppBar(context),
         body: _buildBody(context),
         bottomNavigationBar: _buildBottomNavigationBar(context),
@@ -31,20 +30,20 @@ class ServiceDetailsScreen extends StatelessWidget {
   PreferredSizeWidget? _buildAppBar(BuildContext context) {
     final locale = appLocale(context);
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(
         locale.serviceDetails,
         style: TextStyle(
-          color: AppColors.whiteColor,
+          color: Theme.of(context).colorScheme.onPrimary,
           fontWeight: FontWeight.bold,
         ),
       ),
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back_ios_new_outlined,
-          color: AppColors.whiteColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );
@@ -60,7 +59,7 @@ class ServiceDetailsScreen extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.oneServiceState!.errorMessage}',
-              style: const TextStyle(color: AppColors.redColor),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           );
         } else if (state.oneServiceState?.data != null) {
@@ -156,7 +155,7 @@ class ServiceDetailsScreen extends StatelessWidget {
   Widget _buildBottomNavigationBar(BuildContext context) {
     final locale = appLocale(context);
     return BottomAppBar(
-      color: AppColors.backgroundColor,
+      color: Theme.of(context).colorScheme.surface,
       elevation: 0,
       child: Center(
         child: SizedBox(
@@ -164,18 +163,17 @@ class ServiceDetailsScreen extends StatelessWidget {
           height: 50.h,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r),
               ),
             ),
             onPressed: () {
-              // Handle service selection logic
             },
             child: Text(
               locale.selectService,
               style: TextStyle(
-                color: AppColors.whiteColor,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
               ),

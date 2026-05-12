@@ -3,10 +3,13 @@ import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
+import 'package:art_of_pilates/app/features/packages/presentation/views/copoun_sheet.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/navigate_to_payment_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_view_model.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/show_more_details.dart';
+import 'package:art_of_pilates/app/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,8 +46,14 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
       ],
       child: BlocListener<BookingsViewModel, BookingsStates>(
         listenWhen: (prev, curr) =>
-            prev.bookSessionState != curr.bookSessionState,
+            prev.bookSessionState != curr.bookSessionState ||
+            prev.appException != curr.appException,
         listener: (context, state) {
+          if (state.appException != null &&
+              state.bookSessionState?.isLoading == false) {
+            AppExceptionDialog.show(context, state.appException!);
+            return;
+          }
           if (state.bookSessionState?.data != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -64,7 +73,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
           }
         },
         child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           appBar: _buildAppBar(context),
           body: _buildBody(context),
         ),
@@ -75,19 +84,19 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     final locale = appLocale(context);
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       centerTitle: true,
       title: Text(
         locale.checkout,
-        style: const TextStyle(
-          color: AppColors.whiteColor,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
       ),
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.close, color: AppColors.whiteColor),
+        icon: Icon(Icons.close, color: Theme.of(context).colorScheme.onPrimary),
       ),
     );
   }
@@ -120,7 +129,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.accentColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                       SizedBox(height: 16.h),
@@ -131,12 +140,12 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                             width: 52.w,
                             height: 52.h,
                             decoration: BoxDecoration(
-                              color: AppColors.primary,
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Icon(
                               Icons.fitness_center,
-                              color: AppColors.primary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               size: 24.sp,
                             ),
                           ),
@@ -150,7 +159,9 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.accentColor,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onBackground,
                                   ),
                                 ),
                                 SizedBox(height: 4.h),
@@ -158,7 +169,9 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                                   '$formattedTime · $duration',
                                   style: TextStyle(
                                     fontSize: 12.sp,
-                                    color: AppColors.accentColor
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onBackground,
                                   ),
                                 ),
                                 ShowMoreDetails(
@@ -173,7 +186,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                             style: TextStyle(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.accentColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                           ),
                         ],
@@ -191,27 +204,48 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                   ),
                   leading: Icon(
                     Icons.discount_outlined,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                     size: 22.sp,
                   ),
                   title: Text(
                     _appliedCoupon ?? locale.promoCode,
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: _appliedCoupon != null
-                          ? AppColors.accentColor
-                          : AppColors.accentColor,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
                   trailing: Icon(
                     Icons.chevron_right,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   onTap: () {
-                    // TODO: open coupon sheet
+                    CouponBottomSheet.show(
+                      context,
+                      onApplied: (code) {
+                        setState(() => _appliedCoupon = code);
+                      },
+                    );
                   },
                 ),
                 _buildDivider(),
+                _buildSectionPadding(
+                  child: TextField(
+                    controller: bookingsViewModel.commentController,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      hintText: locale.comment,
+                      hintStyle: TextStyle(
+                        fontSize: 14.sp,
+                        color: AppColors.accentColor.withOpacity(0.5),
+                      ),
+                      filled: false,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                  ),
+                ),
                 _buildSectionPadding(
                   child: Column(
                     children: [
@@ -242,7 +276,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.accentColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                       SizedBox(height: 16.h),
@@ -254,24 +288,38 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                               text: TextSpan(
                                 style: TextStyle(
                                   fontSize: 13.sp,
-                                  color: AppColors.accentColor,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onBackground,
                                   height: 1.5,
                                 ),
                                 children: [
                                   TextSpan(text: '${locale.iAgreeToThe} '),
                                   TextSpan(
                                     text: locale.termsAndConditions,
-                                    style: TextStyle(color: AppColors.primary),
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                                   ),
                                   const TextSpan(text: ', '),
                                   TextSpan(
                                     text: locale.privacyPolicy,
-                                    style: TextStyle(color: AppColors.primary),
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                                   ),
                                   TextSpan(text: ' ${locale.and} '),
                                   TextSpan(
                                     text: locale.returnPolicy,
-                                    style: TextStyle(color: AppColors.primary),
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                                   ),
                                   const TextSpan(text: '.'),
                                 ],
@@ -290,20 +338,24 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _showTermsError
-                                      ? AppColors.redColor
-                                      : AppColors.accentColor,
+                                      ? Theme.of(context).colorScheme.error
+                                      : Theme.of(
+                                          context,
+                                        ).colorScheme.onBackground,
                                   width: 1.5,
                                 ),
                                 borderRadius: BorderRadius.circular(4.r),
                                 color: _agreedToTerms
-                                    ? AppColors.primary
+                                    ? Theme.of(context).colorScheme.primary
                                     : Colors.transparent,
                               ),
                               child: _agreedToTerms
                                   ? Icon(
                                       Icons.check,
                                       size: 16.sp,
-                                      color: AppColors.whiteColor,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
                                     )
                                   : null,
                             ),
@@ -319,14 +371,14 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                             vertical: 10.h,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.redColor,
+                            color: Theme.of(context).colorScheme.error,
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Row(
                             children: [
                               Icon(
                                 Icons.info_outline,
-                                color: AppColors.whiteColor,
+                                color: Theme.of(context).colorScheme.onError,
                                 size: 14.sp,
                               ),
                               SizedBox(width: 8.w),
@@ -491,8 +543,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
     );
   }
 
-  Widget _buildDivider() =>
-      Divider(color: AppColors.accentColor, height: 1);
+  Widget _buildDivider() => Divider(color: AppColors.accentColor, height: 1);
 
   Widget _buildPriceRow(String label, String value, {bool bold = false}) {
     return Row(
@@ -502,9 +553,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
           label,
           style: TextStyle(
             fontSize: 14.sp,
-            color: bold
-                ? AppColors.accentColor
-                : AppColors.accentColor,
+            color: bold ? AppColors.accentColor : AppColors.accentColor,
             fontWeight: bold ? FontWeight.bold : FontWeight.normal,
           ),
         ),

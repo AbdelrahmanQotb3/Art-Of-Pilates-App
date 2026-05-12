@@ -40,13 +40,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.logoutState!.errorMessage!),
-                backgroundColor: AppColors.redColor,
+                backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
           }
         },
         child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: _buildAppBar(context),
           body: _buildBody(context),
         ),
@@ -220,10 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         content: Text(
           locale.logoutConfirmation,
-          style: TextStyle(
-            color: AppColors.accentColor,
-            fontSize: 14.sp,
-          ),
+          style: TextStyle(color: AppColors.accentColor, fontSize: 14.sp),
         ),
         actions: [
           TextButton(

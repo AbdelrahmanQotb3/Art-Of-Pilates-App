@@ -4,6 +4,7 @@ import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessi
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/get_all_sessions_use_case.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/get_one_session_use_case.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_states.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';

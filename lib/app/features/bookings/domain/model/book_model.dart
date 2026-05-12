@@ -4,6 +4,7 @@ class BookModel {
   final String? sessionId;
   final String? userPlanId;
   final DateTime? createdAt;
+  final String? invoiceId;
 
   BookModel({
     this.id,
@@ -11,5 +12,6 @@ class BookModel {
     this.sessionId,
     this.userPlanId,
     this.createdAt,
+    this.invoiceId,
   });
 }

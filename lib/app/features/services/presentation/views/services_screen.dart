@@ -1,5 +1,4 @@
 import 'package:art_of_pilates/app/config/di/di.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/services/domain/model/services_model.dart';
@@ -18,9 +17,10 @@ class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ServicesViewModel>()..doIntent(ServicesEvent()),
+      create: (context) =>
+          getIt<ServicesViewModel>()..doIntent(ServicesEvent()),
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: _buildAppBar(context),
         body: _buildBody(context),
       ),
@@ -30,21 +30,21 @@ class ServicesScreen extends StatelessWidget {
   PreferredSizeWidget? _buildAppBar(BuildContext context) {
     final locale = appLocale(context);
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Column(
         children: [
           Text(
             locale.services,
-            style: const TextStyle(
-              color: AppColors.whiteColor,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             locale.artOfPilates,
-            style: const TextStyle(
-              color: AppColors.whiteColor,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -54,9 +54,9 @@ class ServicesScreen extends StatelessWidget {
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back_ios_new_outlined,
-          color: AppColors.whiteColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );
@@ -72,7 +72,7 @@ class ServicesScreen extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.servicesState!.errorMessage}',
-              style: const TextStyle(color: AppColors.redColor),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           );
         } else if (state.servicesState?.data?.services != null) {
@@ -83,13 +83,16 @@ class ServicesScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSearchBar(locale),
+                  _buildSearchBar(locale , context),
                   const SizedBox(height: 10),
                   ...services.map(
                     (service) => InkWell(
-                      onTap: () => NavigateToServiceDetailsScreenUseCase.call(context, service.id!),
-                      child: _buildServiceItem(context, service)
+                      onTap: () => NavigateToServiceDetailsScreenUseCase.call(
+                        context,
+                        service.id!,
                       ),
+                      child: _buildServiceItem(context, service),
+                    ),
                   ),
                 ],
               ),
@@ -102,14 +105,14 @@ class ServicesScreen extends StatelessWidget {
     );
   }
 
-  AppTextField _buildSearchBar(AppLocalizations locale) {
+  AppTextField _buildSearchBar(AppLocalizations locale , BuildContext context) {
     return AppTextField(
       controller: TextEditingController(),
       hint: locale.searchForServices,
       label: locale.searchForServices,
-      prefixIcon: const Icon(
+      prefixIcon:  Icon(
         Icons.search_outlined,
-        color: AppColors.accentColor,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
     );
   }
@@ -120,7 +123,7 @@ class ServicesScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -137,26 +140,26 @@ class ServicesScreen extends StatelessWidget {
               children: [
                 Text(
                   service.name ?? 'Unknown Service',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 Text(
                   service.location ?? 'Unknown Location',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   '${service.currency ?? ''} ${service.price ?? 0} . ${locale.payableWithPlan}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -169,15 +172,15 @@ class ServicesScreen extends StatelessWidget {
                 // Handle booking action
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
               child: Text(
                 locale.book,
-                style: const TextStyle(
-                  color: AppColors.whiteColor,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                 ),
               ),

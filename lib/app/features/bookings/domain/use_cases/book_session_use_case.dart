@@ -9,7 +9,7 @@ class BookSessionUseCase {
 
   BookSessionUseCase(this._bookingsRepo);
 
-  Future<BaseResponse<BookModel>> call(String sessionId) async {
-    return await _bookingsRepo.bookSession(sessionId);
+  Future<BaseResponse<BookModel>> call(String sessionId , String? comment) async {
+    return await _bookingsRepo.bookSession(sessionId, comment);
   }
 }

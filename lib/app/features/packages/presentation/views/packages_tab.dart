@@ -31,7 +31,7 @@ class _PackagesTabState extends State<PackagesTab> {
     return BlocProvider.value(
       value: viewModel,
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: _buildAppBar(context),
         body: _buildBody(context),
       ),
@@ -40,7 +40,6 @@ class _PackagesTabState extends State<PackagesTab> {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.primary,
       leading: IconButton(
         icon: const Icon(Icons.person, size: 26, color: Colors.white),
         onPressed: () => NavigateToProfileScreenUseCase.call(context),
@@ -96,8 +95,7 @@ class _PackagesTabState extends State<PackagesTab> {
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           itemCount: plans.length,
           separatorBuilder: (_, _) => SizedBox(height: 16.h),
-          itemBuilder: (context, index) =>
-              PricingPlanCard(plan: plans[index]),
+          itemBuilder: (context, index) => PricingPlanCard(plan: plans[index]),
         );
       },
     );

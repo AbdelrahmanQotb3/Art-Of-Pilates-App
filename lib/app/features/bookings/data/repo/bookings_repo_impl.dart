@@ -1,13 +1,17 @@
 import 'package:art_of_pilates/app/config/base_response/base_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/data_source/bookings_data_source_contract.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/book_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/bookings_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/cancel_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/check_booking_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/my_plans_response.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/book_plan_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/cancel_booking_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/check_booking_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/my_plans_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/repo/bookings_repo_contract.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/data/model/sessions_response.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
@@ -98,10 +102,22 @@ class BookingsRepoImpl implements BookingsRepoContract {
     );
   }
 
+  UserPlanEntity _mapMyPlansUserPlanToEntity(Plans userPlan) {
+    return UserPlanEntity(
+      id: userPlan.id?.toString() ?? '',
+      sessionsTotal: userPlan.sessionsTotal ?? 0,
+      sessionsUsed: userPlan.sessionsUsed ?? 0,
+      sessionsLeft: userPlan.sessionsLeft ?? 0,
+      status: userPlan.status ?? '',
+      expiryDate: null,
+      planName: userPlan.pricingPlan?.planName ?? '',
+    );
+  }
+
   @override
-  Future<BaseResponse<CancelBookingModel>> cancelBooking(String id) async{
+  Future<BaseResponse<CancelBookingModel>> cancelBooking(String id) async {
     final response = await _bookingsDataSource.cancelBooking(id);
-    switch (response){
+    switch (response) {
       case SuccessResponse<CancelBookingResponse>():
         final CancelBookingModel model = CancelBookingModel(
           message: response.data.message ?? '',
@@ -114,9 +130,9 @@ class BookingsRepoImpl implements BookingsRepoContract {
   }
 
   @override
-  Future<BaseResponse<BookModel>> bookSession(String sessionId)async {
-    final response = await _bookingsDataSource.bookSession(sessionId);
-    switch (response){
+  Future<BaseResponse<BookModel>> bookSession(String sessionId , String? comment) async {
+    final response = await _bookingsDataSource.bookSession(sessionId, comment);
+    switch (response) {
       case SuccessResponse<BookResponse>():
         final BookModel model = BookModel(
           id: response.data.invoice?.id,
@@ -126,6 +142,7 @@ class BookingsRepoImpl implements BookingsRepoContract {
           createdAt: response.data.invoice?.createdAt != null
               ? DateTime.tryParse(response.data.invoice!.createdAt!)
               : null,
+          invoiceId: response.data.invoice?.id,
         );
         return SuccessResponse(data: model);
       case ErrorResponse():
@@ -136,13 +153,50 @@ class BookingsRepoImpl implements BookingsRepoContract {
   @override
   Future<BaseResponse<CheckBookingModel>> checkBooking(String sessionId) async {
     final response = await _bookingsDataSource.checkBooking(sessionId);
-    switch (response){
+    switch (response) {
       case SuccessResponse<CheckBookingResponse>():
         final CheckBookingModel model = CheckBookingModel(
           isBooked: response.data.isBooked,
           invoiceId: response.data.invoiceId,
         );
         return SuccessResponse(data: model);
+      case ErrorResponse():
+        return ErrorResponse(error: response.error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<BookPlanModel>> bookAllPlanSessions(
+    String userPlanId,
+  ) async {
+    final response = await _bookingsDataSource.bookAllPlanSessions(userPlanId);
+    switch (response) {
+      case SuccessResponse<BookPlanResponse>():
+        return SuccessResponse(
+          data: BookPlanModel(
+            message: response.data.message,
+            bookedCount: response.data.bookedCount,
+            sessionsLeft: response.data.sessionsLeft,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: response.error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<MyPlansModel>> getMyPlans() async {
+    final response = await _bookingsDataSource.getMyPlans();
+    switch (response) {
+      case SuccessResponse<MyPlansResponse>():
+        return SuccessResponse(
+          data: MyPlansModel(
+            message: response.data.message,
+            plans: response.data.plans
+                ?.map(_mapMyPlansUserPlanToEntity)
+                .toList(),
+          ),
+        );
       case ErrorResponse():
         return ErrorResponse(error: response.error);
     }

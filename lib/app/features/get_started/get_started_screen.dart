@@ -1,5 +1,4 @@
 import 'package:art_of_pilates/app/core/routes/routes.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class GetStartedScreen extends StatelessWidget {
     final locale = appLocale(context);
 
     return Scaffold(
-      backgroundColor: AppColors.secondary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -25,16 +24,17 @@ class GetStartedScreen extends StatelessWidget {
                 children: [
                   Text(
                     locale.appName,
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     locale.appTagline,
-                    style: TextStyle(fontSize: 14.sp, color: AppColors.primary),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -53,7 +53,6 @@ class GetStartedScreen extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.signinScreen);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
                 minimumSize: Size(260.w, 30.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
@@ -63,7 +62,7 @@ class GetStartedScreen extends StatelessWidget {
                 locale.getStarted,
                 style: TextStyle(
                   fontSize: 16.sp,
-                  color: AppColors.secondary,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -77,27 +76,31 @@ class GetStartedScreen extends StatelessWidget {
                 TextSpan(
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: AppColors.blackColor,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                     height: 1.5,
                   ),
                   children: [
                     TextSpan(text: locale.termsPart1),
                     TextSpan(
                       text: locale.termsOfUse,
-                      style: const TextStyle(
+                      style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
-                        decorationColor: AppColors.blackColor,
+                        decorationColor: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.color,
                         decorationThickness: 1.5,
                       ),
                     ),
                     TextSpan(text: locale.termsPart2),
                     TextSpan(
                       text: locale.privacyPolicy,
-                      style: const TextStyle(
+                      style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
-                        decorationColor: AppColors.blackColor,
+                        decorationColor: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.color,
                         decorationThickness: 1.5,
                       ),
                     ),
@@ -111,5 +114,4 @@ class GetStartedScreen extends StatelessWidget {
       ),
     );
   }
-
 }

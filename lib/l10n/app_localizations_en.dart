@@ -314,6 +314,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Pay in person at the studio location';
 
   @override
+  String get planOfflinePaymentNotAvailable => 'Plans must be paid online.';
+
+  @override
   String get confirmAndPay => 'Confirm & Pay';
 
   @override
@@ -540,4 +543,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get full => 'Full';
+
+  @override
+  String get paymentFailed => 'Payment failed or was cancelled.';
+
+  @override
+  String get planPurchasedSuccessfully => 'Plan purchased successfully!';
+
+  @override
+  String get signinErrorMessage =>
+      'An error occurred while signing in. Please try again.';
+
+  @override
+  String get signupErrorMessage =>
+      'An error occurred while signing up. Please try again.';
+
+  @override
+  String get signinWithGoogleErrorMessage =>
+      'An error occurred while signing in with Google. Please try again.';
+
+  @override
+  String get signupWithGoogleErrorMessage =>
+      'An error occurred while signing up with Google. Please try again.';
+
+  @override
+  String get comment => 'Comment (optional)';
 }

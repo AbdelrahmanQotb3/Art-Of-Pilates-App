@@ -18,3 +18,9 @@ class CheckBookingEvent extends BookingsEvent {
 
   CheckBookingEvent(this.sessionId);
 }
+
+class BookPlanEvent extends BookingsEvent {
+  final String userPlanId;
+
+  BookPlanEvent(this.userPlanId);
+}

@@ -24,6 +24,8 @@ import '../../features/bookings/data/data_source/bookings_data_source_contract.d
 import '../../features/bookings/data/repo/bookings_repo_impl.dart' as _i826;
 import '../../features/bookings/domain/repo/bookings_repo_contract.dart'
     as _i756;
+import '../../features/bookings/domain/use_cases/book_plan_use_case.dart'
+    as _i108;
 import '../../features/bookings/domain/use_cases/book_session_use_case.dart'
     as _i1017;
 import '../../features/bookings/domain/use_cases/cancel_booking_use_case.dart'
@@ -32,8 +34,18 @@ import '../../features/bookings/domain/use_cases/check_booking_use_case.dart'
     as _i386;
 import '../../features/bookings/domain/use_cases/get_all_bookings_use_case.dart'
     as _i677;
+import '../../features/bookings/domain/use_cases/get_my_plans_use_case.dart'
+    as _i106;
 import '../../features/bookings/presentation/view_model/bookings_view_model.dart'
     as _i122;
+import '../../features/home/api/data_source/home_data_source_impl.dart'
+    as _i372;
+import '../../features/home/data/data_source/home_data_source_contract.dart'
+    as _i221;
+import '../../features/home/data/repo/home_repo_impl.dart' as _i1024;
+import '../../features/home/domain/repo/home_repo_contract.dart' as _i396;
+import '../../features/home/domain/use_cases/launch_social_url_use_case.dart'
+    as _i33;
 import '../../features/home/presentation/view_model/home_view_model.dart'
     as _i77;
 import '../../features/packages/api/api_client/packages_api_client.dart'
@@ -53,6 +65,21 @@ import '../../features/packages/domain/use_cases/navigate_to_package_details_scr
     as _i136;
 import '../../features/packages/presentation/view_model/packages_view_model.dart'
     as _i187;
+import '../../features/payment/api/api_client/payment_api_client.dart' as _i492;
+import '../../features/payment/api/data_source/payment_data_source_impl.dart'
+    as _i97;
+import '../../features/payment/data/data_source/payment_data_source_contract.dart'
+    as _i252;
+import '../../features/payment/data/repo/payment_repo_impl.dart' as _i630;
+import '../../features/payment/domain/repo/payment_repo_contract.dart' as _i968;
+import '../../features/payment/domain/use_cases/create_charge_use_case.dart'
+    as _i756;
+import '../../features/payment/domain/use_cases/create_plan_charge_use_case.dart'
+    as _i28;
+import '../../features/payment/domain/use_cases/verify_charge_use_case.dart'
+    as _i1026;
+import '../../features/payment/presentation/view_model/payment_view_model.dart'
+    as _i824;
 import '../../features/profile/api/api_client/profile_api_client.dart' as _i699;
 import '../../features/profile/api/data_source/profile_data_source_impl.dart'
     as _i349;
@@ -145,7 +172,6 @@ extension GetItInjectableX on _i174.GetIt {
     final dioModule = _$DioModule();
     gh.factory<_i361.Dio>(() => dioModule.provideDio());
     gh.factory<_i528.PrettyDioLogger>(() => dioModule.dioLogger());
-    gh.factory<_i77.HomeViewModel>(() => _i77.HomeViewModel());
     gh.factory<_i136.NavigateToPackageDetailsScreenUseCase>(
       () => _i136.NavigateToPackageDetailsScreenUseCase(),
     );
@@ -158,6 +184,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i899.PackagesApiClient>(
       () => _i899.PackagesApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i492.PaymentApiClient>(
+      () => _i492.PaymentApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i699.ProfileApiClient>(
       () => _i699.ProfileApiClient(gh<_i361.Dio>()),
@@ -177,6 +206,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i208.SignupApiClient>(
       () => _i208.SignupApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i221.HomeDataSourceContract>(() => _i372.HomeDataSourceImpl());
     gh.factory<_i89.SignupDataSourceContract>(
       () => _i300.SignupDataSourceImpl(gh<_i208.SignupApiClient>()),
     );
@@ -185,6 +215,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i354.ProfileDataSourceContract>(
       () => _i349.ProfileDataSourceImpl(gh<_i699.ProfileApiClient>()),
+    );
+    gh.factory<_i252.PaymentDataSourceContract>(
+      () => _i97.PaymentDataSourceImpl(gh<_i492.PaymentApiClient>()),
     );
     gh.factory<_i239.SessionsDataSourceContract>(
       () => _i26.SessionsDataSourceImpl(gh<_i281.SessionsApiClient>()),
@@ -195,11 +228,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i941.SignupUseCase>(
       () => _i941.SignupUseCase(gh<_i677.SignupRepoContract>()),
     );
+    gh.factory<_i968.PaymentRepoContract>(
+      () => _i630.PaymentRepoImpl(gh<_i252.PaymentDataSourceContract>()),
+    );
     gh.factory<_i85.SignupViewModel>(
       () => _i85.SignupViewModel(gh<_i941.SignupUseCase>()),
     );
     gh.factory<_i871.BookingsDataSourceContract>(
       () => _i596.BookingsDataSourceImpl(gh<_i1017.BookingsApiClient>()),
+    );
+    gh.factory<_i756.CreateChargeUseCase>(
+      () => _i756.CreateChargeUseCase(gh<_i968.PaymentRepoContract>()),
+    );
+    gh.factory<_i28.CreatePlanChargeUseCase>(
+      () => _i28.CreatePlanChargeUseCase(gh<_i968.PaymentRepoContract>()),
     );
     gh.factory<_i478.SettingsDataSourceContract>(
       () => _i401.SettingsDataSourceImpl(gh<_i474.SettingsApiClient>()),
@@ -207,8 +249,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i756.BookingsRepoContract>(
       () => _i826.BookingsRepoImpl(gh<_i871.BookingsDataSourceContract>()),
     );
+    gh.factory<_i396.HomeRepoContract>(
+      () => _i1024.HomeRepoImpl(gh<_i221.HomeDataSourceContract>()),
+    );
+    gh.factory<_i33.LaunchSocialUrlUseCase>(
+      () => _i33.LaunchSocialUrlUseCase(gh<_i396.HomeRepoContract>()),
+    );
     gh.factory<_i84.ServicesDataSourceContract>(
       () => _i859.ServicesDataSourceImpl(gh<_i173.ServicesApiClient>()),
+    );
+    gh.factory<_i77.HomeViewModel>(
+      () => _i77.HomeViewModel(gh<_i33.LaunchSocialUrlUseCase>()),
     );
     gh.factory<_i149.SessionsRepoContract>(
       () => _i817.SessionsRepoImpl(gh<_i239.SessionsDataSourceContract>()),
@@ -246,8 +297,27 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i386.CheckBookingUseCase>(
       () => _i386.CheckBookingUseCase(gh<_i756.BookingsRepoContract>()),
     );
+    gh.factory<_i1026.VerifyChargeUseCase>(
+      () => _i1026.VerifyChargeUseCase(gh<_i968.PaymentRepoContract>()),
+    );
     gh.factory<_i726.ServicesRepoContract>(
       () => _i83.ServicesRepoImpl(gh<_i84.ServicesDataSourceContract>()),
+    );
+    gh.factory<_i108.BookPlanUseCase>(
+      () => _i108.BookPlanUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.factory<_i106.GetMyPlansUseCase>(
+      () => _i106.GetMyPlansUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.singleton<_i122.BookingsViewModel>(
+      () => _i122.BookingsViewModel(
+        gh<_i677.GetAllBookingsUseCase>(),
+        gh<_i429.CancelBookingUseCase>(),
+        gh<_i1017.BookSessionUseCase>(),
+        gh<_i386.CheckBookingUseCase>(),
+        gh<_i108.BookPlanUseCase>(),
+        gh<_i106.GetMyPlansUseCase>(),
+      ),
     );
     gh.factory<_i787.SettingsRepoContract>(
       () => _i812.SettingsRepoImpl(gh<_i478.SettingsDataSourceContract>()),
@@ -285,18 +355,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i539.EditUserInfoUseCase>(),
       ),
     );
+    gh.factory<_i824.PaymentViewModel>(
+      () => _i824.PaymentViewModel(
+        gh<_i756.CreateChargeUseCase>(),
+        gh<_i28.CreatePlanChargeUseCase>(),
+        gh<_i1026.VerifyChargeUseCase>(),
+      ),
+    );
     gh.factory<_i1064.SettingsViewModel>(
       () => _i1064.SettingsViewModel(
         gh<_i725.LogoutUseCase>(),
         gh<_i70.DeleteAccoountUseCase>(),
-      ),
-    );
-    gh.factory<_i122.BookingsViewModel>(
-      () => _i122.BookingsViewModel(
-        gh<_i677.GetAllBookingsUseCase>(),
-        gh<_i429.CancelBookingUseCase>(),
-        gh<_i1017.BookSessionUseCase>(),
-        gh<_i386.CheckBookingUseCase>(),
       ),
     );
     gh.factory<_i187.PackagesViewModel>(

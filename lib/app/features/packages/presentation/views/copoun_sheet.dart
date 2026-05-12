@@ -1,8 +1,6 @@
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class CouponBottomSheet {
   static void show(
@@ -15,7 +13,7 @@ class CouponBottomSheet {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
@@ -37,7 +35,7 @@ class CouponBottomSheet {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.accentColor,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
               ),
@@ -46,20 +44,25 @@ class CouponBottomSheet {
                 locale.couponCode,
                 style: TextStyle(
                   fontSize: 13.sp,
-                  color: AppColors.accentColor,
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
               ),
               SizedBox(height: 8.h),
               TextField(
                 controller: couponController,
                 autofocus: true,
-                style: TextStyle(color: AppColors.accentColor),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.primary, width: 2),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
@@ -72,7 +75,10 @@ class CouponBottomSheet {
                     onTap: () => Navigator.pop(context),
                     child: Text(
                       locale.cancel,
-                      style: TextStyle(fontSize: 14.sp, color: AppColors.accentColor),
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
                     ),
                   ),
                   ElevatedButton(
@@ -83,14 +89,14 @@ class CouponBottomSheet {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                     ),
                     child: Text(
                       locale.apply,
-                      style: TextStyle(color: AppColors.whiteColor, fontSize: 14.sp),
+                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
                     ),
                   ),
                 ],

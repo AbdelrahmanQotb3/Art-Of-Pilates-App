@@ -35,6 +35,8 @@ class SessionsRepoImpl implements SessionsRepoContract {
                       ? ServiceEntity(
                           name: e.service!.name,
                           location: e.service!.location,
+                          id: e.service!.id,
+                          price: e.service!.price,
                         )
                       : null,
                   staffMember: e.staffMember != null
@@ -73,6 +75,7 @@ class SessionsRepoImpl implements SessionsRepoContract {
           service: response.data.session!.service != null
               ? ServiceEntity(
                   name: response.data.session!.service!.name,
+                  id: response.data.session!.service!.id,
                   location: response.data.session!.service!.location,
                   price: response.data.session!.service!.price,
                   description: response.data.session!.service!.description,
