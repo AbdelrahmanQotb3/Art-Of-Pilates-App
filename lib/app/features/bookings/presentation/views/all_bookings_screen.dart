@@ -1,5 +1,4 @@
 import 'package:art_of_pilates/app/config/di/di.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
@@ -20,7 +19,7 @@ class AllBookingsScreen extends StatelessWidget {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: _buildAppBar(context),
           body: _buildBody(context),
         ),
@@ -32,8 +31,8 @@ class AllBookingsScreen extends StatelessWidget {
     return Column(
       children: [
         TabBar(
-          indicatorColor: AppColors.primary,
-          labelColor: AppColors.primary,
+          indicatorColor: Theme.of(context).colorScheme.primary,
+          labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Colors.grey,
           tabs: [
             Tab(text: appLocale(context).upcoming),
@@ -53,16 +52,24 @@ class AllBookingsScreen extends StatelessWidget {
                 return Center(child: Text(bookingState!.errorMessage!));
               }
 
-              final bookings = bookingState?.data?.bookings ?? [];
+              final allBookings = bookingState?.data?.bookings ?? [];
 
-              if (bookings.isEmpty) {
+              if (allBookings.isEmpty) {
                 return const Center(child: Text("No Bookings Found"));
               }
 
+              final now = DateTime.now();
+              final upcomingBookings = allBookings
+                  .where((booking) => booking.createdAt.isAfter(now))
+                  .toList();
+              final historyBookings = allBookings
+                  .where((booking) => booking.createdAt.isBefore(now))
+                  .toList();
+
               return TabBarView(
                 children: [
-                  _buildBookingList(bookings),
-                  _buildBookingList(bookings),
+                  _buildBookingList(upcomingBookings, "No Upcoming Bookings"),
+                  _buildBookingList(historyBookings, "No History Found"),
                 ],
               );
             },
@@ -72,7 +79,11 @@ class AllBookingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBookingList(List<BookingEntity> bookings) {
+  Widget _buildBookingList(List<BookingEntity> bookings, String emptyMsg) {
+    if (bookings.isEmpty) {
+      return Center(child: Text(emptyMsg));
+    }
+    
     return ListView.builder(
       padding: EdgeInsets.all(16.w),
       itemCount: bookings.length,
@@ -82,7 +93,7 @@ class AllBookingsScreen extends StatelessWidget {
 
   PreferredSizeWidget? _buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, size: 26, color: Colors.white),
         onPressed: () => NavigateToHomeScreenUseCase.call(context),
@@ -92,7 +103,7 @@ class AllBookingsScreen extends StatelessWidget {
         style: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.bold,
-          color: AppColors.whiteColor,
+          color: Colors.white,
         ),
       ),
       centerTitle: true,

@@ -1,5 +1,4 @@
 import 'package:art_of_pilates/app/core/routes/routes.dart';
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Center(
         child: Image.asset(AppImages.splashLogo, width: 100, height: 100),
       ),

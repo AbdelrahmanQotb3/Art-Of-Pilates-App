@@ -14,6 +14,7 @@ class AppTextField extends StatefulWidget {
   final void Function(String)? onSubmitted;
   final Color? backGroundColor;
   final Widget? prefixIcon;
+  final InputDecoration? decoration;
 
   const AppTextField({
     super.key,
@@ -28,6 +29,7 @@ class AppTextField extends StatefulWidget {
     this.onSubmitted,
     this.backGroundColor,
     this.prefixIcon,
+    this.decoration,
   });
 
   @override
@@ -53,6 +55,7 @@ class _AppTextFieldState extends State<AppTextField> {
     return TextFormField(
       controller: widget.controller,
       keyboardType: widget.keyboardType,
+      style: const TextStyle(color: AppColors.blackColor),
       obscureText: _obscure,
       validator: widget.validator,
       cursorColor: AppColors.blackColor,
@@ -60,7 +63,7 @@ class _AppTextFieldState extends State<AppTextField> {
       textInputAction: widget.textInputAction,
       onFieldSubmitted: widget.onSubmitted,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
+      decoration: widget.decoration ?? InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,

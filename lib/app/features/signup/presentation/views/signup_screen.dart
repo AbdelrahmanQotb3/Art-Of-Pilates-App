@@ -7,6 +7,7 @@ import 'package:art_of_pilates/app/core/util/app_validation.dart';
 import 'package:art_of_pilates/app/features/signup/presentation/view_model/signup_events.dart';
 import 'package:art_of_pilates/app/features/signup/presentation/view_model/signup_states.dart';
 import 'package:art_of_pilates/app/features/signup/presentation/view_model/signup_view_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:art_of_pilates/app/widgets/app_text_field.dart';
 import 'package:art_of_pilates/app/widgets/loading_dialog.dart';
 import 'package:art_of_pilates/l10n/app_localizations.dart';
@@ -41,11 +42,9 @@ class SignupScreen extends StatelessWidget {
                     ? Routes.homeScreen
                     : Routes.signinScreen;
                 Navigator.pushReplacementNamed(context, nextRoute);
-              } else if (state.signupState?.errorMessage != null) {
+              } else if (state.appException != null) {
                 if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.signupState!.errorMessage!)),
-                );
+                AppExceptionDialog.show(context, state.appException!);
               }
             });
           },

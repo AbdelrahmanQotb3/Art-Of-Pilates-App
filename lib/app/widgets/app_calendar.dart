@@ -1,4 +1,3 @@
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -41,52 +40,49 @@ class _AppCalendarState extends State<AppCalendar> {
           onFormatChanged: (format) {
             setState(() => _calendarFormat = format);
           },
-
           startingDayOfWeek: StartingDayOfWeek.saturday,
-          
           onDaySelected: widget.onDaySelected,
           eventLoader: widget.eventLoader,
-
           calendarStyle: CalendarStyle(
-            todayDecoration: const BoxDecoration(
-              color: AppColors.secondary,
+            todayDecoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
               shape: BoxShape.circle,
             ),
-            selectedDecoration: const BoxDecoration(
-              color: AppColors.primary,
+            selectedDecoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
               shape: BoxShape.circle,
             ),
-            markerDecoration: const BoxDecoration(
-              color: AppColors.primary,
+            markerDecoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
               shape: BoxShape.circle,
             ),
             markerSize: 7.0,
-            defaultTextStyle: const TextStyle(color: AppColors.primary),
-            weekendTextStyle: const TextStyle(color: AppColors.primary),
-            outsideTextStyle: const TextStyle(color: AppColors.accentColor),
+            defaultTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+            weekendTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+            outsideTextStyle: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
           ),
-          
           headerStyle: HeaderStyle(
-            formatButtonVisible: false, 
+            formatButtonVisible: false,
             titleCentered: true,
             titleTextStyle: TextStyle(
-              color: AppColors.primary,
+              color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
             ),
-            leftChevronIcon: const Icon(
+            leftChevronIcon: Icon(
               Icons.chevron_left,
-              color: AppColors.primary,
+              color: Theme.of(context).primaryColor,
             ),
-            rightChevronIcon: const Icon(
+            rightChevronIcon: Icon(
               Icons.chevron_right,
-              color: AppColors.primary,
+              color: Theme.of(context).primaryColor,
             ),
           ),
-          
-          daysOfWeekStyle: const DaysOfWeekStyle(
-            weekdayStyle: TextStyle(color: AppColors.primary),
-            weekendStyle: TextStyle(color: AppColors.primary),
+          daysOfWeekStyle: DaysOfWeekStyle(
+            weekdayStyle: TextStyle(color: Theme.of(context).primaryColor),
+            weekendStyle: TextStyle(color: Theme.of(context).primaryColor),
           ),
         ),
         GestureDetector(
@@ -109,7 +105,7 @@ class _AppCalendarState extends State<AppCalendar> {
             height: 4.h,
             margin: EdgeInsets.symmetric(vertical: 8.h),
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(2.r),
             ),
           ),

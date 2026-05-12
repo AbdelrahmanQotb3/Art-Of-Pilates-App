@@ -315,6 +315,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get offlinePaymentDescription => 'ادفع شخصياً في موقع الاستوديو';
 
   @override
+  String get planOfflinePaymentNotAvailable => 'يجب دفع الباقات عبر الإنترنت.';
+
+  @override
   String get confirmAndPay => 'تأكيد والدفع';
 
   @override
@@ -540,4 +543,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get full => 'مكتمل';
+
+  @override
+  String get paymentFailed => 'فشل الدفع أو تم إلغاؤه.';
+
+  @override
+  String get planPurchasedSuccessfully => 'تم شراء الخطة بنجاح!';
+
+  @override
+  String get signinErrorMessage =>
+      'حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get signupErrorMessage =>
+      'حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get signinWithGoogleErrorMessage =>
+      'حدث خطأ أثناء تسجيل الدخول مع Google. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get signupWithGoogleErrorMessage =>
+      'حدث خطأ أثناء التسجيل مع Google. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get comment => 'تعليق (اختياري)';
 }

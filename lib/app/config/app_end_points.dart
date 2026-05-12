@@ -29,4 +29,9 @@ abstract class AppEndPoints {
   static const String purchasePlan = "bookings/purchase-plan";
   static const String bookWithPlan = "bookings/book-with-plan";
   static const String checkBooking = "bookings/check/{sessionId}";
+  static const String bookPlan = "bookings/bookPlan";
+
+  static const String createCharge = "payments/create-charge";
+  static const String verifyPayment = "payments/verify/{chargeId}";
+  static const String createPlanCharge = "payments/create-charge-plan";
 }

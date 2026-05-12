@@ -7,6 +7,7 @@ import 'package:art_of_pilates/app/core/util/app_validation.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/view_model/signin_events.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/view_model/signin_states.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/view_model/signin_view_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:art_of_pilates/app/widgets/app_text_field.dart';
 import 'package:art_of_pilates/app/widgets/loading_dialog.dart';
 import 'package:art_of_pilates/l10n/app_localizations.dart';
@@ -38,12 +39,10 @@ class SigninScreen extends StatelessWidget {
               } else if (state.signinState?.data != null) {
                 if (Navigator.of(context).canPop()) Navigator.of(context).pop();
                 Navigator.pushReplacementNamed(context, Routes.homeScreen);
-              } else if (state.signinState?.errorMessage != null) {
+              } else if (state.appException != null) {
                 if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.signinState!.errorMessage!)),
-                );
-              }
+                AppExceptionDialog.show(context, state.appException!);
+              } 
             });
           },
           builder: (context, state) {
@@ -261,8 +260,7 @@ class SigninScreen extends StatelessWidget {
             ),
           ),
         ),
-        
-        ],
+      ],
     );
   }
 }

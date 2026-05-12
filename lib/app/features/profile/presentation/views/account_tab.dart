@@ -1,4 +1,3 @@
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/view_model/profile_states.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/view_model/profile_view_model.dart';
@@ -12,6 +11,7 @@ class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = appLocale(context);
+    final theme = Theme.of(context);
     return BlocBuilder<ProfileViewModel, ProfileStates>(
       builder: (context, state) {
         if (state.userProfileStateParam?.isLoading ?? false) {
@@ -20,7 +20,9 @@ class AccountTab extends StatelessWidget {
           return Center(
             child: Text(
               'Error: ${state.userProfileStateParam!.errorMessage}',
-              style: const TextStyle(color: AppColors.redColor),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.error,
+              ),
             ),
           );
         } else if (state.userProfileStateParam?.data != null) {
@@ -31,37 +33,56 @@ class AccountTab extends StatelessWidget {
               children: [
                 Text(
                   locale.overView,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.accentColor,
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 16.h),
-                _buildDataRow(context, locale.firstName, state.userProfileStateParam!.data!.firstName ?? ""),
-                _buildDataRow(context, locale.lastName, state.userProfileStateParam!.data!.lastName ?? ""),
-                _buildDataRow(context, locale.email, state.userProfileStateParam!.data!.email ?? ""),
-                _buildDataRow(context, locale.role, state.userProfileStateParam!.data!.role ?? ""),
+                _buildDataRow(
+                  context,
+                  locale.firstName,
+                  state.userProfileStateParam!.data!.firstName ?? '',
+                ),
+                _buildDataRow(
+                  context,
+                  locale.lastName,
+                  state.userProfileStateParam!.data!.lastName ?? '',
+                ),
+                _buildDataRow(
+                  context,
+                  locale.email,
+                  state.userProfileStateParam!.data!.email ?? '',
+                ),
+                _buildDataRow(
+                  context,
+                  locale.role,
+                  state.userProfileStateParam!.data!.role ?? '',
+                ),
               ],
             ),
           );
         }
-        return Center(child: Text("No user data found"));
+        return Center(
+          child: Text('No user data found', style: theme.textTheme.bodyMedium),
+        );
       },
     );
   }
 
   Widget _buildDataRow(BuildContext context, String title, String info) {
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 12.sp, color: AppColors.accentColor)),
+          Text(title, style: theme.textTheme.bodySmall),
           SizedBox(height: 8.h),
           Text(
             info,
-            style: TextStyle(fontSize: 14.sp, color: AppColors.accentColor, fontWeight: FontWeight.bold),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

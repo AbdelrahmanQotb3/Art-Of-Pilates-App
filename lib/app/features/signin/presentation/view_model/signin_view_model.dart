@@ -1,5 +1,6 @@
 import 'package:art_of_pilates/app/config/base_response/base_response.dart';
 import 'package:art_of_pilates/app/config/base_state/base_state.dart';
+import 'package:art_of_pilates/app/core/util/exceptions/abstract/app_exception.dart';
 import 'package:art_of_pilates/app/features/signin/domain/model/signin_model.dart';
 import 'package:art_of_pilates/app/features/signin/domain/use_cases/signin_use_case.dart';
 import 'package:art_of_pilates/app/features/signin/presentation/view_model/signin_events.dart';
@@ -79,33 +80,26 @@ class SigninViewModel extends Cubit<SigninStates> {
     }
   }
 
-  void _handleResult(BaseResponse<SigninModel> result) {
-    switch (result) {
-      case SuccessResponse<SigninModel>():
-        emit(
-          state.copyWith(
-            signinStateParam: BaseState<SigninModel>(
-              data: result.data,
-              isLoading: false,
-            ),
-          ),
-        );
-      case ErrorResponse(error: final error):
-        String message = error.toString();
-        if (message.contains('GOOGLE')) {
-          message =
-              'This account was created with Google. Please sign in with Google.';
-        } else if (message.contains('APPLE')) {
-          message =
-              'This account was created with Apple. Please sign in with Apple.';
-        }
-        _emitError(message);
-    }
+ void _handleResult(BaseResponse<SigninModel> result) {
+  switch (result) {
+    case SuccessResponse<SigninModel>():
+      emit(state.copyWith(
+        signinStateParam: BaseState<SigninModel>(data: result.data, isLoading: false),
+      ));
+    case ErrorResponse(error: final error):
+      if (error is AppException) {
+        emit(state.copyWith(
+          appExceptionParam: error, 
+          signinStateParam: BaseState<SigninModel>(isLoading: false),
+        ));
+      } else {
+        _emitError(error.toString());
+      }
   }
-
+}
   void _emitLoading() {
     emit(
-      state.copyWith(signinStateParam: BaseState<SigninModel>(isLoading: true)),
+      state.copyWith(signinStateParam: BaseState<SigninModel>(isLoading: true ,) , appExceptionParam: null),
     );
   }
 

@@ -1,6 +1,7 @@
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+
 import 'package:art_of_pilates/app/features/packages/domain/model/packages_model.dart';
+import 'package:art_of_pilates/app/features/packages/domain/use_cases/navigate_to_package_payment_screen.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/copoun_sheet.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/date_picker_sheet.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +24,18 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
 
   void _showCouponSheet(BuildContext context) {
     CouponBottomSheet.show(
-    context,
-    onApplied: (code) => setState(() => _appliedCoupon = code),
-  );}
+      context,
+      onApplied: (code) => setState(() => _appliedCoupon = code),
+    );
+  }
 
   void _showDatePicker(BuildContext context) {
     AppDatePickerSheet.show(
-    context,
-    initialDate: _selectedStartDate,
-    onDateSelected: (date) => setState(() => _selectedStartDate = date),
-  );}
+      context,
+      initialDate: _selectedStartDate,
+      onDateSelected: (date) => setState(() => _selectedStartDate = date),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
     final plan = widget.plan;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(context),
       body: Column(
         children: [
@@ -62,7 +65,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.accentColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                         SizedBox(height: 4.h),
@@ -70,14 +73,14 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                           'Starts ${DateFormat('MMM d, yyyy').format(_selectedStartDate)}',
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: AppColors.accentColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                         Text(
                           'Valid for ${plan.duration ?? ''}',
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: AppColors.accentColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                       ],
@@ -96,7 +99,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                         Icon(
                           Icons.calendar_today_outlined,
                           size: 18.sp,
-                          color: AppColors.accentColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         SizedBox(width: 12.w),
                         Expanded(
@@ -107,7 +110,9 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                                 locale.planStarts,
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: AppColors.accentColor,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onBackground,
                                 ),
                               ),
                               Text(
@@ -119,7 +124,9 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.accentColor,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onBackground,
                                 ),
                               ),
                             ],
@@ -131,7 +138,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                             locale.change,
                             style: TextStyle(
                               fontSize: 13.sp,
-                              color: AppColors.accentColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -151,19 +158,17 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                         Icon(
                           Icons.discount_outlined,
                           size: 18.sp,
-                          color: AppColors.accentColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         SizedBox(width: 12.w),
                         Expanded(
                           child: Text(
-                            _appliedCoupon ??
-                                locale
-                                    .copounNotAdded,
+                            _appliedCoupon ?? locale.copounNotAdded,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: _appliedCoupon != null
-                                  ? AppColors.accentColor
-                                  : AppColors.accentColor
+                                  ? Theme.of(context).colorScheme.onBackground
+                                  : Theme.of(context).colorScheme.onBackground,
                             ),
                           ),
                         ),
@@ -173,7 +178,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                             locale.enter,
                             style: TextStyle(
                               fontSize: 13.sp,
-                              color: AppColors.accentColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -196,7 +201,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                           style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.accentColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                         Text(
@@ -204,7 +209,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                           style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.accentColor,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                       ],
@@ -225,14 +230,18 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                               text: '${locale.iHaveReadAndAcceptPlanPolicy} ',
                               style: TextStyle(
                                 fontSize: 13.sp,
-                                color: AppColors.accentColor,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onBackground,
                               ),
                               children: [
                                 TextSpan(
                                   text: locale.planPolicy,
                                   style: TextStyle(
                                     fontSize: 13.sp,
-                                    color: AppColors.primary,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
@@ -254,19 +263,21 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                             height: 24.h,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: AppColors.accentColor,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onBackground,
                                 width: 1.5,
                               ),
                               borderRadius: BorderRadius.circular(4.r),
                               color: _policyAccepted
-                                  ? AppColors.primary
+                                  ? Theme.of(context).colorScheme.primary
                                   : Colors.transparent,
                             ),
                             child: _policyAccepted
                                 ? Icon(
                                     Icons.check,
                                     size: 16.sp,
-                                    color: AppColors.whiteColor,
+                                    color: Colors.white,
                                   )
                                 : null,
                           ),
@@ -285,21 +296,21 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                           vertical: 12.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.redColor,
+                          color: Theme.of(context).colorScheme.error,
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Row(
                           children: [
                             Icon(
                               Icons.info_outline,
-                              color: AppColors.whiteColor,
+                              color: Theme.of(context).colorScheme.onError,
                               size: 16.sp,
                             ),
                             SizedBox(width: 8.w),
                             Text(
                               locale.mustAcceptPlanPolicy,
                               style: TextStyle(
-                                color: AppColors.whiteColor,
+                                color: Theme.of(context).colorScheme.onError,
                                 fontSize: 13.sp,
                               ),
                             ),
@@ -322,10 +333,10 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                     setState(() => _showPolicyError = true);
                     return;
                   }
-                  // TODO: continue to payment logic
+                  NavigateToPackagePaymentScreen.call(context, widget.plan);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.r),
                   ),
@@ -335,7 +346,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.whiteColor,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -349,27 +360,24 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     final locale = appLocale(context);
     return AppBar(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       centerTitle: true,
       title: Text(
         locale.checkout,
-        style: TextStyle(
-          color: AppColors.whiteColor,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
         icon: const Icon(
           Icons.arrow_back_ios_new_outlined,
-          color: AppColors.whiteColor,
+          color: Colors.white,
         ),
       ),
     );
   }
 
   Widget _buildDivider() =>
-      Divider(color: AppColors.accentColor, height: 1);
+      Divider(color: Theme.of(context).dividerColor, height: 1);
 
   bool _isToday(DateTime date) {
     final now = DateTime.now();

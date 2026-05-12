@@ -99,6 +99,7 @@
   "onlinePaymentDescription": "ادفع بأمان باستخدام بطاقة الائتمان أو الخصم أو المحفظة الرقمية",
   "offlinePayment": "الدفع في الموقع",
   "offlinePaymentDescription": "ادفع شخصياً في موقع الاستوديو",
+  "planOfflinePaymentNotAvailable": "يجب دفع الباقات عبر الإنترنت.",
   "confirmAndPay": "تأكيد والدفع",
   "showMore": "اظهار المزيد",
   "showLess": "اخفاء",
@@ -168,8 +169,15 @@
   "estimatedTotal": "الإجمالي التقديري",
   "total": "الإجمالي",
   "sessionBookedSuccessfully": "تم حجز الجلسة بنجاح!",
-  "continueToPayment" : "استمر في الدفع",
+  "continueToPayment": "استمر في الدفع",
   "alreadyBooked": "لقد حجزت هذه الجلسة بالفعل",
   "booked": "محجوز",
-  "full": "مكتمل"
+  "full": "مكتمل",
+  "paymentFailed": "فشل الدفع أو تم إلغاؤه.",
+  "planPurchasedSuccessfully": "تم شراء الخطة بنجاح!",
+  "signinErrorMessage": "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+  "signupErrorMessage": "حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.",
+  "signinWithGoogleErrorMessage": "حدث خطأ أثناء تسجيل الدخول مع Google. يرجى المحاولة مرة أخرى.",
+  "signupWithGoogleErrorMessage": "حدث خطأ أثناء التسجيل مع Google. يرجى المحاولة مرة أخرى.",
+  "comment" : "تعليق (اختياري)"
 }

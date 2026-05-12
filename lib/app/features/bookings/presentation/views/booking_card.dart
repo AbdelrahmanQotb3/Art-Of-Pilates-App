@@ -1,7 +1,9 @@
-import 'package:art_of_pilates/app/core/util/app_colors.dart';
+import 'package:art_of_pilates/app/config/base_response/base_response.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/core/util/exceptions/abstract/app_exception.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +19,7 @@ class BookingCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.grey.shade200),
       ),
@@ -69,24 +71,40 @@ class BookingCard extends StatelessWidget {
           PopupMenuButton<String>(
             icon: Icon(
               Icons.more_horiz,
-              color: AppColors.accentColor,
+              color: Theme.of(context).colorScheme.tertiary,
               size: 20.sp,
             ),
-            color: AppColors.whiteColor,
+            color: Theme.of(context).colorScheme.surface,
             onSelected: (value) async {
-              if (value == 'cancel') {
-                await context.read<BookingsViewModel>().cancelBooking(
-                  booking.id,
-                );
-                await context.read<BookingsViewModel>().getAllBookings();
-              }
-            },
-            itemBuilder: (_) => [
+  if (value == 'cancel') {
+    final result = await context
+        .read<BookingsViewModel>()
+        .cancelBooking(booking.id);
+    
+    switch (result) {
+      case ErrorResponse(:final error):
+        if (error is AppException) {
+          await AppExceptionDialog.show(context, error);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.toString())),
+          );
+        }
+      case SuccessResponse():
+        break;
+    }
+
+    await context.read<BookingsViewModel>().getAllBookings();
+  }
+},itemBuilder: (_) => [
               PopupMenuItem(
                 value: 'cancel',
                 child: Text(
                   appLocale(context).cancelBooking,
-                  style: TextStyle(color: AppColors.redColor, fontSize: 14.sp),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
             ],
@@ -109,7 +127,6 @@ class BookingCard extends StatelessWidget {
       ),
     );
   }
-
 
   String _getMonthName(int month) {
     const months = [

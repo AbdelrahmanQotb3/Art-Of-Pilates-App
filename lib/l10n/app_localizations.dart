@@ -692,6 +692,12 @@ abstract class AppLocalizations {
   /// **'Pay in person at the studio location'**
   String get offlinePaymentDescription;
 
+  /// No description provided for @planOfflinePaymentNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans must be paid online.'**
+  String get planOfflinePaymentNotAvailable;
+
   /// No description provided for @confirmAndPay.
   ///
   /// In en, this message translates to:
@@ -1129,6 +1135,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Full'**
   String get full;
+
+  /// No description provided for @paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment failed or was cancelled.'**
+  String get paymentFailed;
+
+  /// No description provided for @planPurchasedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan purchased successfully!'**
+  String get planPurchasedSuccessfully;
+
+  /// No description provided for @signinErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while signing in. Please try again.'**
+  String get signinErrorMessage;
+
+  /// No description provided for @signupErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while signing up. Please try again.'**
+  String get signupErrorMessage;
+
+  /// No description provided for @signinWithGoogleErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while signing in with Google. Please try again.'**
+  String get signinWithGoogleErrorMessage;
+
+  /// No description provided for @signupWithGoogleErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while signing up with Google. Please try again.'**
+  String get signupWithGoogleErrorMessage;
+
+  /// No description provided for @comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment (optional)'**
+  String get comment;
 }
 
 class _AppLocalizationsDelegate

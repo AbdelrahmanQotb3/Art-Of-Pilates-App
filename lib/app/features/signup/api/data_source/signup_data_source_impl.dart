@@ -1,7 +1,9 @@
 import 'package:art_of_pilates/app/config/base_response/base_response.dart';
+import 'package:art_of_pilates/app/core/util/exceptions/auth/signup_exception.dart';
 import 'package:art_of_pilates/app/features/signup/api/api_client/signup_api_client.dart';
 import 'package:art_of_pilates/app/features/signup/data/data_source/signup_data_source_contract.dart';
 import 'package:art_of_pilates/app/features/signup/data/model/signup_response.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: SignupDataSourceContract)
@@ -26,8 +28,15 @@ class SignupDataSourceImpl implements SignupDataSourceContract {
         'role': 'Client',
       });
       return SuccessResponse(data: response);
-    } on Exception catch (e) {
-      return ErrorResponse(error: e);
+    }
+    on DioException catch (e) {
+      final serverMessage = e.response?.data['status'] 
+                       ?? e.response?.data['message'] 
+                       ?? 'Sign up failed';
+      return ErrorResponse(error: serverMessage);
+    }
+     on Exception catch (e) {
+      return ErrorResponse(error: SignupException(error: e.toString()));
     }
   }
 
@@ -39,8 +48,15 @@ class SignupDataSourceImpl implements SignupDataSourceContract {
         'provider': 'google',
       });
       return SuccessResponse(data: response);
-    } on Exception catch (e) {
-      return ErrorResponse(error: e);
+    }
+      on DioException catch (e) {
+        final serverMessage = e.response?.data['status'] 
+                         ?? e.response?.data['message'] 
+                         ?? 'Sign up failed';
+        return ErrorResponse(error: SignupException(error: serverMessage));
+      }
+    on Exception catch (e) {
+      return ErrorResponse(error: SignupException(error: e.toString()));
     }
   }
 

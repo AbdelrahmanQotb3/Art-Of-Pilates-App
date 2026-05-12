@@ -5,10 +5,13 @@ import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/use_cases/navigate_to_all_bookings_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
+import 'package:art_of_pilates/app/core/util/exceptions/abstract/app_exception.dart';
+import 'package:art_of_pilates/app/config/base_response/base_response.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
 import 'package:art_of_pilates/app/features/home/domain/use_cases/navigate_to_profile_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_events.dart';
 import 'package:art_of_pilates/app/features/home/presentation/view_model/home_view_model.dart';
+import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/navigate_to_session_details_screen_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,21 +27,37 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   late final BookingsViewModel bookingsViewModel;
+  late final HomeViewModel homeViewModel;
 
   @override
   void initState() {
     super.initState();
     bookingsViewModel = getIt<BookingsViewModel>();
+    homeViewModel = getIt<HomeViewModel>();
     bookingsViewModel.getAllBookings();
+  }
+
+  Future<void> _launchSocial(BuildContext context, String url) async {
+    try {
+      await context.read<HomeViewModel>().launchSocialUrl(url);
+    } catch (_) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not open link')));
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final locale = appLocale(context);
+    final theme = Theme.of(context);
+
     return BlocProvider.value(
       value: bookingsViewModel,
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: theme.scaffoldBackgroundColor,
         body: CustomScrollView(
           slivers: [
             _buildSliverAppBar(context),
@@ -49,17 +68,12 @@ class _HomeTabState extends State<HomeTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 16.h),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           locale.artOfPilates,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.accentColor,
-                          ),
+                          style: theme.textTheme.headlineSmall,
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -68,49 +82,36 @@ class _HomeTabState extends State<HomeTab> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r),
                             ),
                           ),
-                          child: Text(
-                            locale.bookNow,
-                            style: TextStyle(color: AppColors.whiteColor),
-                          ),
+                          child: Text(locale.bookNow),
                         ),
                       ],
                     ),
-
                     SizedBox(height: 20.h),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           locale.upcomingBookins,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.accentColor,
-                          ),
+                          style: theme.textTheme.titleMedium,
                         ),
                         InkWell(
                           onTap: () =>
                               NavigateToAllBookingsScreenUseCase.call(context),
                           child: Text(
                             locale.viewAll,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              color: AppColors.primary,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.primary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ],
                     ),
-
                     SizedBox(height: 16.h),
-
                     BlocBuilder<BookingsViewModel, BookingsStates>(
                       builder: (context, state) {
                         if (state.getAllBookingsState?.isLoading ?? false) {
@@ -118,26 +119,24 @@ class _HomeTabState extends State<HomeTab> {
                             child: CircularProgressIndicator(),
                           );
                         }
-
                         if (state.getAllBookingsState?.errorMessage != null) {
                           return Center(
                             child: Text(
                               state.getAllBookingsState!.errorMessage!,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 13.sp,
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.error,
                               ),
                             ),
                           );
                         }
-
                         final bookings =
                             state.getAllBookingsState?.data?.bookings ?? [];
-
                         if (bookings.isEmpty) {
-                          return _buildEmptyState(locale.noUpcomingBookings);
+                          return _buildEmptyState(
+                            locale.noUpcomingBookings,
+                            theme,
+                          );
                         }
-
                         final now = DateTime.now();
                         final todayBookings = bookings.where((b) {
                           if (b.session?.status?.toUpperCase() != 'SCHEDULED') {
@@ -151,21 +150,21 @@ class _HomeTabState extends State<HomeTab> {
                               sessionDate.month == now.month &&
                               sessionDate.day == now.day;
                         }).toList();
-
                         if (todayBookings.isEmpty) {
-                          return _buildEmptyState(locale.noUpcomingBookings);
+                          return _buildEmptyState(
+                            locale.noUpcomingBookings,
+                            theme,
+                          );
                         }
-
                         return Column(
                           children: todayBookings
-                              .map((b) => _buildBookingCard(context, b))
+                              .map((b) => _buildBookingCard(context, b, theme))
                               .toList(),
                         );
                       },
                     ),
-
                     SizedBox(height: 24.h),
-                    _buildSocialRow(context),
+                    _buildSocialRow(context, theme),
                     SizedBox(height: 24.h),
                   ],
                 ),
@@ -177,22 +176,18 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _buildEmptyState(String message) {
+  Widget _buildEmptyState(String message, ThemeData theme) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 24.h),
-      child: Center(
-        child: Text(
-          message,
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: AppColors.accentColor,
-          ),
-        ),
-      ),
+      child: Center(child: Text(message, style: theme.textTheme.bodyMedium)),
     );
   }
 
-  Widget _buildBookingCard(BuildContext context, BookingEntity booking) {
+  Widget _buildBookingCard(
+    BuildContext context,
+    BookingEntity booking,
+    ThemeData theme,
+  ) {
     final session = booking.session;
     if (session == null) return const SizedBox.shrink();
 
@@ -226,11 +221,11 @@ class _HomeTabState extends State<HomeTab> {
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
+              color: AppColors.blackColor,
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -245,23 +240,16 @@ class _HomeTabState extends State<HomeTab> {
                 children: [
                   Text(
                     day,
-                    style: TextStyle(
+                    style: theme.textTheme.headlineSmall?.copyWith(
                       fontSize: 22.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.accentColor,
                     ),
                   ),
                   Text(
                     month,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: AppColors.accentColor,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: theme.textTheme.bodySmall?.copyWith(fontSize: 12.sp),
                   ),
                 ],
               ),
-
               SizedBox(width: 16.w),
               Expanded(
                 child: Column(
@@ -269,27 +257,20 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
                     Text(
                       session.name ?? '',
-                      style: TextStyle(
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.accentColor,
                       ),
                     ),
                     SizedBox(height: 4.h),
                     Text(
                       '${isToday ? appLocale(context).today : DateFormat('EEE').format(startTime!)}, $formattedTime ($durationMinutes min)',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: AppColors.accentColor,
-                      ),
+                      style: theme.textTheme.bodySmall,
                     ),
                     SizedBox(height: 4.h),
                     Text(
                       '${session.staffMember?.name ?? ''}${session.service?.location != null ? ' · ${session.service!.location}' : ''}',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: AppColors.accentColor,
-                      ),
+                      style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ),
@@ -297,15 +278,31 @@ class _HomeTabState extends State<HomeTab> {
               PopupMenuButton<String>(
                 icon: Icon(
                   Icons.more_horiz,
-                  color: AppColors.accentColor,
+                  color: theme.colorScheme.onSurface,
                   size: 20.sp,
                 ),
-                color: AppColors.whiteColor,
+                color: theme.colorScheme.surface,
                 onSelected: (value) async {
                   if (value == 'cancel') {
-                    await context.read<BookingsViewModel>().cancelBooking(
-                      booking.id,
-                    );
+                    final result = await context
+                        .read<BookingsViewModel>()
+                        .cancelBooking(booking.id);
+
+                    switch (result) {
+                      case ErrorResponse(:final error):
+                        if (context.mounted) {
+                          if (error is AppException) {
+                            await AppExceptionDialog.show(context, error);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(error.toString())),
+                            );
+                          }
+                        }
+                      case SuccessResponse():
+                        break;
+                    }
+
                     if (context.mounted) {
                       await context.read<BookingsViewModel>().getAllBookings();
                     }
@@ -316,9 +313,8 @@ class _HomeTabState extends State<HomeTab> {
                     value: 'cancel',
                     child: Text(
                       appLocale(context).cancelBooking,
-                      style: TextStyle(
-                        color: AppColors.redColor,
-                        fontSize: 14.sp,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.error,
                       ),
                     ),
                   ),
@@ -331,44 +327,46 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _buildSocialRow(BuildContext context) {
+  Widget _buildSocialRow(BuildContext context, ThemeData theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSocialIcon(AppImages.instagramLogo, onTap: () {}),
-        _buildSocialIcon(AppImages.whatsappLogo, onTap: () {}),
-        _buildSocialIcon(AppImages.mapsLogo, onTap: () {}),
+        _buildSocialIcon(
+          AppImages.instagramLogo,
+          theme,
+          onTap: () => _launchSocial(context, homeViewModel.instagramUrl),
+        ),
+        _buildSocialIcon(
+          AppImages.whatsappLogo,
+          theme,
+          onTap: () => _launchSocial(context, homeViewModel.whatsappUrl),
+        ),
+        _buildSocialIcon(
+          AppImages.mapsLogo,
+          theme,
+          onTap: () => _launchSocial(context, homeViewModel.mapsUrl),
+        ),
       ],
     );
   }
 
-  Widget _buildSocialIcon(String assetPath, {required VoidCallback onTap}) {
+  Widget _buildSocialIcon(
+    String assetPath,
+    ThemeData theme, {
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 64.w,
-        height: 64.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.backgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.accentColor,
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(10.w),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.r),
-            child: Image.asset(
-              assetPath,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.contain,
-            ),
+        width: 50.w,
+        height: 50.h,
+        decoration: const BoxDecoration(shape: BoxShape.circle),
+        child: Center(
+          child: Image.asset(
+            assetPath,
+            width: 45.w,
+            height: 45.h,
+            fit: BoxFit.contain,
           ),
         ),
       ),
@@ -380,7 +378,7 @@ class _HomeTabState extends State<HomeTab> {
       expandedHeight: MediaQuery.of(context).size.height * 0.2,
       pinned: true,
       stretch: true,
-      backgroundColor: AppColors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       leading: IconButton(
         icon: const Icon(Icons.person, size: 26, color: Colors.white),
         onPressed: () => NavigateToProfileScreenUseCase.call(context),

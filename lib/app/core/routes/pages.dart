@@ -8,7 +8,7 @@ import 'package:art_of_pilates/app/features/packages/presentation/views/package_
 import 'package:art_of_pilates/app/features/profile/presentation/views/edit_profile_screen.dart';
 import 'package:art_of_pilates/app/features/profile/presentation/views/profile_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
-import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/payment_screen.dart';
+import 'package:art_of_pilates/app/features/payment/presentation/views/payment_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_checkout_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/service_details_screen.dart';
@@ -36,6 +36,12 @@ class RouteGenerator {
       case Routes.signupScreen:
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case Routes.homeScreen:
+        final args = settings.arguments;
+        if (args is int) {
+          return MaterialPageRoute(
+            builder: (_) => HomeScreen(initialIndex: args),
+          );
+        }
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case Routes.servicesScreen:
         return MaterialPageRoute(builder: (_) => ServicesScreen());
@@ -103,6 +109,8 @@ class RouteGenerator {
           return MaterialPageRoute(
             builder: (_) => PaymentScreen(session: args),
           );
+        } else if (args is PricingPlanEntity) {
+          return MaterialPageRoute(builder: (_) => PaymentScreen(plan: args));
         }
         return unDefinedRoute();
       default:
