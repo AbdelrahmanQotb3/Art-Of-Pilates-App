@@ -1,10 +1,15 @@
 import 'package:art_of_pilates/app/config/app_end_points.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/book_session_with_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/bookings_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/cancel_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/check_booking_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/check_plan_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/get_plan_summery_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/join_waiting_list_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/my_plans_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/purchase_plan_response.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -38,4 +43,23 @@ abstract class BookingsApiClient {
 
   @GET(AppEndPoints.getMyPlans)
   Future<MyPlansResponse> getMyPlans();
+
+  @POST(AppEndPoints.purchasePlan)
+  Future<PurchasePlanResponse> purchasePlan(@Body() Map<String, dynamic> body);
+
+  @POST(AppEndPoints.joinWaitingList)
+  Future<JoinWaitingListResponse> joinWaitingList(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET(AppEndPoints.checkPlanForSession)
+  Future<CheckPlanResponse> checkPlanForSession(
+    @Path('sessionId') String sessionId,
+  );
+
+  @POST(AppEndPoints.bookWithPlan)
+  Future<BookSessionWithPlanResponse> bookSessionWithPlan(@Body() Map<String, dynamic> body);
+
+  @GET(AppEndPoints.getPlanSummery)
+  Future<GetPlanSummeryResponse> getPlanSummery();
 }

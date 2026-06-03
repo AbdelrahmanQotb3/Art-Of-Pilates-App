@@ -2,10 +2,15 @@ import 'package:art_of_pilates/app/config/base_state/base_state.dart';
 import 'package:art_of_pilates/app/core/util/exceptions/abstract/app_exception.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_plan_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/book_session_with_plan_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/cancel_booking_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/check_booking_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/check_plan_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/join_waiting_list_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/my_plan_summery_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/my_plans_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/purchase_plan_model.dart';
 
 class BookingsStates {
   BaseState<BookingsModel>? getAllBookingsState;
@@ -16,6 +21,11 @@ class BookingsStates {
   BaseState<BookPlanModel>? bookPlanState;
   BaseState<MyPlansModel>? getMyPlansState;
   AppException? appException;
+  BaseState<PurchasePlanModel>? purchasePlanState;
+  BaseState<JoinWaitingListModel>? joinWaitingListState;
+  BaseState<CheckPlanModel>? checkPlanState;
+  BaseState<BookSessionWithPlanModel>? bookSessionWithPlanState;
+  BaseState<MyPlanSummeryModel>? getPlanSummeryState; 
 
   BookingsStates({
     this.getAllBookingsState,
@@ -26,6 +36,11 @@ class BookingsStates {
     this.bookPlanState,
     this.getMyPlansState,
     this.appException,
+    this.purchasePlanState,
+    this.joinWaitingListState,
+    this.checkPlanState,
+    this.bookSessionWithPlanState,
+    this.getPlanSummeryState
   });
 
   BookingsStates copyWith({
@@ -37,6 +52,11 @@ class BookingsStates {
     BaseState<BookPlanModel>? bookPlanState,
     BaseState<MyPlansModel>? getMyPlansState,
     Object? appExceptionParam = _sentinel,
+    BaseState<PurchasePlanModel>? purchasePlanState,
+    BaseState<JoinWaitingListModel>? joinWaitingListState,
+    BaseState<CheckPlanModel>? checkPlanState,
+    BaseState<BookSessionWithPlanModel>? bookSessionWithPlanState,
+    BaseState<MyPlanSummeryModel>? getPlanSummeryState,
   }) {
     return BookingsStates(
       getAllBookingsState: getAllBookingsState ?? this.getAllBookingsState,
@@ -49,6 +69,11 @@ class BookingsStates {
       appException: appExceptionParam == _sentinel
           ? appException
           : appExceptionParam as AppException?,
+      purchasePlanState: purchasePlanState ?? this.purchasePlanState,
+      joinWaitingListState: joinWaitingListState ?? this.joinWaitingListState,
+      checkPlanState: checkPlanState ?? this.checkPlanState,
+      bookSessionWithPlanState: bookSessionWithPlanState ?? this.bookSessionWithPlanState,
+      getPlanSummeryState: getPlanSummeryState ?? this.getPlanSummeryState
     );
   }
 

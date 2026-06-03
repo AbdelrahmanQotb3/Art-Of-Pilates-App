@@ -169,7 +169,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profile => 'الملف الشخصي';
 
   @override
-  String get packages => 'الحزم';
+  String get packages => 'الباقات';
 
   @override
   String get settings => 'الإعدادات';
@@ -309,13 +309,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'ادفع بأمان باستخدام بطاقة الائتمان أو الخصم أو المحفظة الرقمية';
 
   @override
-  String get offlinePayment => 'الدفع في الموقع';
+  String get cashPayment => 'الدفع نقدًا';
 
   @override
-  String get offlinePaymentDescription => 'ادفع شخصياً في موقع الاستوديو';
+  String get cashPaymentDescription => 'ادفع شخصياً في موقع الاستوديو';
 
   @override
-  String get planOfflinePaymentNotAvailable => 'يجب دفع الباقات عبر الإنترنت.';
+  String get planCashPaymentNotAvailable => 'يجب دفع الباقات عبر الإنترنت.';
 
   @override
   String get confirmAndPay => 'تأكيد والدفع';
@@ -330,7 +330,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get select => 'اختر';
 
   @override
-  String get showBenefits => 'اظهار الفوائد';
+  String get showBenefits => 'اظهار الفوائد';
 
   @override
   String get validFor => 'صالح ل';
@@ -586,4 +586,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noSessionsForThisDay => 'لا توجد جلسات لهذا اليوم';
+
+  @override
+  String get closed => 'مغلقة';
+
+  @override
+  String get bookingClosed => 'الحجز مغلق';
+
+  @override
+  String get announcement => 'اعلان';
+
+  @override
+  String get youAreOnTheWaitingListMessage =>
+      'انت في قائمة الانتظار. سوف نقوم باعلامك عند فتح جلسة جديدة.';
+
+  @override
+  String get thisSessionIsFullSoJoinTheWaitingList =>
+      'هذه الجلسة ممتلئة. انضم لقائمة الانتظار للحصول على اعلام.';
+
+  @override
+  String get onWaitingList => 'في قائمة الانتظار';
+
+  @override
+  String get joinWaitingList => 'انضم لقائمة الانتظار';
+
+  @override
+  String get thisSessionIsFyllyBooked => 'This session is fully booked.';
 }

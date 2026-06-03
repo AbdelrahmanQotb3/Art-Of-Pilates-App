@@ -34,4 +34,16 @@ abstract class AppEndPoints {
   static const String createCharge = "payments/create-charge";
   static const String verifyPayment = "payments/verify/{chargeId}";
   static const String createPlanCharge = "payments/create-charge-plan";
+
+  static const String getAnnouncements = "announcements/all-announcements";
+
+  // Waiting List
+  static const String joinWaitingList = "bookings/waiting-list/join";
+  static const String leaveWaitingList =
+      "bookings/waiting-list/leave/{sessionId}";
+  static const String checkWaitingList =
+      "bookings/waiting-list/check/{sessionId}";
+
+  static const String checkPlanForSession = "bookings/check-plan/{sessionId}";
+  static const String getPlanSummery = "bookings/my-plan-summary";
 }

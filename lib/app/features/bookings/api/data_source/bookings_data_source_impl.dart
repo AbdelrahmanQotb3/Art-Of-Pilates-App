@@ -4,11 +4,16 @@ import 'package:art_of_pilates/app/core/util/exceptions/bookings/cancle_booking_
 import 'package:art_of_pilates/app/features/bookings/api/api_client/bookings_api_client.dart';
 import 'package:art_of_pilates/app/features/bookings/data/data_source/bookings_data_source_contract.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/book_session_with_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/bookings_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/cancel_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/check_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_plan_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/check_plan_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/get_plan_summery_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/join_waiting_list_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/my_plans_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/purchase_plan_response.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: BookingsDataSourceContract)
@@ -38,7 +43,10 @@ class BookingsDataSourceImpl implements BookingsDataSourceContract {
   }
 
   @override
-  Future<BaseResponse<BookResponse>> bookSession(String sessionId, String? comment) async {
+  Future<BaseResponse<BookResponse>> bookSession(
+    String sessionId,
+    String? comment,
+  ) async {
     try {
       final response = await _bookingsApiClient.bookSessionDirectly({
         'sessionId': sessionId,
@@ -80,6 +88,71 @@ class BookingsDataSourceImpl implements BookingsDataSourceContract {
   Future<BaseResponse<MyPlansResponse>> getMyPlans() async {
     try {
       final response = await _bookingsApiClient.getMyPlans();
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: BookException(error: e.toString()));
+    }
+  }
+
+  @override
+  Future<BaseResponse<PurchasePlanResponse>> purchasePlan(
+    int pricingPlanId,
+    String? startDate,
+  ) async {
+    try {
+      final body = {'pricingPlanId': pricingPlanId, 'startDate': ?startDate};
+      final response = await _bookingsApiClient.purchasePlan(body);
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: BookException(error: e.toString()));
+    }
+  }
+
+  @override
+  Future<BaseResponse<JoinWaitingListResponse>> joinWaitingList(
+    String sessionId,
+  ) async {
+    try {
+      final response = await _bookingsApiClient.joinWaitingList({
+        'sessionId': sessionId,
+      });
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: BookException(error: e.toString()));
+    }
+  }
+
+  @override
+  Future<BaseResponse<CheckPlanResponse>> checkPlanForSession(
+    String sessionId,
+  ) async {
+    try {
+      final response = await _bookingsApiClient.checkPlanForSession(sessionId);
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: e);
+    }
+  }
+
+  @override
+  Future<BaseResponse<BookSessionWithPlanResponse>> bookSessionWithPlan(
+    String sessionId,
+    String userPlanId,) async {
+    try {
+      final response = await _bookingsApiClient.bookSessionWithPlan({
+        'sessionId': sessionId,
+        'userPlanId': userPlanId,
+      });
+      return SuccessResponse(data: response);
+    } on Exception catch (e) {
+      return ErrorResponse(error: BookException(error: e.toString()));
+    }
+  }
+
+  @override
+  Future<BaseResponse<GetPlanSummeryResponse>> getPlanSummery() async{
+    try{
+      final response = await _bookingsApiClient.getPlanSummery();
       return SuccessResponse(data: response);
     } on Exception catch (e) {
       return ErrorResponse(error: BookException(error: e.toString()));

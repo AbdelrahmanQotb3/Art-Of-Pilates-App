@@ -34,13 +34,7 @@ class _AppCalendarState extends State<AppCalendar> {
           daysOfWeekHeight: 26.h,
           selectedDayPredicate: (day) => isSameDay(widget.selectedDay, day),
           calendarFormat: _calendarFormat,
-          availableCalendarFormats: const {
-            CalendarFormat.month: 'Month',
-            CalendarFormat.week: 'Week',
-          },
-          onFormatChanged: (format) {
-            setState(() => _calendarFormat = format);
-          },
+          availableCalendarFormats: const {CalendarFormat.week: 'Week'},
           startingDayOfWeek: StartingDayOfWeek.saturday,
           onDaySelected: widget.onDaySelected,
           eventLoader: widget.eventLoader,
@@ -89,27 +83,10 @@ class _AppCalendarState extends State<AppCalendar> {
         GestureDetector(
           onTap: () {
             setState(() {
-              _calendarFormat = _calendarFormat == CalendarFormat.week
-                  ? CalendarFormat.month
-                  : CalendarFormat.week;
+              _calendarFormat = CalendarFormat.week;
             });
-          },
-          onVerticalDragEnd: (details) {
-            if (details.primaryVelocity! < 0) {
-              setState(() => _calendarFormat = CalendarFormat.month);
-            } else if (details.primaryVelocity! > 0) {
-              setState(() => _calendarFormat = CalendarFormat.week);
-            }
-          },
-          child: Container(
-            width: 40.w,
-            height: 4.h,
-            margin: EdgeInsets.symmetric(vertical: 8.h),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: BorderRadius.circular(2.r),
-            ),
-          ),
+          }, // removed on vertical drag to prevent conflict with ListView inside calendar
+          child: SizedBox(height: 10.h),
         ),
       ],
     );

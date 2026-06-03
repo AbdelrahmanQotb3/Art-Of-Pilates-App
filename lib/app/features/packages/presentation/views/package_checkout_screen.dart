@@ -1,10 +1,13 @@
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
+import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
 
 import 'package:art_of_pilates/app/features/packages/domain/model/packages_model.dart';
 import 'package:art_of_pilates/app/features/packages/domain/use_cases/navigate_to_package_payment_screen.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/copoun_sheet.dart';
 import 'package:art_of_pilates/app/features/packages/presentation/views/date_picker_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +24,11 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
   String? _appliedCoupon;
   bool _policyAccepted = false;
   bool _showPolicyError = false;
+
+  initState() {
+    super.initState();
+    context.read<BookingsViewModel>().getPlanSummery();
+  }
 
   void _showCouponSheet(BuildContext context) {
     CouponBottomSheet.show(
@@ -143,6 +151,41 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                             ),
                           ),
                         ),
+                        // Add this after the date picker section if user has existing plan:
+BlocBuilder<BookingsViewModel, BookingsStates>(
+  builder: (context, state) {
+    final summary = state.getPlanSummeryState?.data;
+    if (summary == null || summary.hasPlan == false) return const SizedBox.shrink();
+    if (summary.expiryDate == null) return const SizedBox.shrink();
+
+    final expiryDate = DateTime.tryParse(summary.expiryDate!);
+    if (expiryDate == null) return const SizedBox.shrink();
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      child: Container(
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Colors.blue.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(color: Colors.blue.withOpacity(0.3)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.info_outline, color: Colors.blue, size: 16.sp),
+            SizedBox(width: 8.w),
+            Expanded(
+              child: Text(
+                'You have an active plan expiring ${DateFormat('MMM d, yyyy').format(expiryDate)}. This new plan will start after it ends.',
+                style: TextStyle(fontSize: 12.sp, color: Colors.blue.shade700),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+),
                       ],
                     ),
                   ),
@@ -333,7 +376,7 @@ class _PackageCheckoutScreenState extends State<PackageCheckoutScreen> {
                     setState(() => _showPolicyError = true);
                     return;
                   }
-                  NavigateToPackagePaymentScreen.call(context, widget.plan);
+                  NavigateToPackagePaymentScreen.call(context, widget.plan , _selectedStartDate);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
