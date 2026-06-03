@@ -59,9 +59,12 @@ class AllBookingsScreen extends StatelessWidget {
               }
 
               final now = DateTime.now();
-              final upcomingBookings = allBookings
-                  .where((booking) => booking.createdAt.isAfter(now))
-                  .toList();
+              final upcomingBookings = allBookings.where((booking) {
+                final startTime = booking.session?.startTime;
+                if (startTime == null) return false;
+                final startDateTime = DateTime.tryParse(startTime);
+                return startDateTime != null && startDateTime.isAfter(now);
+              }).toList();
               final historyBookings = allBookings
                   .where((booking) => booking.createdAt.isBefore(now))
                   .toList();
@@ -83,7 +86,7 @@ class AllBookingsScreen extends StatelessWidget {
     if (bookings.isEmpty) {
       return Center(child: Text(emptyMsg));
     }
-    
+
     return ListView.builder(
       padding: EdgeInsets.all(16.w),
       itemCount: bookings.length,

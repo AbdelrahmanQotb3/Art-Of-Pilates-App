@@ -15,6 +15,7 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime sessionTime = DateTime.tryParse(booking.session?.startTime ?? '') ?? DateTime.now();
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(16.w),
@@ -29,7 +30,7 @@ class BookingCard extends StatelessWidget {
           Column(
             children: [
               Text(
-                "${booking.createdAt.day}",
+                "${sessionTime.day}",
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
               Text(

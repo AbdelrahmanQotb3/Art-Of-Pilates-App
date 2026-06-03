@@ -680,23 +680,23 @@ abstract class AppLocalizations {
   /// **'Pay securely with credit card, debit card, or digital wallet'**
   String get onlinePaymentDescription;
 
-  /// No description provided for @offlinePayment.
+  /// No description provided for @cashPayment.
   ///
   /// In en, this message translates to:
-  /// **'Offline Payment'**
-  String get offlinePayment;
+  /// **'Cash Payment'**
+  String get cashPayment;
 
-  /// No description provided for @offlinePaymentDescription.
+  /// No description provided for @cashPaymentDescription.
   ///
   /// In en, this message translates to:
   /// **'Pay in person at the studio location'**
-  String get offlinePaymentDescription;
+  String get cashPaymentDescription;
 
-  /// No description provided for @planOfflinePaymentNotAvailable.
+  /// No description provided for @planCashPaymentNotAvailable.
   ///
   /// In en, this message translates to:
   /// **'Plans must be paid online.'**
-  String get planOfflinePaymentNotAvailable;
+  String get planCashPaymentNotAvailable;
 
   /// No description provided for @confirmAndPay.
   ///
@@ -1213,6 +1213,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sessions for this day'**
   String get noSessionsForThisDay;
+
+  /// No description provided for @closed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get closed;
+
+  /// No description provided for @bookingClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Closed'**
+  String get bookingClosed;
+
+  /// No description provided for @announcement.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get announcement;
+
+  /// No description provided for @youAreOnTheWaitingListMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on the waiting list. We\'ll notify you if a spot opens.'**
+  String get youAreOnTheWaitingListMessage;
+
+  /// No description provided for @thisSessionIsFullSoJoinTheWaitingList.
+  ///
+  /// In en, this message translates to:
+  /// **'This session is full. Join the waiting list to get notified.'**
+  String get thisSessionIsFullSoJoinTheWaitingList;
+
+  /// No description provided for @onWaitingList.
+  ///
+  /// In en, this message translates to:
+  /// **'On Waiting List'**
+  String get onWaitingList;
+
+  /// No description provided for @joinWaitingList.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Waiting List'**
+  String get joinWaitingList;
+
+  /// No description provided for @thisSessionIsFyllyBooked.
+  ///
+  /// In en, this message translates to:
+  /// **'This session is fully booked.'**
+  String get thisSessionIsFyllyBooked;
 }
 
 class _AppLocalizationsDelegate

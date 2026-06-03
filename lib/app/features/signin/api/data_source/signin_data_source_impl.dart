@@ -67,7 +67,7 @@ Future<BaseResponse<SigninResponse>> signin(String email, String password) async
       await sessionManager.setToken(responseToken);
       await sessionManager.setUserId(userId.toString());
       return SuccessResponse(data: response);
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return ErrorResponse(error: SigninWithGoogleException());
     }
   }

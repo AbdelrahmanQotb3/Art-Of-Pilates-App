@@ -2,6 +2,9 @@ import 'package:art_of_pilates/app/config/di/di.dart';
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
+import 'package:art_of_pilates/app/features/announcments/presentation/view_model/announcments_states.dart';
+import 'package:art_of_pilates/app/features/announcments/presentation/view_model/announcments_view_model.dart';
+import 'package:art_of_pilates/app/features/announcments/presentation/views/announcment_tile.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/use_cases/navigate_to_all_bookings_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
@@ -28,6 +31,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   late final BookingsViewModel bookingsViewModel;
   late final HomeViewModel homeViewModel;
+  late final AnnouncmentsViewModel announcmentsViewModel;
 
   @override
   void initState() {
@@ -35,6 +39,9 @@ class _HomeTabState extends State<HomeTab> {
     bookingsViewModel = getIt<BookingsViewModel>();
     homeViewModel = getIt<HomeViewModel>();
     bookingsViewModel.getAllBookings();
+    announcmentsViewModel = getIt<AnnouncmentsViewModel>();
+    getIt<AnnouncmentsViewModel>().getAnnouncments();
+    announcmentsViewModel.getAnnouncments();
   }
 
   Future<void> _launchSocial(BuildContext context, String url) async {
@@ -54,8 +61,11 @@ class _HomeTabState extends State<HomeTab> {
     final locale = appLocale(context);
     final theme = Theme.of(context);
 
-    return BlocProvider.value(
-      value: bookingsViewModel,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: bookingsViewModel),
+        BlocProvider.value(value: announcmentsViewModel),
+      ],
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
         body: CustomScrollView(
@@ -164,6 +174,34 @@ class _HomeTabState extends State<HomeTab> {
                       },
                     ),
                     SizedBox(height: 24.h),
+                    BlocBuilder<AnnouncmentsViewModel, AnnouncmentsStates>(
+                      builder: (context, state) {
+                        if (state.announcmentsState?.isLoading ?? false) {
+                          return const SizedBox.shrink();
+                        }
+                        final all =
+                            state.announcmentsState?.data?.announcements ?? [];
+                        final now = DateTime.now();
+                        final recent = all.where((a) {
+                          if (a.createdAt == null) return false;
+                          return now.difference(a.createdAt!).inHours < 24;
+                        }).toList();
+                        if (recent.isEmpty) return const SizedBox.shrink();
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              locale.announcement,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            SizedBox(height: 12.h),
+                            ...recent
+                                .map((a) => AnnouncmentTile(announcement: a)),
+                            SizedBox(height: 12.h),
+                          ],
+                        );
+                      },
+                    ),
                     _buildSocialRow(context, theme),
                     SizedBox(height: 24.h),
                   ],
@@ -213,7 +251,6 @@ class _HomeTabState extends State<HomeTab> {
         startTime.year == DateTime.now().year &&
         startTime.month == DateTime.now().month &&
         startTime.day == DateTime.now().day;
-
     return InkWell(
       onTap: () {
         NavigateToSessionDetailsScreenUseCase.call(context, session.id!);

@@ -15,6 +15,20 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../core/util/session_manager.dart' as _i32;
+import '../../features/announcments/api/api_client/announcment_api_client.dart'
+    as _i744;
+import '../../features/announcments/api/data_source/announcments_data_source_impl.dart'
+    as _i101;
+import '../../features/announcments/data/data_source/announcments_data_source_contract.dart'
+    as _i379;
+import '../../features/announcments/data/repo/announcments_repo_impl.dart'
+    as _i101;
+import '../../features/announcments/domain/repo/announcments_repo_contract.dart'
+    as _i510;
+import '../../features/announcments/domain/use_cases/get_announcments_use_case.dart'
+    as _i18;
+import '../../features/announcments/presentation/view_model/announcments_view_model.dart'
+    as _i625;
 import '../../features/bookings/api/api_client/bookings_api_client.dart'
     as _i1017;
 import '../../features/bookings/api/data_source/bookings_data_source_impl.dart'
@@ -28,14 +42,24 @@ import '../../features/bookings/domain/use_cases/book_plan_use_case.dart'
     as _i108;
 import '../../features/bookings/domain/use_cases/book_session_use_case.dart'
     as _i1017;
+import '../../features/bookings/domain/use_cases/book_session_with_plan.dart'
+    as _i350;
 import '../../features/bookings/domain/use_cases/cancel_booking_use_case.dart'
     as _i429;
 import '../../features/bookings/domain/use_cases/check_booking_use_case.dart'
     as _i386;
+import '../../features/bookings/domain/use_cases/check_plan_for_session_use_case.dart'
+    as _i222;
 import '../../features/bookings/domain/use_cases/get_all_bookings_use_case.dart'
     as _i677;
 import '../../features/bookings/domain/use_cases/get_my_plans_use_case.dart'
     as _i106;
+import '../../features/bookings/domain/use_cases/get_plan_summery_use_case.dart'
+    as _i969;
+import '../../features/bookings/domain/use_cases/join_waiting_list_use_case.dart'
+    as _i481;
+import '../../features/bookings/domain/use_cases/purchase_plan_use_case.dart'
+    as _i156;
 import '../../features/bookings/presentation/view_model/bookings_view_model.dart'
     as _i122;
 import '../../features/home/api/data_source/home_data_source_impl.dart'
@@ -179,6 +203,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i660.NavigateToEditInfoScreenUseCase(),
     );
     gh.lazySingleton<_i32.SessionManager>(() => _i32.SessionManager());
+    gh.factory<_i744.AnnouncmentApiClient>(
+      () => _i744.AnnouncmentApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i1017.BookingsApiClient>(
       () => _i1017.BookingsApiClient(gh<_i361.Dio>()),
     );
@@ -249,6 +276,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i756.BookingsRepoContract>(
       () => _i826.BookingsRepoImpl(gh<_i871.BookingsDataSourceContract>()),
     );
+    gh.factory<_i379.AnnouncmentsDataSourceContract>(
+      () => _i101.AnnouncmentsDataSourceImpl(gh<_i744.AnnouncmentApiClient>()),
+    );
     gh.factory<_i396.HomeRepoContract>(
       () => _i1024.HomeRepoImpl(gh<_i221.HomeDataSourceContract>()),
     );
@@ -291,11 +321,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i677.GetAllBookingsUseCase>(
       () => _i677.GetAllBookingsUseCase(gh<_i756.BookingsRepoContract>()),
     );
+    gh.factory<_i481.JoinWaitingListUseCase>(
+      () => _i481.JoinWaitingListUseCase(gh<_i756.BookingsRepoContract>()),
+    );
     gh.factory<_i1017.BookSessionUseCase>(
       () => _i1017.BookSessionUseCase(gh<_i756.BookingsRepoContract>()),
     );
     gh.factory<_i386.CheckBookingUseCase>(
       () => _i386.CheckBookingUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.factory<_i969.GetPlanSummeryUseCase>(
+      () => _i969.GetPlanSummeryUseCase(gh<_i756.BookingsRepoContract>()),
     );
     gh.factory<_i1026.VerifyChargeUseCase>(
       () => _i1026.VerifyChargeUseCase(gh<_i968.PaymentRepoContract>()),
@@ -306,18 +342,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i108.BookPlanUseCase>(
       () => _i108.BookPlanUseCase(gh<_i756.BookingsRepoContract>()),
     );
+    gh.factory<_i350.BookSessionWithPlanUseCase>(
+      () => _i350.BookSessionWithPlanUseCase(gh<_i756.BookingsRepoContract>()),
+    );
+    gh.factory<_i222.CheckPlanForSessionUseCase>(
+      () => _i222.CheckPlanForSessionUseCase(gh<_i756.BookingsRepoContract>()),
+    );
     gh.factory<_i106.GetMyPlansUseCase>(
       () => _i106.GetMyPlansUseCase(gh<_i756.BookingsRepoContract>()),
     );
-    gh.singleton<_i122.BookingsViewModel>(
-      () => _i122.BookingsViewModel(
-        gh<_i677.GetAllBookingsUseCase>(),
-        gh<_i429.CancelBookingUseCase>(),
-        gh<_i1017.BookSessionUseCase>(),
-        gh<_i386.CheckBookingUseCase>(),
-        gh<_i108.BookPlanUseCase>(),
-        gh<_i106.GetMyPlansUseCase>(),
-      ),
+    gh.factory<_i156.PurchasePlanUseCase>(
+      () => _i156.PurchasePlanUseCase(gh<_i756.BookingsRepoContract>()),
     );
     gh.factory<_i787.SettingsRepoContract>(
       () => _i812.SettingsRepoImpl(gh<_i478.SettingsDataSourceContract>()),
@@ -330,6 +365,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i755.PackagesRepoContract>(
       () => _i543.PackagesRepoImpl(gh<_i526.PackagesDataSourceContract>()),
+    );
+    gh.factory<_i510.AnnouncmentsRepoContract>(
+      () => _i101.AnnouncmentsRepoImpl(
+        gh<_i379.AnnouncmentsDataSourceContract>(),
+      ),
     );
     gh.factory<_i539.EditUserInfoUseCase>(
       () => _i539.EditUserInfoUseCase(gh<_i541.ProfileRepoContract>()),
@@ -345,6 +385,24 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i689.GetOnePackageUseCase>(
       () => _i689.GetOnePackageUseCase(gh<_i755.PackagesRepoContract>()),
+    );
+    gh.factory<_i18.GetAnnouncmentsUseCase>(
+      () => _i18.GetAnnouncmentsUseCase(gh<_i510.AnnouncmentsRepoContract>()),
+    );
+    gh.singleton<_i122.BookingsViewModel>(
+      () => _i122.BookingsViewModel(
+        gh<_i677.GetAllBookingsUseCase>(),
+        gh<_i429.CancelBookingUseCase>(),
+        gh<_i1017.BookSessionUseCase>(),
+        gh<_i386.CheckBookingUseCase>(),
+        gh<_i108.BookPlanUseCase>(),
+        gh<_i106.GetMyPlansUseCase>(),
+        gh<_i156.PurchasePlanUseCase>(),
+        gh<_i481.JoinWaitingListUseCase>(),
+        gh<_i222.CheckPlanForSessionUseCase>(),
+        gh<_i350.BookSessionWithPlanUseCase>(),
+        gh<_i969.GetPlanSummeryUseCase>(),
+      ),
     );
     gh.factory<_i435.SigninViewModel>(
       () => _i435.SigninViewModel(gh<_i557.SigninUseCase>()),
@@ -385,6 +443,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i317.GetAllServicesUseCase>(),
         gh<_i978.GetOneServiceUseCase>(),
       ),
+    );
+    gh.factory<_i625.AnnouncmentsViewModel>(
+      () => _i625.AnnouncmentsViewModel(gh<_i18.GetAnnouncmentsUseCase>()),
     );
     return this;
   }

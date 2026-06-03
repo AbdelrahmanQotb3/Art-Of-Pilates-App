@@ -3,7 +3,7 @@ import 'package:art_of_pilates/app/config/di/di.dart';
 import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_model.dart';
-import 'package:art_of_pilates/app/features/bookings/domain/model/my_plans_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/purchase_plan_model.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_states.dart';
 import 'package:art_of_pilates/app/features/bookings/presentation/view_model/bookings_view_model.dart';
 import 'package:art_of_pilates/app/features/packages/domain/model/packages_model.dart';
@@ -22,8 +22,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class PaymentScreen extends StatefulWidget {
   final SessionEntity? session;
   final PricingPlanEntity? plan;
+  final DateTime? startDate;
 
-  const PaymentScreen({super.key, this.session, this.plan})
+  const PaymentScreen({super.key, this.session, this.plan, this.startDate})
     : assert(
         session != null || plan != null,
         'Either session or plan must be provided',
@@ -186,30 +187,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             }
                           } else if (widget.plan != null) {
                             if (context.mounted) {
-                              final myPlansResult = await bookingsViewModel
-                                  .getMyPlans();
-
+                              final result = await bookingsViewModel
+                                  .purchasePlan(
+                                    widget.plan!.id!,
+                                    widget.startDate.toString(),
+                                  );
                               if (context.mounted) {
-                                if (myPlansResult
-                                    is SuccessResponse<MyPlansModel>) {
-                                  final plans = myPlansResult.data?.plans;
-
-                                  if (plans != null && plans.isNotEmpty) {
-                                    final latestPlan = plans.last;
-
-                                    await bookingsViewModel.bookPlan(
-                                      latestPlan.id!,
-                                    );
-                                  } else {
-                                    _showErrorSnackBar(
-                                      context,
-                                      'No active plans found.',
-                                    );
-                                  }
+                                if (result
+                                    is SuccessResponse<PurchasePlanModel>) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${appLocale(context).planPurchasedSuccessfully} — ${result.data.bookedSessionsCount ?? 0} sessions booked',
+                                      ),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                  NavigateToHomeScreenUseCase.call(context);
                                 } else {
                                   _showErrorSnackBar(
                                     context,
-                                    'Failed to fetch plans. Contact support with ID: ${charge.chargeId}',
+                                    'Plan purchase failed. Contact support with ID: ${charge.chargeId}',
                                   );
                                 }
                               }
@@ -305,8 +303,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       SizedBox(height: 12.h),
                       _buildPaymentMethodCard(
-                        title: locale.offlinePayment,
-                        subtitle: locale.offlinePaymentDescription,
+                        title: locale.cashPayment,
+                        subtitle: locale.cashPaymentDescription,
                         icon: Icons.store,
                         isSelected: _selectedPaymentMethod == 'offline',
                         onTap: () =>
@@ -473,7 +471,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(locale.planOfflinePaymentNotAvailable),
+              content: Text(locale.planCashPaymentNotAvailable),
               backgroundColor: AppColors.redColor,
             ),
           );

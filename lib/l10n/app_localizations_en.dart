@@ -307,14 +307,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Pay securely with credit card, debit card, or digital wallet';
 
   @override
-  String get offlinePayment => 'Offline Payment';
+  String get cashPayment => 'Cash Payment';
 
   @override
-  String get offlinePaymentDescription =>
-      'Pay in person at the studio location';
+  String get cashPaymentDescription => 'Pay in person at the studio location';
 
   @override
-  String get planOfflinePaymentNotAvailable => 'Plans must be paid online.';
+  String get planCashPaymentNotAvailable => 'Plans must be paid online.';
 
   @override
   String get confirmAndPay => 'Confirm & Pay';
@@ -586,4 +585,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSessionsForThisDay => 'No sessions for this day';
+
+  @override
+  String get closed => 'Closed';
+
+  @override
+  String get bookingClosed => 'Booking Closed';
+
+  @override
+  String get announcement => 'Announcement';
+
+  @override
+  String get youAreOnTheWaitingListMessage =>
+      'You\'re on the waiting list. We\'ll notify you if a spot opens.';
+
+  @override
+  String get thisSessionIsFullSoJoinTheWaitingList =>
+      'This session is full. Join the waiting list to get notified.';
+
+  @override
+  String get onWaitingList => 'On Waiting List';
+
+  @override
+  String get joinWaitingList => 'Join Waiting List';
+
+  @override
+  String get thisSessionIsFyllyBooked => 'This session is fully booked.';
 }

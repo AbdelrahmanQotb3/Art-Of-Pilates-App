@@ -95,29 +95,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       });
                     },
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.filter_list,
-                          color: theme.colorScheme.primary,
-                          size: 20.sp,
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          locale.filters,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Divider(color: theme.colorScheme.primary, height: 1),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -170,6 +147,14 @@ class _ScheduleTabState extends State<ScheduleTab> {
     SessionEntity session,
     ThemeData theme,
   ) {
+    final bool isClosedDueToLowBookings = () {
+      if (session.startTime == null) return false;
+      final start = DateTime.parse(session.startTime!).toLocal();
+      final twoHoursBefore = start.subtract(const Duration(hours: 2));
+      final now = DateTime.now();
+      return now.isAfter(twoHoursBefore) &&
+          (session.currentParticipants ?? 0) < 2;
+    }();
     final time = viewModel.formatTime(session.startTime);
     final duration = viewModel.formatDuration(
       session.startTime,
@@ -229,23 +214,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       color: theme.colorScheme.primary,
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.person,
-                        size: 14.sp,
-                        color: theme.colorScheme.primary,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        '${session.currentParticipants ?? 0}/${session.maxParticipants ?? 0}',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.primary,
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(height: 4.h),
                   Row(
                     children: [
@@ -275,6 +243,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
                 final String label;
                 final Color bgColor;
+                final bool cannotBook =
+                    isFull || isBooked || isClosedDueToLowBookings;
 
                 if (isFull) {
                   label = appLocale(context).full;
@@ -282,6 +252,9 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 } else if (isBooked) {
                   label = appLocale(context).booked;
                   bgColor = Colors.green.shade700;
+                } else if (isClosedDueToLowBookings) {
+                  label = appLocale(context).closed;
+                  bgColor = theme.colorScheme.primary.withOpacity(0.5);
                 } else {
                   label = appLocale(context).book;
                   bgColor = theme.colorScheme.primary;
@@ -290,7 +263,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 return Align(
                   alignment: Alignment.center,
                   child: OutlinedButton(
-                    onPressed: isFull || isBooked
+                    onPressed: cannotBook
                         ? null
                         : () => NavigateToSessionDetailsScreenUseCase.call(
                             context,

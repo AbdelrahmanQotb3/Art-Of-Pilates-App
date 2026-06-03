@@ -2,16 +2,26 @@ import 'package:art_of_pilates/app/config/base_response/base_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/data_source/bookings_data_source_contract.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/book_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/book_session_with_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/bookings_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/cancel_booking_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/check_booking_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/check_plan_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/get_plan_summery_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/join_waiting_list_response.dart';
 import 'package:art_of_pilates/app/features/bookings/data/model/my_plans_response.dart';
+import 'package:art_of_pilates/app/features/bookings/data/model/purchase_plan_response.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/book_plan_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/book_session_with_plan_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/bookings_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/cancel_booking_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/check_booking_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/check_plan_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/join_waiting_list_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/my_plan_summery_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/model/my_plans_model.dart';
+import 'package:art_of_pilates/app/features/bookings/domain/model/purchase_plan_model.dart';
 import 'package:art_of_pilates/app/features/bookings/domain/repo/bookings_repo_contract.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/data/model/sessions_response.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/model/sessions_model.dart';
@@ -130,7 +140,10 @@ class BookingsRepoImpl implements BookingsRepoContract {
   }
 
   @override
-  Future<BaseResponse<BookModel>> bookSession(String sessionId , String? comment) async {
+  Future<BaseResponse<BookModel>> bookSession(
+    String sessionId,
+    String? comment,
+  ) async {
     final response = await _bookingsDataSource.bookSession(sessionId, comment);
     switch (response) {
       case SuccessResponse<BookResponse>():
@@ -199,6 +212,111 @@ class BookingsRepoImpl implements BookingsRepoContract {
         );
       case ErrorResponse():
         return ErrorResponse(error: response.error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<PurchasePlanModel>> purchasePlan(
+    int pricingPlanId,
+    String? startDate,
+  ) async {
+    final response = await _bookingsDataSource.purchasePlan(
+      pricingPlanId,
+      startDate,
+    );
+    switch (response) {
+      case SuccessResponse<PurchasePlanResponse>():
+        return SuccessResponse(
+          data: PurchasePlanModel(
+            message: response.data.message,
+            userPlanId: response.data.userPlan?.id,
+            bookedSessionsCount: response.data.bookedSessionsCount,
+            status: response.data.userPlan?.status,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: (response as ErrorResponse).error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<JoinWaitingListModel>> joinWaitingList(
+    String sessionId,
+  ) async {
+    final response = await _bookingsDataSource.joinWaitingList(sessionId);
+    switch (response) {
+      case SuccessResponse<JoinWaitingListResponse>():
+        return SuccessResponse(
+          data: JoinWaitingListModel(
+            message: response.data.message,
+            waitingListId: response.data.waitingListId,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: (response as ErrorResponse).error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<CheckPlanModel>> checkPlanForSession(
+    String sessionId,
+  ) async {
+    final response = await _bookingsDataSource.checkPlanForSession(sessionId);
+    switch (response) {
+      case SuccessResponse<CheckPlanResponse>():
+        return SuccessResponse(
+          data: CheckPlanModel(
+            hasPlan: response.data.hasPlan,
+            userPlanId: response.data.userPlanId,
+            planName: response.data.planName,
+            sessionsLeft: response.data.sessionsLeft,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: (response as ErrorResponse).error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<BookSessionWithPlanModel>> bookSessionWithPlan(
+    String sessionId,
+    String userPlanId,
+  ) async {
+    final response = await _bookingsDataSource.bookSessionWithPlan(
+      sessionId,
+      userPlanId,
+    );
+    switch (response) {
+      case SuccessResponse<BookSessionWithPlanResponse>():
+        return SuccessResponse(
+          data: BookSessionWithPlanModel(
+            message: response.data.message,
+            invoiceId: response.data.invoiceId,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: (response as ErrorResponse).error);
+    }
+  }
+
+  @override
+  Future<BaseResponse<MyPlanSummeryModel>> getPlanSummery() async {
+    final response = await _bookingsDataSource.getPlanSummery();
+    switch (response) {
+      case SuccessResponse<GetPlanSummeryResponse>():
+        return SuccessResponse(
+          data: MyPlanSummeryModel(
+            hasPlan: response.data.hasPlan,
+            planName: response.data.planName,
+            sessionsTotal: response.data.sessionsTotal,
+            sessionsUsed: response.data.sessionsUsed,
+            sessionsLeft: response.data.sessionsLeft,
+            expiryDate: response.data.expiryDate,
+            startDate: response.data.startDate,
+          ),
+        );
+      case ErrorResponse():
+        return ErrorResponse(error: (response as ErrorResponse).error);
     }
   }
 }

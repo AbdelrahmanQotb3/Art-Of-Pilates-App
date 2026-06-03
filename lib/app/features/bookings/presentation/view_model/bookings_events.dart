@@ -24,3 +24,31 @@ class BookPlanEvent extends BookingsEvent {
 
   BookPlanEvent(this.userPlanId);
 }
+
+class PurchasePlanEvent extends BookingsEvent {
+  final int pricingPlanId;
+  final String? startDate;
+
+  PurchasePlanEvent(this.pricingPlanId, this.startDate);
+}
+
+class JoinWaitingListEvent extends BookingsEvent {
+  final String sessionId;
+
+  JoinWaitingListEvent(this.sessionId);
+}
+
+class CheckPlanForSessionEvent extends BookingsEvent {
+  final String sessionId;
+
+  CheckPlanForSessionEvent(this.sessionId);
+}
+
+class BookSessionWithPlanEvent extends BookingsEvent {
+  final String sessionId;
+  final String userPlanId;
+
+  BookSessionWithPlanEvent(this.sessionId, this.userPlanId);
+}
+
+class GetPlanSummeryEvent extends BookingsEvent {}

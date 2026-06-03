@@ -9,7 +9,6 @@ import 'package:art_of_pilates/app/widgets/app_exception_dialog.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/domain/use_cases/navigate_to_payment_screen.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/view_model/sessions_view_model.dart';
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/show_more_details.dart';
-import 'package:art_of_pilates/app/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -341,7 +340,7 @@ class _SessionCheckoutScreenState extends State<SessionCheckoutScreen> {
                                       ? Theme.of(context).colorScheme.error
                                       : Theme.of(
                                           context,
-                                        ).colorScheme.onBackground,
+                                        ).colorScheme.onSurface,
                                   width: 1.5,
                                 ),
                                 borderRadius: BorderRadius.circular(4.r),
