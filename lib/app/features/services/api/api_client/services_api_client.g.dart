@@ -12,7 +12,7 @@ part of 'services_api_client.dart';
 
 class _ServicesApiClient implements ServicesApiClient {
   _ServicesApiClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://10.0.2.2:3000/';
+    baseUrl ??= 'https://api.artofpilates.net/';
   }
 
   final Dio _dio;

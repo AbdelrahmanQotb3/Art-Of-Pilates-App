@@ -12,7 +12,7 @@ part of 'profile_api_client.dart';
 
 class _ProfileApiClient implements ProfileApiClient {
   _ProfileApiClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://10.0.2.2:3000/';
+    baseUrl ??= 'https://api.artofpilates.net/';
   }
 
   final Dio _dio;
