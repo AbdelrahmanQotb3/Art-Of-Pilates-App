@@ -284,6 +284,102 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get privacyPolicy;
 
+  /// No description provided for @termsAndConditionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditionsTitle;
+
+  /// No description provided for @termsAgreementNote.
+  ///
+  /// In en, this message translates to:
+  /// **'By confirming and paying for this service, you agree to the following:'**
+  String get termsAgreementNote;
+
+  /// No description provided for @termsBullet1.
+  ///
+  /// In en, this message translates to:
+  /// **'All payments are final – no refunds.'**
+  String get termsBullet1;
+
+  /// No description provided for @termsBullet2.
+  ///
+  /// In en, this message translates to:
+  /// **'You may cancel and reschedule your session if done at least 2 hours before the session time.'**
+  String get termsBullet2;
+
+  /// No description provided for @termsBullet3.
+  ///
+  /// In en, this message translates to:
+  /// **'Late arrivals beyond 10 minutes may result in a shortened session.'**
+  String get termsBullet3;
+
+  /// No description provided for @termsBullet4.
+  ///
+  /// In en, this message translates to:
+  /// **'Please read our full terms at: art-of-pilates.com/terms.'**
+  String get termsBullet4;
+
+  /// No description provided for @termsBullet5.
+  ///
+  /// In en, this message translates to:
+  /// **'Please be advised that you are required to wear Pilates-specific grip socks. If you do not have a pair, you can purchase them at the cashier.'**
+  String get termsBullet5;
+
+  /// No description provided for @termsBullet6.
+  ///
+  /// In en, this message translates to:
+  /// **'Being more than 5 minutes late will be considered a cancellation of the session, and entry will not be permitted in order to ensure your safety and the discipline of the group.'**
+  String get termsBullet6;
+
+  /// No description provided for @termsBullet7.
+  ///
+  /// In en, this message translates to:
+  /// **'Children under 14 are not allowed.'**
+  String get termsBullet7;
+
+  /// No description provided for @termsBullet8.
+  ///
+  /// In en, this message translates to:
+  /// **'If you change your booking appointment, it must be done 2 hours in advance.'**
+  String get termsBullet8;
+
+  /// No description provided for @termsBullet9.
+  ///
+  /// In en, this message translates to:
+  /// **'Age group starting from 16 years old.'**
+  String get termsBullet9;
+
+  /// No description provided for @termsBullet10.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing or giving away portions of the package with another person is not allowed.'**
+  String get termsBullet10;
+
+  /// No description provided for @termsBullet11.
+  ///
+  /// In en, this message translates to:
+  /// **'We are pleased to offer a membership freezing option:\n  - Based on your selected package.\n  - Each month of your membership includes one freeze opportunity for a period ranging from 7 to 14 days.\n  - Freeze requests must be submitted at least 24 hours in advance and cannot be applied retroactively.\n  - During the freeze period the membership will be temporarily paused and the expiry date will be extended accordingly.'**
+  String get termsBullet11;
+
+  /// No description provided for @privacyPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicyTitle;
+
+  /// No description provided for @privacyPolicyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We are committed to protecting your privacy. Your information is used solely to confirm bookings and communicate regarding your sessions. We do not share your data with any third party without your consent.'**
+  String get privacyPolicyDescription;
+
+  /// No description provided for @privacyPolicyMoreDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'For more details: https://www.art-of-pilates.com/privacyterms'**
+  String get privacyPolicyMoreDetails;
+
   /// No description provided for @adminDashboardTitle.
   ///
   /// In en, this message translates to:

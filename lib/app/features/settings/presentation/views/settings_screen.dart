@@ -4,7 +4,6 @@ import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/home/domain/use_cases/navigate_to_profile_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_about_app_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_delete_Account_screen_use_case.dart';
-import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_display_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_languages_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_notifications_screen_use_case.dart';
 import 'package:art_of_pilates/app/features/settings/presentation/view_model/settings_states.dart';
@@ -102,10 +101,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildSettingRow(
                 locale.notificationsSettings,
                 () => NavigateToNotificationsScreenUseCase.call(context),
-              ),
-              _buildSettingRow(
-                locale.appDisplay,
-                () => NavigateToDisplayScreenUseCase.call(context),
               ),
               _buildSettingRow(
                 locale.deleteYourAccount,

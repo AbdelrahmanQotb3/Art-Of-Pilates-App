@@ -103,6 +103,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacyPolicy => 'Privacy Policy';
 
   @override
+  String get termsAndConditionsTitle => 'Terms & Conditions';
+
+  @override
+  String get termsAgreementNote =>
+      'By confirming and paying for this service, you agree to the following:';
+
+  @override
+  String get termsBullet1 => 'All payments are final – no refunds.';
+
+  @override
+  String get termsBullet2 =>
+      'You may cancel and reschedule your session if done at least 2 hours before the session time.';
+
+  @override
+  String get termsBullet3 =>
+      'Late arrivals beyond 10 minutes may result in a shortened session.';
+
+  @override
+  String get termsBullet4 =>
+      'Please read our full terms at: art-of-pilates.com/terms.';
+
+  @override
+  String get termsBullet5 =>
+      'Please be advised that you are required to wear Pilates-specific grip socks. If you do not have a pair, you can purchase them at the cashier.';
+
+  @override
+  String get termsBullet6 =>
+      'Being more than 5 minutes late will be considered a cancellation of the session, and entry will not be permitted in order to ensure your safety and the discipline of the group.';
+
+  @override
+  String get termsBullet7 => 'Children under 14 are not allowed.';
+
+  @override
+  String get termsBullet8 =>
+      'If you change your booking appointment, it must be done 2 hours in advance.';
+
+  @override
+  String get termsBullet9 => 'Age group starting from 16 years old.';
+
+  @override
+  String get termsBullet10 =>
+      'Sharing or giving away portions of the package with another person is not allowed.';
+
+  @override
+  String get termsBullet11 =>
+      'We are pleased to offer a membership freezing option:\n  - Based on your selected package.\n  - Each month of your membership includes one freeze opportunity for a period ranging from 7 to 14 days.\n  - Freeze requests must be submitted at least 24 hours in advance and cannot be applied retroactively.\n  - During the freeze period the membership will be temporarily paused and the expiry date will be extended accordingly.';
+
+  @override
+  String get privacyPolicyTitle => 'Privacy Policy';
+
+  @override
+  String get privacyPolicyDescription =>
+      'We are committed to protecting your privacy. Your information is used solely to confirm bookings and communicate regarding your sessions. We do not share your data with any third party without your consent.';
+
+  @override
+  String get privacyPolicyMoreDetails =>
+      'For more details: https://www.art-of-pilates.com/privacyterms';
+
+  @override
   String get adminDashboardTitle => 'Art of Pilates Dashboard';
 
   @override

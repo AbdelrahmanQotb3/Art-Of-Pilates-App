@@ -107,6 +107,63 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacyPolicy => 'سياسة الخصوصية';
 
   @override
+  String get termsAndConditionsTitle => 'الشروط والأحكام';
+
+  @override
+  String get termsAgreementNote =>
+      'بإتمامك الدفع لهذه الخدمة، فإنك توافق على ما يلي:';
+
+  @override
+  String get termsBullet1 => 'الدفع غير قابل للاسترداد نهائيًا.';
+
+  @override
+  String get termsBullet2 =>
+      'يمكنك إلغاء الجلسة وإعادة جدولتها إذا تم ذلك قبل ساعتين على الأقل من وقت الجلسة.';
+
+  @override
+  String get termsBullet3 =>
+      'التأخر لأكثر من 10 دقائق قد يؤدي إلى تقليص وقت الجلسة.';
+
+  @override
+  String get termsBullet4 =>
+      'يرجى التنبيه انه يجب عليك ارتداء الجوارب المخصصة لرياضة البيلاتس واذا لم تكن متوفرة يمكنك شراءها عبر الكاشير.';
+
+  @override
+  String get termsBullet5 =>
+      'التأخير أكثر من 5 دقائق يُعتبر إلغاء للجلسة، ولن يُسمح بالدخول حفاظًا على سلامتك وانضباط المجموعة.';
+
+  @override
+  String get termsBullet6 => 'لا يسمح باصطحاب الأطفال أقل من عمر 14.';
+
+  @override
+  String get termsBullet7 => 'في حاله تغيير الموعد يجب ان يكون قبلها بساعتين.';
+
+  @override
+  String get termsBullet8 => 'الفئه العمريه ابتداءً من عمر 16 عامًا.';
+
+  @override
+  String get termsBullet9 => 'لا يسمح بمشاركة الباكيج مع شخص آخر.';
+
+  @override
+  String get termsBullet10 =>
+      'يفضل وضع المقتنيات الشخصية في الخزائن وقفلها برقم سري لأننا غير مسؤولين عن أي فقد أو تلف للمقتنيات الشخصية.';
+
+  @override
+  String get termsBullet11 =>
+      'يسعدنا تقديم خيار تجميد الاشتراك حسب البكج الخاصة فيكم:\n  - كل شهر يتيح فرصة تجميد واحدة لمدة من 7 إلى 14 يوم.\n  - يجب طلب التجميد قبل 24 ساعة ولا يمكن تطبيقه بأثر رجعي.\n  - التجميد يوقف الاشتراك مؤقتًا ويُمدد تاريخ الانتهاء فقط.';
+
+  @override
+  String get privacyPolicyTitle => 'سياسة الخصوصية';
+
+  @override
+  String get privacyPolicyDescription =>
+      'نلتزم بحماية خصوصيتك. يتم استخدام بياناتك فقط لتأكيد الحجز والتواصل بشأن الجلسات. لن نشارك بياناتك مع أي طرف ثالث بدون إذنك.';
+
+  @override
+  String get privacyPolicyMoreDetails =>
+      'للمزيد: https://www.art-of-pilates.com/privacyterms';
+
+  @override
   String get adminDashboardTitle => 'لوحة تحكم آرت أوف بيلاتس';
 
   @override

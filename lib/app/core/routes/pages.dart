@@ -13,9 +13,10 @@ import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views
 import 'package:art_of_pilates/app/features/schedule-sessions/presentation/views/session_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/service_details_screen.dart';
 import 'package:art_of_pilates/app/features/services/presentation/views/services_screen.dart';
-import 'package:art_of_pilates/app/features/settings/presentation/views/about_app_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/about/about_app_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/about/privacy_and_policy_screen.dart';
+import 'package:art_of_pilates/app/features/settings/presentation/views/about/terms_and_conditions_screen.dart';
 import 'package:art_of_pilates/app/features/settings/presentation/views/delete_account_screen.dart';
-import 'package:art_of_pilates/app/features/settings/presentation/views/display_screen.dart';
 import 'package:art_of_pilates/app/features/settings/presentation/views/languages_screen.dart';
 import 'package:art_of_pilates/app/features/settings/presentation/views/notifications_screen.dart';
 import 'package:art_of_pilates/app/features/settings/presentation/views/settings_screen.dart';
@@ -89,8 +90,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => NotificationsScreen());
       case Routes.aboutAppScreen:
         return MaterialPageRoute(builder: (_) => AboutAppScreen());
-      case Routes.displayScreen:
-        return MaterialPageRoute(builder: (_) => DisplayScreen());
       case Routes.deleteAccountScreen:
         return MaterialPageRoute(builder: (_) => DeleteAccountScreen());
       case Routes.allBookingsScreen:
@@ -113,6 +112,10 @@ class RouteGenerator {
           return MaterialPageRoute(builder: (_) => PaymentScreen(plan: args));
         }
         return unDefinedRoute();
+      case Routes.termsAndConditionsScreen:
+        return MaterialPageRoute(builder: (_) => TermsAndConditionsScreen());
+      case Routes.privacyPolicyScreen:
+        return MaterialPageRoute(builder: (_) => PrivacyAndPolicyScreen());
       default:
         return unDefinedRoute();
     }
