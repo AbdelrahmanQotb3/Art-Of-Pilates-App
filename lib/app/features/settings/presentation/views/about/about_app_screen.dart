@@ -2,6 +2,8 @@ import 'package:art_of_pilates/app/core/util/app_colors.dart';
 import 'package:art_of_pilates/app/core/util/app_images.dart';
 import 'package:art_of_pilates/app/core/util/app_locale.dart';
 import 'package:art_of_pilates/app/features/profile/domain/use_cases/navigate_to_settings_screen_use_case.dart';
+import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_privacy_and_policy_screen_use_case.dart';
+import 'package:art_of_pilates/app/features/settings/domain/use_cases/navigate_to_terms_and_conditions_screen_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -119,24 +121,17 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
           _buildLink(
             locale.termsOfService,
             onTap: () {
-              // TODO: open terms of service
+              NavigateToTermsAndConditionsScreenUseCase.call(context);
             },
           ),
           SizedBox(height: 16.h),
           _buildLink(
             locale.privacyPolicy,
             onTap: () {
-              // TODO: open privacy policy
+              NavigateToPrivacyAndPolicyScreenUseCase.call(context);
             },
           ),
           SizedBox(height: 16.h),
-          _buildLink(
-            locale.openSourceLicenses,
-            onTap: () {
-              showLicensePage(context: context);
-            },
-          ),
-          SizedBox(height: 32.h),
 
           Text(
             _version,
