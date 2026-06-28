@@ -21,13 +21,16 @@ workflows:
         script: |
           flutter pub get
 
-      - name: Build iOS IPA
+      - name: Install CocoaPods
         script: |
-          flutter build ipa --release
+          cd ios
+          pod install
+          cd ..
+
+      - name: Build IPA
+        script: |
+          flutter build ipa --release --no-codesign
 
     artifacts:
       - build/ios/ipa/*.ipa
-
-    publishing:
-      app_store_connect:
-        auth: integration
+      - build/ios/archive/*.xcarchive
