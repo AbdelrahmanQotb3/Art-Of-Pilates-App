@@ -162,6 +162,10 @@ import '../../features/settings/domain/repo/settings_repo_contract.dart'
 import '../../features/settings/domain/use_cases/delete_accoount_use_case.dart'
     as _i70;
 import '../../features/settings/domain/use_cases/logout_use_case.dart' as _i725;
+import '../../features/settings/domain/use_cases/navigate_to_privacy_and_policy_screen_use_case.dart'
+    as _i707;
+import '../../features/settings/domain/use_cases/navigate_to_terms_and_conditions_screen_use_case.dart'
+    as _i220;
 import '../../features/settings/presentation/view_model/settings_view_model.dart'
     as _i1064;
 import '../../features/signin/api/api_client/signin_api_client.dart' as _i219;
@@ -201,6 +205,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i660.NavigateToEditInfoScreenUseCase>(
       () => _i660.NavigateToEditInfoScreenUseCase(),
+    );
+    gh.factory<_i707.NavigateToPrivacyAndPolicyScreenUseCase>(
+      () => _i707.NavigateToPrivacyAndPolicyScreenUseCase(),
+    );
+    gh.factory<_i220.NavigateToTermsAndConditionsScreenUseCase>(
+      () => _i220.NavigateToTermsAndConditionsScreenUseCase(),
     );
     gh.lazySingleton<_i32.SessionManager>(() => _i32.SessionManager());
     gh.factory<_i744.AnnouncmentApiClient>(
